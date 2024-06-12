@@ -13,6 +13,23 @@ const limelight = Limelight(
   }
 );
 
+const blogs = 
+    [
+        {
+            "title":"abc",
+            "content":"xyz",
+            "metadata":"abc"
+        },
+        {
+            "title":"abc",
+            "content":"xyz",
+            "metadata":"sdfs"
+        }
+
+    ]
+
+
+
 export default function Home() {
 
 
@@ -55,34 +72,19 @@ export default function Home() {
         <div className="m-4 px-4 py-2 cursor-pointer transition-all duration-300 ease-in-out group"> 
           <Link href='/'> <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out" >HOME</span></Link>
         </div>
-        <div className="m-4 px-4 py-2 cursor-pointer transition-all duration-300 ease-in-out group"> 
-         <Link href='/Opus'> <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out" >OPUS</span></Link>
+        <div className="m-4 px-4 py-2 cursor-help transition-all duration-300 ease-in-out group"> 
+          <span className=" underline S" >OPUS</span>
         </div>
-        {/* <div className="m-4 py-2 cursor-pointer transition-all duration-300 ease-in-out group"> 
+        <div className="m-4 p-4 cursor-pointer transition-all duration-300 ease-in-out group"> 
         <Link href='/About'>  <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out" >ABOUT</span></Link>
-        </div> */}
+        </div>
         <div className="m-4 p-2 cursor-pointer transition-all duration-300 ease-in-out group"> 
         <Link href='/Contact'>  <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out" >CONTACT</span></Link>
         </div>
       </nav>
-        <div id="image-showcase" className="flex flex-col items-center">
-            <div id="center-image" className="m-16 group p-4">
-            <span className="cursor-grabbing "><Image src='/p1.jpeg' className="group-hover:scale-110 transition duration-300 ease-in-out" width={200} height={500}/></span>
-            </div>
-            <div id="image-list" className="m-4 p-4">
-              <div className="flex flex-wrap">
-                <Image onClick={()=>handleMainImage(1)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p1.jpeg' width={100} height={100}/>
-                <Image onClick={()=>handleMainImage(2)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p2.jpeg' width={100} height={100}/>
-                <Image onClick={()=>handleMainImage(3)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p3.jpeg' width={100} height={100}/>
-                <Image onClick={()=>handleMainImage(4)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p4.jpeg' width={100} height={100}/>
-                <Image onClick={()=>handleMainImage(5)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p5.jpeg' width={100} height={100}/>
-                <Image onClick={()=>handleMainImage(6)} className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out" src='/p6.jpeg' width={100} height={100}/>
-              </div>
-            
-            </div>
-        </div>
-      
-    </div>
+
+
+     </div>
     </div>
   );
 }
