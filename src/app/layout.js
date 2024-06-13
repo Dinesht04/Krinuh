@@ -1,4 +1,5 @@
 import { Limelight } from "next/font/google";
+import { Pacifico } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -10,6 +11,15 @@ const limelight = Limelight(
   }
 );
 
+const pacifico = Pacifico(
+  {
+    preload: false,
+    subsets:['cursive'],
+    weight:['400']
+  
+  }
+)
+
 export const metadata = {
   title: "Paint",
   description: "Dinesh Tagi",
@@ -18,7 +28,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className= {`bg-slate-50 ${limelight.className}`} >
+      <body className= {`bg-slate-200 ${pacifico.className}`} >
       <div className=" text-center text-4xl mt-16 p-2 ">
         Shweta Tyagi
       </div>

@@ -24,7 +24,7 @@ export default function Home() {
                   key={num}
                   onClick={() => handleMainImage(num)}
                   className="p-4 hover:transform hover:translate-y-4 hover:cursor-grab transition duration-300 ease-in-out"
-                  src={`/p${num}.jpeg`}
+                  src={`/${num}.jpg`}
                   width={100}
                   height={100}
                   alt={`Thumbnail ${num}`}
