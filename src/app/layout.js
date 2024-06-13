@@ -21,13 +21,16 @@ const pacifico = Pacifico(
 )
 
 export const metadata = {
-  title: "Paint",
-  description: "Dinesh Tagi",
+  title: "Shweta's Gallery",
+  description: "Explore the Paintings by the Artist Shweta Tyagi",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+      <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <body className= {`bg-slate-200 ${pacifico.className}`} >
       <div className=" text-center text-4xl mt-16 p-2 ">
         Shweta Tyagi
