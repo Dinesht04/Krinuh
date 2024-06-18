@@ -73,8 +73,8 @@ export default function Home() {
                     />
                 </div>
                 <div id="textContent" className="flex flex-col m-2 p-2">
-                    <div id="para1" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
-                    <div id="para2" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
+                    <div id="para1" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
+                    <div id="para2" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
                     <div id="acheivements" className="flex flex-col text-xl">
                         <div id="ach1" className="border-b-4 m-2 p-2 flex"> 
                           <div id="achTitle" className="basis-2/3">Fight Club Winner</div>
@@ -102,7 +102,7 @@ export default function Home() {
                     <div id="contactDetails" className="flex flex-col md:flex-row">
                         <div id="adress" className="basis-1/3 flex flex-col py-2 my-2 md:py-4 md:my-4">
                             <div id="title" className="underline text-2xl font-semibold">ADDRESS</div>
-                            <div id="content" className="">idk bruh, like why do you wanna know my address, even I dont know maasi's address. That's lowkey crazy</div>
+                            <div id="content" className="">idk bruh, like why do you wanna know my address, even I dont know her address. That&apos;'s lowkey crazy</div>
                         </div>
                         <div id="email" className="basis-1/3 flex flex-col py-2 my-2 md:p-4 md:m-4">
                           <div id="title" className="underline text-2xl font-semibold">E-MAIL</div>
