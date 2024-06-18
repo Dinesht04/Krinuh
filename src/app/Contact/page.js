@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
     <div id="hero-image" className=" m-4 p-4 flex">
-    <div className=" overflow-hidden bg-gray-600 rounded-xl mx-2"> 
+    <div className=" overflow-hidden bg-gray-600 rounded-xl mx-2 md:mx-40"> 
     <Image
                   src={`/42.jpg`}
                   width={900}
@@ -22,7 +22,7 @@ export default function Home() {
       />
     </div>
       </div>
-    <div id="contact-information" className="flex flex-col mx-12">
+    <div id="contact-information" className="flex flex-col mx-2 md:mx-40">
     <div className="text-2xl mt-4  p-4">Contact</div>
     <div className="text-xl px-4">For general enquiries, images of available works, and a price list, email my studio manager at <span className="font-semibold">contact.soundofcolours@gmail.com</span> .</div>
     </div>

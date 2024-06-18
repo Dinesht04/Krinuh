@@ -1,6 +1,7 @@
-"use client"
 
+"use client"
 import Image from "next/image";
+import GalleryImages from '../Components/GalleryImages';
 
 const opusPaintings = [];
 //change this value to the number of paintings, if more paintings are added in future.
@@ -16,10 +17,10 @@ export default function Home() {
 
 
   return (
-    //hover animation:hover:scale-110 transition duration-300 ease-in-out
+    
       <>
       
-        <div id="gallerySampleLayout" className="grid group px-4 my-8 mx-12 gap-2 grid-cols-gallery ">
+        {/* <div id="gallerySampleLayout" className="grid group px-4 my-8 mx-12 gap-2 grid-cols-gallery ">
           {opusPaintings.map((painting)=>{
             return(
               <div key={painting} id={painting} className="h-fit bg-zinc-200 rounded border-2 hover:scale-110 transition duration-300 ease-in-out border border-black m-4 p-4  mx-2"> 
@@ -34,8 +35,8 @@ export default function Home() {
             )
           })}
                 
-        </div>
-
+        </div> */}
+        <GalleryImages/>
       </>
     
   );
