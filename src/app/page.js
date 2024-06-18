@@ -102,7 +102,7 @@ export default function Home() {
                     <div id="contactDetails" className="flex flex-col md:flex-row">
                         <div id="adress" className="basis-1/3 flex flex-col py-2 my-2 md:py-4 md:my-4">
                             <div id="title" className="underline text-2xl font-semibold">ADDRESS</div>
-                            <div id="content" className="">idk bruh, like why do you wanna know my address, even I dont know her address. That&apos;'s lowkey crazy</div>
+                            <div id="content" className="">idk bruh, like why do you wanna know my address, even I dont know her address. Thats lowkey crazy</div>
                         </div>
                         <div id="email" className="basis-1/3 flex flex-col py-2 my-2 md:p-4 md:m-4">
                           <div id="title" className="underline text-2xl font-semibold">E-MAIL</div>
