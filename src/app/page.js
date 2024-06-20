@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import ImageComponent from "./Components/ImageComp";
 import ScrollerAnim from "./Components/ScrollerAnim";
 import Link from "next/link";
+import { FaInstagram,FaFacebook,FaYoutube,FaPinterest } from "react-icons/fa";
 
 
 export default function Home() {
@@ -68,6 +69,7 @@ export default function Home() {
                 <div id="headShot" className="m-4 p-4">
                     <Image 
                       src='/1.jpg'
+                      alt="headshot"
                       width={1200}
                       height={300}
                     />
@@ -101,16 +103,21 @@ export default function Home() {
                     </div>
                     <div id="contactDetails" className="flex flex-col md:flex-row">
                         <div id="adress" className="basis-1/3 flex flex-col py-2 my-2 md:py-4 md:my-4">
-                            <div id="title" className="underline text-2xl font-semibold">ADDRESS</div>
-                            <div id="content" className="">idk bruh, like why do you wanna know my address, even I dont know her address. Thats lowkey crazy</div>
+                            <div id="title" className="underline text-2xl font-semibold">SOCIALS</div>
+                            <div id="content" className="flex">
+                              <div className="pr-2 py-2 "><Link href="https://www.youtube.com/@sound_of_colours"><FaInstagram /></Link></div>
+                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaFacebook/></Link></div>
+                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaYoutube/></Link></div>
+                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaPinterest/></Link></div>
+                            </div>
                         </div>
                         <div id="email" className="basis-1/3 flex flex-col py-2 my-2 md:p-4 md:m-4">
                           <div id="title" className="underline text-2xl font-semibold">E-MAIL</div>
-                          <div id="content" className="">contact@soundofcolours.com</div>
+                          <div id="content" className="">contact.soundofcolours@gmail.com</div>
                         </div>
                         <div id="phone" className="basis-1/3 flex flex-col py-2 my-2 md:p-4 md:m-4">
                         <div id="title" className="underline text-2xl font-semibold">PHONE</div>
-                        <div id="content" className="">+91 7827521238</div>
+                        <div id="content" className="">+91 83023 86540</div>
                         </div>
                     </div>
             </div>

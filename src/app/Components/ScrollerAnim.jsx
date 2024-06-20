@@ -20,7 +20,7 @@ const ScrollerAnim = () => {
         }
       >
         <Image
-          src={'/2.jpg'}
+          src={'/x1.jpg'}
           alt="hero"
           height={300}
           width={1400}

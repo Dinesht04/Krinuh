@@ -4,7 +4,7 @@ import { useRef,useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "../../utils/cn";
-
+import Modal from '../Modal';
 
 export const ParallaxScroll = ({
   images,
@@ -29,8 +29,11 @@ export const ParallaxScroll = ({
   const secondPart = images.slice(third, 2 * third);
   const thirdPart = images.slice(2 * third);
 
+  const [showModal,setShowModal] = useState(false);
+  const [src,setSrc] = useState('');
 
   return (
+    <>
     <div
       className={cn("h-[52rem] items-start overflow-y-auto w-full", className)}
       ref={gridRef}
@@ -48,11 +51,14 @@ export const ParallaxScroll = ({
                 
               <Image
                 src={el}
-                className="h-fit object-cover w-full object-left-top  rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit object-cover w-full object-left-top  rounded-lg gap-10 !m-0 !p-0"
                 height="400"
                 width="300"
                 alt="thumbnail"
-                onClick={()=>console.log(el)}
+                onClick={()=>{
+                  setSrc(el);
+                  setShowModal(true);
+                }}
               />
             </motion.div>
           ))}
@@ -63,11 +69,14 @@ export const ParallaxScroll = ({
                 
               <Image
                 src={el}
-                className="h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
-                onClick={()=>console.log(el)}
+                onClick={()=>{
+                  setSrc(el);
+                  setShowModal(true);
+                }}
               />
               
             </motion.div>
@@ -79,11 +88,14 @@ export const ParallaxScroll = ({
                 
               <Image
                 src={el}
-                className="h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
-                onClick={()=>console.log(el)}
+                onClick={()=>{
+                  setSrc(el);
+                  setShowModal(true);
+                }}
               />
               
             </motion.div>
@@ -92,5 +104,7 @@ export const ParallaxScroll = ({
         
       </div>
     </div>
+    <Modal isVisible={showModal} src={src} onClose={()=>setShowModal(false)}/>
+    </>
   );
 };
