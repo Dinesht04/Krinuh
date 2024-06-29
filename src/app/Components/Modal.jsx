@@ -50,6 +50,10 @@ const paintings = [
 
 const Modal = ({isVisible,src,onClose}) =>{
     
+    const id = extractNumber(src)-1
+    
+    const [showForm,setShowForm] = useState(false);
+
     if(!isVisible){
         return null;
     }
@@ -65,16 +69,12 @@ const Modal = ({isVisible,src,onClose}) =>{
         const match = src.match(/\/(\d+)\.jpg/);
         return match ? parseInt(match[1], 10) : null;
     }
-    const id = extractNumber(src)-1
-    const [formSRC,setFormSRC] = useState("");
-    const [modalSRC,setModalSRC] = useState(src);
-    const [showForm,setShowForm] = useState(false);
+    
     const closeForm = () =>{
-        setFormSRC("")
         setShowForm(false)
     }
     // console.log(src)
-
+   
     return(
         <>
         <div id='wrapper' className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center' onClick={handleClick} >
@@ -85,7 +85,7 @@ const Modal = ({isVisible,src,onClose}) =>{
                     <div className='bg-white p-2 rounded'>
                         <Image
                             alt='painting'
-                            src={modalSRC}
+                            src={src}
                             height="300"
                             width="350"
                             loading='eager'
@@ -113,7 +113,6 @@ const Modal = ({isVisible,src,onClose}) =>{
                         <div id='enquire' className='p-2 flex md:p-2 md:py-4 justify-center '>
                             <button className=' rounded bg-red-600 px-2 text-white' onClick={()=>{
                                 // console.log("passing value",src)
-                                setFormSRC(src);
                                 
                                 setShowForm(true);
                             }}>Enquire</button>    
@@ -122,7 +121,7 @@ const Modal = ({isVisible,src,onClose}) =>{
                 </div>
             </div>
         </div>
-        <Form id={id} src={formSRC} price={paintings[id].price} size={paintings[id].size} showForm={showForm} closeForm={closeForm}  />
+        <Form id={id} src={src} price={paintings[id].price} size={paintings[id].size} showForm={showForm} closeForm={closeForm}  />
         </>
     )
     

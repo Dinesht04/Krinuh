@@ -70,7 +70,7 @@ export default function Home() {
                 <div id="textContent" className="flex flex-col m-2 p-2">
                     <div id="para1" className="m-2 p-2">Shweta Tyagi is a dynamic force in the art world, well-known for her vivid and intensely emotional paintings close to nature that captivate audiences all over the world. Shweta was raised by a family that valued and supported her artistic abilities from a young age. She was born in the busy Indian metropolis of Delhi. She began by drawing her surroundings and experimenting with different mediums, her love of art eventually developed into a lifelong commitment to using color and form to explore the subtleties of nature.
                     </div>
-                    <div id="para2" className="m-2 p-2">Political science master's degree from Delhi University. The occupation of a teacher. National athlete in gymnastics. Shweta Tyagi is a multifaceted all-arounder.
+                    <div id="para2" className="m-2 p-2">Political science master&apos;s degree from Delhi University. The occupation of a teacher. National athlete in gymnastics. Shweta Tyagi is a multifaceted all-arounder.
                     The artistic path of Shweta Tyagi is proof of the transforming and boundary-pushing potential of art. She celebrates the richness of life on earth one brushstroke at a time by inviting us to explore nature through the lens of her unique voice and unshakable determination.</div>
                     <div id="acheivements" className="flex flex-col text-xl">
                         

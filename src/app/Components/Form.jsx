@@ -2,23 +2,25 @@ import React from 'react'
 import Image from 'next/image';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
-import { useState,useRef } from 'react';
+import { useRef,useState } from 'react';
 import { cn } from '../utils/cn';
 import emailjs from '@emailjs/browser';
 
 const Form = ({showForm,id,src,size,price,closeForm}) =>{
-    if(!showForm){
-        return null;
-    }
-
     const form = useRef();
-    const [srci,setSrci] = useState(src)
+    
     // console.log('form src',src)
     const [firstName, setFirstname] = useState("");
     const [lastName, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phoneNumber, setphoneNumber] = useState("");
+    if(!showForm){
+        return null;
+    }
+
+    
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if (
@@ -68,7 +70,7 @@ const Form = ({showForm,id,src,size,price,closeForm}) =>{
                         <div className='bg-white p-2 rounded'>
                             <Image
                                 alt='painting'
-                                src={srci}
+                                src={src}
                                 height="100"
                                 width="100"
                                 loading='eager'
