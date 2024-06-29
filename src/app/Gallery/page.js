@@ -1,6 +1,5 @@
 
 "use client"
-import Image from "next/image";
 import GalleryImages from '../Components/GalleryImages';
 
 const opusPaintings = [];
@@ -19,23 +18,6 @@ export default function Home() {
   return (
     
       <>
-      
-        {/* <div id="gallerySampleLayout" className="grid group px-4 my-8 mx-12 gap-2 grid-cols-gallery ">
-          {opusPaintings.map((painting)=>{
-            return(
-              <div key={painting} id={painting} className="h-fit bg-zinc-200 rounded border-2 hover:scale-110 transition duration-300 ease-in-out border border-black m-4 p-4  mx-2"> 
-                <Image
-                  src={`/${painting}.jpg`}
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{ width:'fit-content', height: 'fit-content' }}
-                />
-              </div>
-            )
-          })}
-                
-        </div> */}
         <GalleryImages/>
       </>
     

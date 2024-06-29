@@ -14,11 +14,7 @@ export default function Home() {
   const handleMainImage = (num) => {
     setImageNum(num);
   };
-  //effect colourflow
-  //autoplay progress
-  //auto-height
-  //zoom
-  //slidable nav for mobile
+
   return (
     <>
     <div className="bg-slate-00">
@@ -29,9 +25,9 @@ export default function Home() {
                 <div className="text-2xl md:text-4xl basis-2/3">
                   SELECTED WORK
                 </div>
-                {/* <div className=" md:text-xl basis-1/3 text-right cursor-pointer transition-all duration-300 ease-in-out group">
+                <div className=" md:text-xl basis-1/3 text-right cursor-pointer transition-all duration-300 ease-in-out group">
                   <Link href='/Gallery'><span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">VIEW ALL</span></Link>
-                </div> */}
+                </div>
             </div>
             <div>
               <div id="image-showcase" className="flex flex-col items-center">
@@ -61,9 +57,6 @@ export default function Home() {
                 <div className="text-2xl md:text-4xl pb-2 basis-2/3">
                     ABOUT ME
                 </div>
-                {/* <div className=" md:text-xl basis-1/3 text-right cursor-pointer transition-all duration-300 ease-in-out group">
-                  <Link href='/Gallery'><span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">READ MORE</span></Link>
-                </div> */}
             </div>
             <div id="aboutMeContentContainer" className="flex flex-col md:flex-row">
                 <div id="headShot" className="m-4 p-4">
@@ -75,21 +68,25 @@ export default function Home() {
                     />
                 </div>
                 <div id="textContent" className="flex flex-col m-2 p-2">
-                    <div id="para1" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
-                    <div id="para2" className="m-2 p-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centur</div>
+                    <div id="para1" className="m-2 p-2">Shweta Tyagi is a dynamic force in the art world, well-known for her vivid and intensely emotional paintings close to nature that captivate audiences all over the world. Shweta was raised by a family that valued and supported her artistic abilities from a young age. She was born in the busy Indian metropolis of Delhi. She began by drawing her surroundings and experimenting with different mediums, her love of art eventually developed into a lifelong commitment to using color and form to explore the subtleties of nature.
+                    </div>
+                    <div id="para2" className="m-2 p-2">Political science master's degree from Delhi University. The occupation of a teacher. National athlete in gymnastics. Shweta Tyagi is a multifaceted all-arounder.
+                    The artistic path of Shweta Tyagi is proof of the transforming and boundary-pushing potential of art. She celebrates the richness of life on earth one brushstroke at a time by inviting us to explore nature through the lens of her unique voice and unshakable determination.</div>
                     <div id="acheivements" className="flex flex-col text-xl">
-                        <div id="ach1" className="border-b-4 m-2 p-2 flex"> 
-                          <div id="achTitle" className="basis-2/3">Fight Club Winner</div>
-                          <div id="achDate" className="text-right basis-1/3">January 2024</div>
+                        
+                        <div id="ach1" className="border-b-4 m-2 p-2 flex">
+                          <div id="achTitle" className="basis-2/3 md:basis-1/2">Graduation in Humanities with Fine Arts</div>
+                          <div id="achDate" className="text-right basis-1/3 md:basis-1/2">New Green Fields Public School,2000</div>
                         </div>
-                        <div id="ach2" className="border-b-4 m-2 p-2 flex">
-                          <div id="achTitle" className="basis-2/3">Best Maasi of the Year</div>
-                          <div id="achDate" className="text-right basis-1/3">March 2024</div>
+                        <div id="ach2" className="border-b-4 m-2 p-2 flex"> 
+                          <div id="achTitle" className="basis-2/3 md:basis-1/2">B.A. Political Science (Honours)</div>
+                          <div id="achDate" className="text-right basis-1/3 md:basis-1/2">Kamla Nehru College, Delhi University,2001-2003</div>
                         </div>
                         <div id="ach3" className="border-b-4 m-2 p-2 flex">
-                          <div id="achTitle" className="basis-2/3">Underground dog-fighting Ring Mastermind</div>
-                          <div id="achDate" className="text-right basis-1/3">June 2024</div>
+                          <div id="achTitle" className="basis-2/3 md:basis-1/2">M.A. Political Science </div>
+                          <div id="achDate" className="text-right basis-1/3 md:basis-1/2">Kamala Nehru College, Delhi University,2004-2005</div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

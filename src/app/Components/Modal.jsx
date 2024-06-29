@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import React from 'react'
+import React, { useState } from 'react'
+import Form from './Form'
 
 const paintings = [
     { id: 1, title: "Acrylic Painting on canvas (glass frame)", price: "5000/-", size: "23.5x19.5 inches", description: "Acrylic Painting on canvas with glass frame" },
@@ -48,7 +49,7 @@ const paintings = [
 
 
 const Modal = ({isVisible,src,onClose}) =>{
-
+    
     if(!isVisible){
         return null;
     }
@@ -60,26 +61,39 @@ const Modal = ({isVisible,src,onClose}) =>{
     }
 
     function extractNumber(src) {
+        
         const match = src.match(/\/(\d+)\.jpg/);
         return match ? parseInt(match[1], 10) : null;
     }
     const id = extractNumber(src)-1
-    
+    const [formSRC,setFormSRC] = useState("");
+    const [modalSRC,setModalSRC] = useState(src);
+    const [showForm,setShowForm] = useState(false);
+    const closeForm = () =>{
+        setFormSRC("")
+        setShowForm(false)
+    }
+    // console.log(src)
 
     return(
+        <>
         <div id='wrapper' className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center' onClick={handleClick} >
             <div className='w-fit flex flex-col'>
                 <button className='text-white text-xl place-self-end' onClick={()=>{onClose()}}>x</button>
                 <div className='bg-white p-2 rounded flex flex-col md:flex-row'>
+                    
                     <div className='bg-white p-2 rounded'>
                         <Image
                             alt='painting'
-                            src={src}
+                            src={modalSRC}
                             height="300"
                             width="350"
+                            loading='eager'
+                            priority={true}
                             className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
                         />
                     </div>
+                
                     <div id='info' className='m-2 p-2'>
                         <div id='title' className='text-xl p-2'>
                                 {paintings[id].title}
@@ -93,17 +107,25 @@ const Modal = ({isVisible,src,onClose}) =>{
                             <div className=' pl-2'>{paintings[id].size}</div>
                         </div>
                         <div id='price' className='p-2 flex md:p-2 md:py-4'>
-                            <div className=' rounded bg-green-300 px-2 '>Cost</div>
+                            <div className=' rounded bg-green-300 px-2 '>Price</div>
                             <div className='pl-2'>₹{paintings[id].price}</div>    
                         </div>
                         <div id='enquire' className='p-2 flex md:p-2 md:py-4 justify-center '>
-                            <button className=' rounded bg-red-600 px-2 text-white'>Enquire</button>    
+                            <button className=' rounded bg-red-600 px-2 text-white' onClick={()=>{
+                                // console.log("passing value",src)
+                                setFormSRC(src);
+                                
+                                setShowForm(true);
+                            }}>Enquire</button>    
                         </div>
                     </div>  
                 </div>
             </div>
         </div>
+        <Form id={id} src={formSRC} price={paintings[id].price} size={paintings[id].size} showForm={showForm} closeForm={closeForm}  />
+        </>
     )
+    
 }
 
 export default Modal;

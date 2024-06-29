@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.3.3",
     "@next/font": "^14.2.3",
+    "@radix-ui/react-label": "^2.1.0",
     "@splidejs/react-splide": "^0.7.12",
     "@splidejs/splide-extension-grid": "^0.4.1",
     "clsx": "^2.1.1",
