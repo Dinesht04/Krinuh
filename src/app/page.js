@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import React, { useState } from "react";
-import ImageComponent from "./Components/ImageComp";
-import ScrollerAnim from "./Components/ScrollerAnim";
+import ImageComponent from "./components/ImageComp";
+import ScrollerAnim from "./components/ScrollerAnim";
 import Link from "next/link";
 import { FaInstagram,FaFacebook,FaYoutube,FaPinterest } from "react-icons/fa";
+
 
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
 
   const handleMainImage = (num) => {
     setImageNum(num);
-  };
+  }; 
 
   return (
     <>

@@ -6,7 +6,7 @@ import { useRef,useState } from 'react';
 import { cn } from '../utils/cn';
 import emailjs from '@emailjs/browser';
 
-const Form = ({showForm,id,src,size,price,closeForm}) =>{
+const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
     const form = useRef();
     
     // console.log('form src',src)
@@ -55,6 +55,7 @@ const Form = ({showForm,id,src,size,price,closeForm}) =>{
             console.log('FAILED...', error);
             },
         );
+        setShowForm(false);
     };
         
     

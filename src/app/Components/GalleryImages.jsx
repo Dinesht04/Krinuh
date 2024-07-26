@@ -1,7 +1,9 @@
 "use client";
-import  {ParallaxScroll}  from "../Components/ui/parallax-scroll";
+
+import  {ParallaxScroll}  from "./ui/parallax-scroll";
 
 const GalleryImages = () => {
+
   return (
     <ParallaxScroll images={images}/>
   ) ;

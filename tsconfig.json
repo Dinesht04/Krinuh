@@ -5,7 +5,11 @@
       "dom.iterable",
       "esnext"
     ],
-    
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/app/*"]
+      // Add more aliases as needed
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -27,8 +31,10 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-  ],
+    "**/*.tsx",
+    "**/*.js"
+, "src/app/components/Search.jsx",
+"src/app/components/*"  ],
   "exclude": [
     "node_modules"
   ]
