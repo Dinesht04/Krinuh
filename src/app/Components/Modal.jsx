@@ -90,6 +90,7 @@ const Modal =  ({isVisible,src,onClose}) =>{
     
     
     const [showForm,setShowForm] = useState(false);
+  const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
 
     if(!isVisible){
         return null;
@@ -108,7 +109,7 @@ const Modal =  ({isVisible,src,onClose}) =>{
     }
     // console.log(src)
     //cart logic 
-    const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
+    
 
     const add = async (num) =>{
         setCart([...cart,num])
