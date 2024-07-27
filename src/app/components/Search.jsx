@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import {  FaSearch } from 'react-icons/fa';
 import { MdCancel } from "react-icons/md";
 import { Input } from './ui/SimpleInput';
-import { paintings } from './Modala';
+import { paintings } from './Modal';
 import Image from 'next/image';
-import Modal from './Modala';
+import Modal from './Modal';
 
 const Search = () =>{
     const [input,setInput] = useState("");
