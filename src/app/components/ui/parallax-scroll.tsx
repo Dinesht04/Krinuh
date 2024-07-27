@@ -4,7 +4,7 @@ import { useRef,useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "../../utils/cn";
-import Modal from '../Modal';
+import Modal from '../Modala';
 
 export const ParallaxScroll = ({
   images,

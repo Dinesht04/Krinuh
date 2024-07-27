@@ -1,7 +1,7 @@
 "use client"
 
 import React, { } from 'react'
-import { paintings,extractNumber } from '@/components/Modal'
+import { paintings,extractNumber } from '@/components/Modala'
 import { MdCancel } from "react-icons/md";
 import {GlobalContext, useGlobalContext} from '../Context/store'
 import { useContext } from 'react'
