@@ -94,7 +94,7 @@ const Cart = () => {
               const number = item.match(/\d+/)[0];
                
               return(
-                <div className='flex  items-center bg-zinc-200 rounded-lg my-2 mx-8 p-2'>
+                <div key={item} className='flex  items-center bg-zinc-200 rounded-lg my-2 mx-8 p-2'>
                 <Image
                 alt='painting'
                 src={item}
