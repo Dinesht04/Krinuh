@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useState,useContext } from 'react'
 import {GlobalContext} from '../Context/store'
-import Form from './Form'
+import Form from './Form';
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -78,7 +78,7 @@ const Modal =  ({isVisible,src,onClose}) =>{
     const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
     const [showForm,setShowForm] = useState(false);
     var id = 0;
-    
+
     useState(async()=>{
 
         const extractNumber = async(src) => {
