@@ -75,9 +75,10 @@ export const extractNumber = async(src) => {
 }
 
 const Modal =  ({isVisible,src,onClose}) =>{
-    
+    const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
+    const [showForm,setShowForm] = useState(false);
     var id = 0;
-
+    
     useState(async()=>{
 
         const extractNumber = async(src) => {
@@ -88,8 +89,7 @@ const Modal =  ({isVisible,src,onClose}) =>{
     },[])
     
     
-    const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
-    const [showForm,setShowForm] = useState(false);
+    
 
     if(!isVisible){
         return null;

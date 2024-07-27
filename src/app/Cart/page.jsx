@@ -84,7 +84,7 @@ const Cart = () => {
       <div className='basis-1/2 flex flex-col'>
           <div className='m-8 underline-offset-8	  p-4 text-4xl'>
           Shopping Cart
-          
+            
         </div>
         <div className='flex'>
 
