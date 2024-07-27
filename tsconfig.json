@@ -10,6 +10,7 @@
       "@/*": ["./src/app/*"]
       // Add more aliases as needed
     },
+    "forceConsistentCasingInFileNames": false,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
