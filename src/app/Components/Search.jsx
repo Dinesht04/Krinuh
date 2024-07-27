@@ -32,7 +32,7 @@ const Search = () =>{
             <div id='results' className='z-40 bg-zinc-100'>
                 {results.map((paint)=>{
                     return(
-                        <div onClick={()=>{
+                        <div key={paint.id} onClick={()=>{
                             setSrc("/"+paint.id+".jpg");
                             setShowModal(true);
                         }} className='flex hover:bg-zinc-200 hover:cursor-pointer rounded-lg m-2 p-2'>
