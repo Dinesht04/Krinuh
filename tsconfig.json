@@ -33,8 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
-, "src/app/components/Search.jsx",
-"src/app/components/*"  ],
+, "**/*.jsx"  ],
   "exclude": [
     "node_modules"
   ]
