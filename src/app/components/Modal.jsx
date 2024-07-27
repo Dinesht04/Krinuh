@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useState,useContext } from 'react'
 import {GlobalContext} from '../Context/store'
-import Form from './Form';
+import Form from './Forma';
 import { Button } from "@/components/ui/button"
 import {
   Card,

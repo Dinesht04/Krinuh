@@ -63,7 +63,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
 
     return(
         <>
-        <div  className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center' >
+        <div  className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50 ' >
             <div className='w-fit flex flex-col'>
                 <button className='text-white text-xl place-self-end' onClick={()=>{closeForm()}}>x</button>
                 <div className='bg-white p-2 rounded flex flex-col '>
