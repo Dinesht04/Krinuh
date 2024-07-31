@@ -5,6 +5,9 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "../../utils/cn";
 import Modal from "../Modal";
+import { useMediaQuery } from "@/hooks/use-media-query";
+
+
 
 export const ParallaxScroll = ({
   images,
@@ -31,6 +34,8 @@ export const ParallaxScroll = ({
 
   const [showModal,setShowModal] = useState(false);
   const [src,setSrc] = useState('');
+  const isDesktop = useMediaQuery("(min-width: 768px)")
+
 
   return (
     <>
@@ -49,7 +54,8 @@ export const ParallaxScroll = ({
               key={"grid-1" + idx}
             >
                 
-              <Image
+                  
+                <Image
                 src={el}
                 className="hover:cursor-grab h-fit object-cover w-full object-left-top  rounded-lg gap-10 !m-0 !p-0"
                 height="400"
@@ -60,6 +66,8 @@ export const ParallaxScroll = ({
                   setShowModal(true);
                 }}
               />
+                  
+              
             </motion.div>
           ))}
         </div>
@@ -85,7 +93,7 @@ export const ParallaxScroll = ({
         <div className="grid gap-10">
           {thirdPart.map((el, idx) => (
             <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
-                
+              
               <Image
                 src={el}
                 className="hover:cursor-grab h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
@@ -104,7 +112,7 @@ export const ParallaxScroll = ({
         
       </div>
     </div>
-    <Modal isVisible={showModal} src={src} onClose={()=>setShowModal(false)}/>
+    <Modal isVisible={showModal} setIsVisible={setShowModal} Desktop={isDesktop} src={src} onClose={()=>setShowModal(false)}/>
     </>
   );
 };

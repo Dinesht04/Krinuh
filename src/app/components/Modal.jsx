@@ -20,6 +20,18 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { useMediaQuery } from "@/hooks/use-media-query"
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"
+  
 
 
 export const paintings = [
@@ -74,7 +86,7 @@ export const extractNumber = async(src) => {
     return match ? parseInt(match[1], 10) : null;
 }
 
-const Modal =  ({isVisible,src,onClose}) =>{
+const Modal =  ({isVisible,setIsVisible,src,onClose,Desktop}) =>{
     
     var id = 0;
 
@@ -88,9 +100,10 @@ const Modal =  ({isVisible,src,onClose}) =>{
     },[])
     
     
-    
+    const [open, setOpen] = React.useState(true)
+    const isDesktop = useMediaQuery("(min-width: 768px)")
     const [showForm,setShowForm] = useState(false);
-  const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
+    const {cart,setCart,cartStatus,setCartStatus} = useContext(GlobalContext);
 
     if(!isVisible){
         return null;
@@ -126,10 +139,10 @@ const Modal =  ({isVisible,src,onClose}) =>{
     }
 
     // console.log(cart)
-   
+    if (isDesktop){
     return(
         <>
-        <div id='wrapper' className='z-50 fixed inset-0 flex flex-col bg-opacity-25 backdrop-blur-sm flex justify-center items-center' onClick={handleClick} >
+        <div id='wrapper' className='z-40 fixed inset-0 flex flex-col bg-opacity-25 backdrop-blur-sm flex justify-center items-center' onClick={handleClick} >
             
             <div className='flex flex-col rounded-sm bg-slate-50 '>
             <button className=' text-xl place-self-end mr-8' onClick={()=>{onClose()}}>x</button>
@@ -158,19 +171,19 @@ const Modal =  ({isVisible,src,onClose}) =>{
                         
                         <CardContent className="space-y-2">
                             <div className="space-y-1 m-1 my-2">
+                                
                             <Label >Size:</Label>
                             <span className='ml-2'>{paintings[id].size}</span>
                             </div>
                             <div className="space-y-1 m-1">
+                            <Label >Price:</Label> <span className='ml-2'>₹{paintings[id].price}</span>
+                            </div>
+                            <div className="space-y-1 m-1">
                             <Label >Medium:</Label>
-                            
                             </div>
                             <div className="space-y-1 m-1">
                             <Label >Surface:</Label>
                             
-                            </div>
-                            <div className="space-y-1 m-1">
-                            <Label >Created in:</Label>
                             </div>
 
                             <div className="space-y-1 m-1">
@@ -210,24 +223,6 @@ const Modal =  ({isVisible,src,onClose}) =>{
                             </div>
                 </div>
                 
-                    
-                {/* <div className='bg-white p-2 rounded flex flex-col md:flex-row'>
-                    
-                    
-                
-                    <div id='info' className='m-2 p-2'>
-                    
-
-                        
-                        <div id='enquire' className='p-2 flex md:p-2 md:py-4 justify-center '>
-                            <button className=' rounded bg-red-600 px-2 text-white' onClick={()=>{
-                                // console.log("passing value",src)
-                                
-                                setShowForm(true);
-                            }}>Enquire</button>    
-                        </div>
-                    </div>  
-                </div> */}
             </div>
             </div>
             
@@ -236,10 +231,182 @@ const Modal =  ({isVisible,src,onClose}) =>{
         <Form id={id} src={src} price={paintings[id].price} size={paintings[id].size} showForm={showForm} setShowForm={setShowForm} closeForm={closeForm}  />
         </>
     )
+    }
+    return(
+        <>
+        <Drawer open={isVisible} onOpenChange={setIsVisible}>
+      
+      <Tabs defaultValue='Details' >
+      <DrawerContent>
+        <DrawerHeader className="text-left">
+          <DrawerTitle>
+            
+          <TabsList className="grid w-full grid-cols-2">
+                    
+                    <TabsTrigger value="Description">Description</TabsTrigger>
+                    <TabsTrigger value="Details">Details</TabsTrigger>
+                </TabsList>
+          </DrawerTitle>
+          <DrawerDescription>
+          <TabsContent value="Details">
+                    <Card>
+                    
+                    <CardContent className="space-y-1">
+                    <div id='modal-image' className='bg-white m-2 p-2 rounded'>
+                    <Image
+                        alt='painting'
+                        src={src}
+                        height="50"
+                        width="250"
+                        loading='eager'
+                        priority={true}
+                        className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                    />
+                    </div>
+                        <div className="space-y-1 m-1 my-2">
+                        <Label >Size:</Label>
+                        <span className='ml-1'>{paintings[id].size}</span>
+                        </div>
+                        <div className="space-y-1 m-1">
+                        <Label >Price:</Label><span className='ml-1'>₹{paintings[id].price}</span>
+                        </div>
+                        <div className="space-y-1 m-1">
+                        <Label >Medium:</Label>
+                        
+                        </div>
+                        <div className="space-y-1 m-1">
+                        <Label >Surface:</Label>
+                        
+                        </div>
+                        
+
+                        <div className="space-y-0.5 m-1">
+                        <Label >To be delivered as:</Label>
+                        </div>
+                        
+                    </CardContent>
+                    
+                    </Card>
+                </TabsContent>
+                <TabsContent value="Description">
+                    <Card>
+                    <CardContent className="space-y-2">
+                        <div className="space-y-1 m-1">
+                        <Label >{paintings[id].description}</Label>
+                        </div>
+                    </CardContent>
+                    </Card>
+                </TabsContent>
+          </DrawerDescription>
+        </DrawerHeader>
+       
+        <DrawerFooter className="pt-0 m-0">
+        <Button  onClick={()=>{
+                                setShowForm(true);
+                            }} className=" p-1">Enquire</Button>
+                            {!cart.includes(src)?<Button onClick={()=>{
+                                add(src);
+                                // console.log(cart);
+                            }} className=" p-1">Add To Cart</Button>:<Button onClick={()=>{
+                                remove(src);
+                                // console.log(cart);
+                            }} className=" p-1">Remove From Cart</Button>}
+                            
+                            <Button onClick={()=>{
+                                setShowForm(true);
+                            }} className=" p-1">Make An Offer to the Artist</Button>
+          
+        </DrawerFooter>
+      </DrawerContent>
+        </Tabs>
+    </Drawer>
+    <Form id={id} src={src} price={paintings[id].price} size={paintings[id].size} showForm={showForm} setShowForm={setShowForm} closeForm={closeForm}  />
+    </>
+  )
+    
     
 }
 
 export default Modal;
+
+// return (
+//     <Drawer open={open} onOpenChange={setOpen}>
+//       <DrawerTrigger asChild>
+//         <Button variant="outline">Edit Profile</Button>
+//       </DrawerTrigger>
+//       <Tabs>
+//       <DrawerContent>
+//         <DrawerHeader className="text-left">
+//           <DrawerTitle>
+            
+//           <TabsList className="grid w-full grid-cols-2">
+                    
+//                     <TabsTrigger value="Description">Description</TabsTrigger>
+//                     <TabsTrigger value="Details">Details</TabsTrigger>
+//                 </TabsList>
+//           </DrawerTitle>
+//           <DrawerDescription>
+//           <TabsContent value="Details">
+//                     <Card>
+                    
+//                     <CardContent className="space-y-2">
+//                     <div id='modal-image' className='bg-white m-2 p-2 rounded'>
+//                     <Image
+//                         alt='painting'
+//                         src={src}
+//                         height="300"
+//                         width="250"
+//                         loading='eager'
+//                         priority={true}
+//                         className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+//                     />
+//             </div>
+//                         <div className="space-y-1 m-1 my-2">
+//                         <Label >Size:</Label>
+//                         <span className='ml-2'>{paintings[id].size}</span>
+//                         </div>
+//                         <div className="space-y-1 m-1">
+//                         <Label >Medium:</Label>
+                        
+//                         </div>
+//                         <div className="space-y-1 m-1">
+//                         <Label >Surface:</Label>
+                        
+//                         </div>
+//                         <div className="space-y-1 m-1">
+//                         <Label >Created in:</Label>
+//                         </div>
+
+//                         <div className="space-y-1 m-1">
+//                         <Label >To be delivered as:</Label>
+//                         </div>
+                        
+//                     </CardContent>
+                    
+//                     </Card>
+//                 </TabsContent>
+//                 <TabsContent value="Description">
+//                     <Card>
+//                     <CardContent className="space-y-2">
+//                         <div className="space-y-1 m-1">
+//                         <Label >{paintings[id].description}</Label>
+//                         </div>
+//                     </CardContent>
+//                     </Card>
+//                 </TabsContent>
+//           </DrawerDescription>
+//         </DrawerHeader>
+       
+//         <DrawerFooter className="pt-2">
+//           <DrawerClose asChild>
+//             <Button variant="outline">Cancel</Button>
+//           </DrawerClose>
+//         </DrawerFooter>
+//       </DrawerContent>
+//         </Tabs>
+//     </Drawer>
+//   )
+
 
 
                           

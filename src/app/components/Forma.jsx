@@ -15,6 +15,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phoneNumber, setphoneNumber] = useState("");
+
     if(!showForm){
         return null;
     }
@@ -63,7 +64,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
 
     return(
         <>
-        <div  className=' fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center z-50 ' >
+        <div  className='z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ' >
             <div className='w-fit flex flex-col'>
                 <button className='text-white text-xl place-self-end' onClick={()=>{closeForm()}}>x</button>
                 <div className='bg-white p-2 rounded flex flex-col '>
@@ -103,7 +104,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                         <Input
                         id="firstName"
                         name="firstName"
-                        placeholder="Tyler"
+                        placeholder="Jane"
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstname(e.target.value)}
@@ -114,7 +115,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                         <Input
                         id="lastName"
                         name="lastName"
-                        placeholder="Durden"
+                        placeholder="Doe"
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastname(e.target.value)}
@@ -126,7 +127,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                     <Input
                         id="email"
                         name="Email"
-                        placeholder="projectmayhem@fc.com"
+                        placeholder="JaneDoe@gmai.com"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -169,7 +170,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                     </button>
                     
                     </form>
-                    <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+                    <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 md:my-8 h-[1px] w-full" />
                     
                 </div>
                 

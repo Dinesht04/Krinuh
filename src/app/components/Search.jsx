@@ -35,7 +35,7 @@ const Search = () =>{
                         <div key={paint.id} onClick={()=>{
                             setSrc("/"+paint.id+".jpg");
                             setShowModal(true);
-                        }} className='flex hover:bg-zinc-200 hover:cursor-pointer rounded-lg m-2 p-2'>
+                        }} className='flex hover:bg-zinc-200 hover:cursor-pointer hover:rounded-lg m-2 p-2'>
                             <div>
                             <Image 
                             alt='painting'
@@ -55,7 +55,7 @@ const Search = () =>{
                     )
                 })}
             </div>
-            <Modal isVisible={showModal} src={src} onClose={()=>setShowModal(false)}/>
+            <Modal isVisible={showModal} setIsVisible={setShowModal} src={src} onClose={()=>setShowModal(false)}/>
         </div>
     )
 }

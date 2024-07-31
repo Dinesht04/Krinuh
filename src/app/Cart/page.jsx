@@ -20,6 +20,9 @@ import { Separator } from '@/components/ui/Separator';
 
 const Cart = () => {
 
+  const [prop,setProp] = React.useState(false);
+
+
     const {cart,setCart} = useContext(GlobalContext);
     const form = useRef();
     
@@ -91,7 +94,7 @@ const Cart = () => {
         <div className='flex'>
 
         {
-          cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex'><div className='w-fit md:w-min  mx-4 flex  flex-col'>{
+          cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex flex-col md:flex-row'><div className='w-fit md:w-min  mx-4 flex  flex-col'>{
             cart.map((item)=>{
               const number = item.match(/\d+/)[0];
                
@@ -107,7 +110,7 @@ const Cart = () => {
                     priority={true}
                     className="hover:cursor-grabbing object-cover object-left-top rounded-lg gap-10 m-4 p-2"
                   />
-                  <div className='flex flex-col'>
+                  <div className='flex justify-center items-center'>
                     <div className='p-2 md:m-2'>
                     ₹{paintings[number].price}
                     </div>
@@ -130,8 +133,8 @@ const Cart = () => {
             ) 
           }
           </div> 
-          <div id='forma' className='md:mx-8 w-fit md:w-max flex '>
-              <div className='w-fit flex flex-col'>
+          <div id='forma' className='mx-auto md:mx-8 w-fit md:w-max flex justify-center items-center '>
+              <div className='w-fit flex flex-col justify-center items-center'>
                     
                     <div className='bg-zinc-200 p-4 rounded flex flex-col '>
                         
@@ -204,7 +207,7 @@ const Cart = () => {
                         type="submit"
                         
                         >
-                        SEND &rarr;
+                        SEND ENQUIRY &rarr;
                         <BottomGradient />
                         </button>
                         
@@ -224,7 +227,7 @@ const Cart = () => {
           
         </div>
         
-
+      
           
         
         
