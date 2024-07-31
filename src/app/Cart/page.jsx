@@ -133,7 +133,7 @@ const Cart = () => {
             ) 
           }
           </div> 
-          <div id='forma' className='mx-auto md:mx-8 w-fit md:w-max flex justify-center items-center '>
+          <div id='forma' className='mx-auto md:mx-8 w-full md:w-max flex justify-center items-center '>
               <div className='w-fit flex flex-col justify-center items-center'>
                     
                     <div className='bg-zinc-200 p-4 rounded flex flex-col '>
