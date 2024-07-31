@@ -81,8 +81,8 @@ const Cart = () => {
     }
     
   return (
-    <div className='flex justify-center items-center'>
-      <div className='basis-1/2 flex flex-col'>
+    <div className='flex md:justify-center md:items-center'>
+      <div className='flex flex-col'>
           <div className='mt-8 underline-offset-8	  p-4 text-4xl'>
           Shopping Cart
             
@@ -91,39 +91,46 @@ const Cart = () => {
         <div className='flex'>
 
         {
-          cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex'><div className='flex flex-col'>{
+          cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex'><div className='w-fit md:w-min  mx-4 flex  flex-col'>{
             cart.map((item)=>{
               const number = item.match(/\d+/)[0];
                
               return(
-                <div key={item} className='flex  items-center bg-zinc-200 rounded-lg my-2 mx-8 p-2'>
-                <Image
-                alt='painting'
-                src={item}
-                height="50"
-                width="50"
-                loading='eager'
-                priority={true}
-                className="hover:cursor-grabbing object-cover object-left-top rounded-lg gap-10 m-2 p-2"
-              />
+                <div key={item} className='flex flex-col  items-center bg-zinc-200 rounded-lg m-2 w-full mx-2 md:my-2 md:mx-8 md:p-2'>
+                  <div className='flex'>
+                      <Image
+                    alt='painting'
+                    src={item}
+                    height="50"
+                    width="50"
+                    loading='eager'
+                    priority={true}
+                    className="hover:cursor-grabbing object-cover object-left-top rounded-lg gap-10 m-4 p-2"
+                  />
+                  <div className='flex flex-col'>
+                    <div className='p-2 md:m-2'>
+                    ₹{paintings[number].price}
+                    </div>
+                    <div className=''>
+                      
+                      <button className=' p-2 text-xl' onClick={()=>handleRemove(item)} > <MdCancel/>  </button>
+                    </div>
+                  </div>
+                  
+                  </div>
+                
               <div className='flex flex-col m-2 p-2'>
                   <div className=''>{paintings[number].title}</div>
                   
               </div>
-              <div className='p-2 m-2'>
-              ₹{paintings[number].price}
-              </div>
-              <div className=''>
-                
-                <button className=' p-2 text-xl' onClick={()=>handleRemove(item)} > <MdCancel/>  </button>
-              </div>
+              
               </div>
               )
             }
             ) 
           }
           </div> 
-          <div id='forma' className='basis-1/2 flex '>
+          <div id='forma' className='md:mx-8 w-fit md:w-max flex '>
               <div className='w-fit flex flex-col'>
                     
                     <div className='bg-zinc-200 p-4 rounded flex flex-col '>
