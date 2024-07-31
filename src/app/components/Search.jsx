@@ -27,8 +27,8 @@ const Search = () =>{
 
     return(
         <div className='flex flex-col max-h-24'>
-            <div className='flex'><FaSearch className='mt-2 pr-1 md:mr-2' /><Input className='w-28 md:w-64' value={input} onChange={(e)=>handleChange(e.target.value)} placeholder='Enter Search Here' />
-            {input?<MdCancel onClick={()=>handleChange("")} className='md:text-xl mt-2 pl-1 md:ml-2 hover:cursor-pointer' />:null}
+            <div className='flex'><FaSearch className='absolute ml-3 mt-2.5 pr-1 md:mr-2' /><Input className='w-28 pl-8 md:w-64' value={input} onChange={(e)=>handleChange(e.target.value)} placeholder='Enter Search Here' />
+            {input?<MdCancel onClick={()=>handleChange("")} className='absolute w-3 mt-2.5 md:ml-60 ml-24 hover:cursor-pointer' />:null}
             </div>
             <div id='results' className='z-40 bg-zinc-100'>
                 {results.map((paint)=>{
