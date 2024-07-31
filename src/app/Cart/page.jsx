@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { useRef,useState } from 'react';
 import { cn } from '@/utils/cn';
 import emailjs from '@emailjs/browser';
+import { Separator } from '@/components/ui/Separator';
 
 
 
@@ -82,10 +83,11 @@ const Cart = () => {
   return (
     <div className='flex justify-center items-center'>
       <div className='basis-1/2 flex flex-col'>
-          <div className='m-8 underline-offset-8	  p-4 text-4xl'>
+          <div className='mt-8 underline-offset-8	  p-4 text-4xl'>
           Shopping Cart
             
         </div>
+        <Separator className="mb-10" />
         <div className='flex'>
 
         {
@@ -121,7 +123,7 @@ const Cart = () => {
             ) 
           }
           </div> 
-          <div id='forma' className='basis-1/2 flex justify-center items-center '>
+          <div id='forma' className='basis-1/2 flex '>
               <div className='w-fit flex flex-col'>
                     
                     <div className='bg-zinc-200 p-4 rounded flex flex-col '>

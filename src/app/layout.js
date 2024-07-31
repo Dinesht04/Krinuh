@@ -5,6 +5,7 @@ import "./globals.css";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import {GlobalContextProvider} from './Context/store';
 import Search from "./components/Search";
+import Offer from "./components/Offer";
 
 
 const limelight = Limelight({
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <GlobalContextProvider>
+          <Offer/>
         {/* text-[#987070] */}
         <nav className="md:mx-16 mt-4 flex text-center justify-center  ">
           <div className="basis-1/2 flex">
