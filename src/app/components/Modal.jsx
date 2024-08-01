@@ -26,6 +26,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useRouter } from "next/navigation";
 
 export const paintings = [
   {
@@ -392,8 +393,8 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
   const [open, setOpen] = React.useState(true);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [showForm, setShowForm] = useState(false);
-  const { cart, setCart, cartStatus, setCartStatus } =
-    useContext(GlobalContext);
+  const { cart, setCart, cartStatus, setCartStatus,setId,setSrc } = useContext(GlobalContext);
+  const router = useRouter();
 
   if (!isVisible) {
     return null;
@@ -619,9 +620,11 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
             </DrawerHeader>
 
             <DrawerFooter className="pt-0 m-0">
-              {/* <Button  onClick={()=>{
-                                setShowForm(true);
-                            }} className=" p-1">Enquire</Button> */}
+              <Button  onClick={()=>{
+                              setId(id);
+                              setSrc(src);
+                                router.push("Gallery/Enquire")
+                            }} className=" p-1">Enquire</Button>
               {!cart.includes(src) ? (
                 <Button
                   onClick={() => {
@@ -643,12 +646,14 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   Remove From Cart
                 </Button>
               )}
-              <DrawerClose>
+              {/* <DrawerClose>
                 <Button variant="outline">Cancel</Button>
-              </DrawerClose>
-              {/* <Button onClick={()=>{
-                                setShowForm(true);
-                            }} className=" p-1">Make An Offer to the Artist</Button> */}
+              </DrawerClose> */}
+              <Button onClick={()=>{
+                               setId(id);
+                               setSrc(src);
+                               router.push("Gallery/Enquire")
+                            }} className=" p-1">Make An Offer to the Artist</Button>
             </DrawerFooter>
           </DrawerContent>
         </Tabs>

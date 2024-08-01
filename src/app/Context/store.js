@@ -14,9 +14,11 @@ for (let i = 0; i <= 43; i++) {
 export const GlobalContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartStatus, setCartStatus] = useState(arr);
+  const [id,setId] = useState();
+  const [src,setSrc] = useState();
   
   return (
-    <GlobalContext.Provider value={{ cart, setCart, cartStatus,setCartStatus }}>
+    <GlobalContext.Provider value={{ cart, setCart, cartStatus,setCartStatus, id,setId,setSrc,src}}>
     
       {children}
     </GlobalContext.Provider>

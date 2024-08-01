@@ -1,6 +1,6 @@
 "use client"
 
-import React, { } from 'react'
+import React, { useState,useContext} from 'react'
 import { paintings,extractNumber } from '@/components/Modal';
 import { MdCancel } from "react-icons/md";
 import {GlobalContext, useGlobalContext} from '../Context/store'
@@ -20,7 +20,6 @@ import { Separator } from '@/components/ui/Separator';
 
 const Cart = () => {
 
-  const [prop,setProp] = React.useState(false);
 
 
     const {cart,setCart} = useContext(GlobalContext);
