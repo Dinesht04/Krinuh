@@ -4,7 +4,7 @@ import Enquire from '@/components/Enquire'
 import  {GlobalContext}  from '@/Context/store'
 import React, {useContext} from 'react'
 
-const page = () => {
+const Page = () => {
 
     const {src,id} = useContext(GlobalContext)
 
@@ -20,4 +20,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
