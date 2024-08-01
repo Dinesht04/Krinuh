@@ -9,8 +9,9 @@ const Page = () => {
     const {src,id} = useContext(GlobalContext)
 
     function extractNumber(filename) {
-        const match = filename.match(/\d+/g); // Using the global flag 'g' to match all occurrences
-        return match ? match[0] : null;
+        if(!filename) return 1
+        const hatch = filename.match(/\d+/g); // Using the global flag 'g' to match all occurrences
+        return hatch ? hatch[0] : 1;
       }
 
     return (
