@@ -721,13 +721,13 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
             >
               x
             </button>
-            <div className="w-fit flex  flex-col md:p-4   md:flex-row">
+            <div className="flex  flex-col md:p-4   md:flex-row">
               <div id="modal-image" className="bg-white flex flex-col items-center my-auto mx-2 p-2 rounded">
                 <Image
                   alt="painting"
                   src={src}
-                  height="300"
-                  width="250"
+                  height="400"
+                  width="400"
                   loading="eager"
                   priority={true}
                   className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10   "
