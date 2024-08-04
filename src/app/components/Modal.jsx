@@ -869,10 +869,10 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
               <DrawerDescription>
                 <TabsContent value="Details">
                   <Card>
-                    <CardContent className="pb-2 space-y-1 text-lg">
+                    <CardContent className="pt-0 pb-2 space-y-1 text-lg">
                       <div
                         id="modal-image"
-                        className="bg-white m-2 p-2 rounded"
+                        className="bg-white m-2 rounded"
                       >
                         <Image
                           alt="painting"
@@ -893,27 +893,27 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                       </div>
                       <div className="space-y-1 m-1">
                         <Label className="text-lg">Price:</Label>
-                        <span className="ml-1 text-xl">₹{paintings[id].price} + Shipping Charges</span>
+                        <span className="ml-1 text-xl">₹{paintings[id].price}</span> + Shipping Charges
                       </div>
                       <div className="space-y-1 m-1">
                         <Label className="text-lg">Medium:</Label>
-                        <span className="ml-1 text-xl">{paintings[id].Medium}</span>
+                        <span className="ml-1 text-lg">{paintings[id].Medium}</span>
                       </div>
                       <div className="space-y-1 m-1">
                         <Label className="text-lg">Surface:</Label>
-                        <span className="ml-1 text-xl">{paintings[id].Surface}</span>
+                        <span className="ml-1 text-lg">{paintings[id].Surface}</span>
                       </div>
 
                       <div className="space-y-0.5 m-1">
                         <Label className="text-lg">To be delivered as:</Label>
-                        <span className="ml-1 text-xl">{paintings[id].ToBeDeliveredAs}</span>
+                        <span className="ml-1 text-lg">{paintings[id].ToBeDeliveredAs}</span>
                       </div>
                     </CardContent>
                   </Card>
                 </TabsContent>
                 <TabsContent value="Description">
                   <Card>
-                    <CardContent className="space-y-2">
+                    <CardContent className="pt-0 space-y-2">
                       <Label className="m-1">
                         <span className="text-[15px]">{paintings[id].description}</span>
                       </Label>
