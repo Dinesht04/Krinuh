@@ -877,15 +877,18 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                         <Image
                           alt="painting"
                           src={src}
-                          height="50"
-                          width="250"
+                          height="400"
+                          width="400"
                           loading="eager"
                           priority={true}
-                          className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                          className="hover:cursor-grabbing h-fit w-3/4 object-cover object-left-top rounded-lg gap-10 mx-auto !p-0"
                         />
                       </div>
                       <div className="mx-1 my-auto">
+                        <div className="mx-auto">
                         <span className="text-xl italic">{paintings[id].title}</span>
+                        </div>
+                        
                       </div>
                       <div className="space-y-1 m-1 my-2">
                         <Label className="text-lg">Size:</Label>
