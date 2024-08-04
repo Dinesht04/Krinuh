@@ -133,7 +133,7 @@ const Cart = () => {
           <div id='forma' className=' mt-4 md:mx-8 w-full md:w-max flex justify-center items-center '>
               <div className='w-full flex flex-col justify-center items-center'>
                     
-                    <div className='bg-amber-200 w-full mx-12 p-4 rounded flex flex-col '>
+                    <div className='bg-amber-200 w-full ml-20 mr-12 md:mx-12 p-4 rounded flex flex-col '>
                         
                         
                         <form ref={form} onSubmit={handleSubmit}>
