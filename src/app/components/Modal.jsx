@@ -869,7 +869,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
               <DrawerDescription>
                 <TabsContent value="Details">
                   <Card>
-                    <CardContent className="space-y-1 text-lg">
+                    <CardContent className="pb-2 space-y-1 text-lg">
                       <div
                         id="modal-image"
                         className="bg-white m-2 p-2 rounded"
