@@ -5,6 +5,7 @@ import { Label } from './ui/label';
 import { useRef,useState } from 'react';
 import { cn } from '../utils/cn';
 import emailjs from '@emailjs/browser';
+import { paintings } from './Modal';
 
 const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
     const form = useRef();
@@ -15,6 +16,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phoneNumber, setphoneNumber] = useState("");
+    const [name,setName] = useState();
 
     if(!showForm){
         return null;
@@ -43,7 +45,7 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
         alert("Please enter a valid phone number");
         return;
         }
-       
+        setName(paintings[id].title);
         emailjs
         .sendForm('service_2uaoxt5', 'template_iguyl89', form.current, {
             publicKey: 'WA_Wbe3R2R6QleO9U',
@@ -159,6 +161,11 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                         type='hidden'
                         name='id'
                         value={id}
+                    />
+                    <input
+                        type='hidden'
+                        name='name'
+                        value={name}
                     />
                     <button
                     className="bg-gradient-to-br from-black dark:from-zinc-900 to-neutral-600 block w-full text-white rounded-md h-10 font-medium hover:bg-orange-700 ease-in-out duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500 focus-visible:ring-offset-neutral-100 dark:focus-visible:ring-offset-neutral-800 dark:focus-visible:ring-orange-500"

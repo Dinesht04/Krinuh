@@ -760,7 +760,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                         </div>
                         <div className="space-y-1 m-1">
                           <Label>Price:</Label>{" "}
-                          <span className="ml-2">₹{paintings[id].price}</span>
+                          <span className="ml-2">₹{paintings[id].price} + Shipping Charges</span>
                         </div>
                         <div className="space-y-1 m-1">
                           <Label>Medium:</Label>
@@ -869,7 +869,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
               <DrawerDescription>
                 <TabsContent value="Details">
                   <Card>
-                    <CardContent className="space-y-1">
+                    <CardContent className="space-y-1 text-lg">
                       <div
                         id="modal-image"
                         className="bg-white m-2 p-2 rounded"
@@ -888,25 +888,25 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                         <span className="text-xl italic">{paintings[id].title}</span>
                       </div>
                       <div className="space-y-1 m-1 my-2">
-                        <Label>Size:</Label>
-                        <span className="ml-1">{paintings[id].size}</span>
+                        <Label className="text-lg">Size:</Label>
+                        <span className="ml-1 text-xl">{paintings[id].size}</span>
                       </div>
                       <div className="space-y-1 m-1">
-                        <Label>Price:</Label>
-                        <span className="ml-1">₹{paintings[id].price}</span>
+                        <Label className="text-lg">Price:</Label>
+                        <span className="ml-1 text-xl">₹{paintings[id].price} + Shipping Charges</span>
                       </div>
                       <div className="space-y-1 m-1">
-                        <Label>Medium:</Label>
-                        <span className="ml-1">{paintings[id].Medium}</span>
+                        <Label className="text-lg">Medium:</Label>
+                        <span className="ml-1 text-xl">{paintings[id].Medium}</span>
                       </div>
                       <div className="space-y-1 m-1">
-                        <Label>Surface:</Label>
-                        <span className="ml-1">{paintings[id].Surface}</span>
+                        <Label className="text-lg">Surface:</Label>
+                        <span className="ml-1 text-xl">{paintings[id].Surface}</span>
                       </div>
 
                       <div className="space-y-0.5 m-1">
-                        <Label>To be delivered as:</Label>
-                        <span className="ml-1">{paintings[id].ToBeDeliveredAs}</span>
+                        <Label className="text-lg">To be delivered as:</Label>
+                        <span className="ml-1 text-xl">{paintings[id].ToBeDeliveredAs}</span>
                       </div>
                     </CardContent>
                   </Card>
@@ -914,9 +914,9 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                 <TabsContent value="Description">
                   <Card>
                     <CardContent className="space-y-2">
-                      <div className="space-y-1 m-1">
-                        <Label>{paintings[id].description}</Label>
-                      </div>
+                      <Label className="m-1">
+                        <span className="text-[15px]">{paintings[id].description}</span>
+                      </Label>
                     </CardContent>
                   </Card>
                 </TabsContent>
@@ -931,6 +931,8 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                               setSrc(src);
                                 router.push("Gallery/Enquire")
                             }} className=" p-1">Enquire</Button>
+              
+              
               {!cart.includes(src) ? (
                 <Button
                   onClick={() => {
@@ -952,16 +954,18 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   Remove From Cart
                 </Button>
               )}
-              </> :
+              </>
+              :
               <Image
               alt="sold"
               src={"/sold.jpg"}
-              width={200}
-              height={100}
+              width={90}
+              height={90}
               loading="eager"
               className="self-center my-auto"
              />
             }
+            
               
               {/* <DrawerClose>
                 <Button variant="outline">Cancel</Button>

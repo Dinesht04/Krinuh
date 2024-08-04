@@ -1,9 +1,9 @@
 "use client"
 
 import React from 'react'
-import { paintings,extractNumber } from '@/components/Modal';
+import { paintings } from '@/components/Modal';
 import { MdCancel } from "react-icons/md";
-import {GlobalContext, useGlobalContext} from '../Context/store'
+import {GlobalContext} from '../Context/store'
 import { useContext } from 'react'
 import Image from 'next/image'
 import { Input } from '@/components/ui/input';
@@ -12,6 +12,8 @@ import { useRef,useState } from 'react';
 import { cn } from '@/utils/cn';
 import emailjs from '@emailjs/browser';
 import { Separator } from '@/components/ui/Separator';
+import { useToast } from "@/components/ui/use-toast"
+
 
 
 
@@ -24,14 +26,15 @@ const Cart = () => {
 
     const {cart,setCart} = useContext(GlobalContext);
     const form = useRef();
-    
-    // console.log('form src',src)
+    const { toast } = useToast()
+    console.log(cart.length)
     const [firstName, setFirstname] = useState("");
     const [lastName, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phoneNumber, setphoneNumber] = useState("");
-    
+    const [name,setName] = useState([]);
+    var list = [];
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +57,7 @@ const Cart = () => {
         alert("Please enter a valid phone number");
         return;
         }
-       
+        
         emailjs
         .sendForm('service_2uaoxt5', 'template_iguyl89', form.current, {
             publicKey: 'WA_Wbe3R2R6QleO9U',
@@ -62,24 +65,33 @@ const Cart = () => {
         .then(
             () => {
             console.log('SUCCESS!');
+            toast({
+              title: "Enquiry Successful!",
+              description: "We'll get in touch with you Soon!",
+            })
             setCart([]);
             },
             (error) => {
             console.log('FAILED...', error);
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "There was a problem with your request. Please Try Again",
+            })
             },
         );
        
     };
     
-    
+
 
     const handleRemove = (item) =>{
       const index = cart.indexOf(item);
-    if (index !== -1) {
-    const newCart = [...cart]; // Create a copy of the cart array
-    newCart.splice(index, 1); // Remove the item at the specified index
-    setCart(newCart);
-  }
+      if (index !== -1) {
+      const newCart = [...cart]; // Create a copy of the cart array
+      newCart.splice(index, 1); // Remove the item at the specified index
+      setCart(newCart);
+    }
     }
     
   return (
@@ -95,8 +107,10 @@ const Cart = () => {
         {
           cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex flex-col md:flex-row'><div className='w-fit md:w-min  ml-2 mr-8 flex  flex-col'>{
             cart.map((item)=>{
-              const number = item.match(/\d+/)[0];
-               
+              
+              const match = item.match(/\/(\d+)\.jpg/);
+              const number = parseInt(match[1], 10)-1;
+              list.push(paintings[number].title)
               return(
                 <div key={item} className='flex bg-amber-200 rounded-lg m-2 w-full mx-2 md:my-2 md:mx-8 '>
                   <div className='flex mr-2'>
@@ -119,7 +133,7 @@ const Cart = () => {
                   </div>
                  <div className='grow flex flex-row-reverse'>
                     <div  className='grow flex flex-row-reverse'>
-                      <button className='self-start p-2 text-xl' onClick={()=>handleRemove(item)} > <MdCancel/>  </button>
+                      <button className='self-start p-2 text-xl' onClick={()=>{handleRemove(item);remove(paintings[number].title)}} > <MdCancel/>  </button>
                     </div>
                  </div>
               
@@ -198,6 +212,11 @@ const Cart = () => {
                         <input type="hidden"
                           name='id'
                           value={cart}
+                        />
+                         <input type="hidden"
+                          id='name'
+                          name='name'
+                          value={list}
                         />
                         <button
                         className="bg-gradient-to-br from-black dark:from-amber-900 to-neutral-600 block w-full text-white rounded-md h-10 font-medium hover:bg-orange-700 ease-in-out duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500 focus-visible:ring-offset-neutral-100 dark:focus-visible:ring-offset-neutral-800 dark:focus-visible:ring-orange-500"
