@@ -10,7 +10,7 @@ import { FaInstagram,FaFacebook,FaYoutube,FaPinterest } from "react-icons/fa";
 
 
 export default function Home() {
-  const [imageNum, setImageNum] = useState(1);
+  const [imageNum, setImageNum] = useState(52);
 
   const handleMainImage = (num) => {
     setImageNum(num);
@@ -36,7 +36,7 @@ export default function Home() {
                 <div id="image-list" className="mx-auto p-4">
                   <div className="flex flex-wrap">
                     
-                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                    {[50, 51, 53, 43, 52, 45].map((num) => (
                       <Image
                         key={num}
                         onClick={() => handleMainImage(num)}

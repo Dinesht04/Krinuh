@@ -8,6 +8,7 @@ import { cn } from '../utils/cn';
 import emailjs from '@emailjs/browser';
 import { useRouter } from 'next/navigation';
 import { paintings } from './Modal';
+import { Button } from './ui/button';
 
 const Enquire = ({id,src,}) =>{
     const form = useRef();
@@ -69,7 +70,8 @@ const Enquire = ({id,src,}) =>{
         <>
         <div  className='z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ' >
             <div className='w-full flex flex-col'>
-                <button className='text-white text-xl place-self-end' onClick={()=>{closeForm()}}>x</button>
+                
+                
                 <div className='bg-white p-2 rounded flex flex-col '>
                     <div id='paintingRelated' className='flex'>
                         <div className='bg-white p-2 rounded'>
@@ -171,8 +173,13 @@ const Enquire = ({id,src,}) =>{
                     SEND &rarr;
                     <BottomGradient />
                     </button>
+
+                   
                     
                     </form>
+
+                    <Button variant="outline" onClick={()=>{closeForm()}} className="w-full my-2" >Close</Button>
+
                     <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 md:my-8 h-[1px] w-full" />
                     
                 </div>

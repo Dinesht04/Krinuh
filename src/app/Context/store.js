@@ -6,7 +6,7 @@ import { FaSearch } from 'react-icons/fa';
 export const GlobalContext = createContext();
 
 const arr= [];
-for (let i = 0; i <= 43; i++) {
+for (let i = 0; i <= 57; i++) {
     arr.push(false)
 };
     

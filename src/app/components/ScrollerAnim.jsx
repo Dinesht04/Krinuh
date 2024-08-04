@@ -20,11 +20,11 @@ const ScrollerAnim = () => {
         }
       >
         <Image
-          src={'/2.jpg'}
+          src={'/44.jpg'}
           alt="hero"
           height={300}
-          width={1200}
-          className="mx-auto rounded-2xl object-cover h-full object-left-top"
+          width={1600}
+          className="mx-auto rounded-2xl  h-full object-left-top"
           draggable={false}
         />
       </ContainerScroll>
