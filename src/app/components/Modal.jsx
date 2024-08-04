@@ -897,13 +897,16 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                       </div>
                       <div className="space-y-1 m-1">
                         <Label>Medium:</Label>
+                        <span className="ml-1">{paintings[id].Medium}</span>
                       </div>
                       <div className="space-y-1 m-1">
                         <Label>Surface:</Label>
+                        <span className="ml-1">{paintings[id].Surface}</span>
                       </div>
 
                       <div className="space-y-0.5 m-1">
                         <Label>To be delivered as:</Label>
+                        <span className="ml-1">{paintings[id].ToBeDeliveredAs}</span>
                       </div>
                     </CardContent>
                   </Card>
