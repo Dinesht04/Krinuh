@@ -94,6 +94,8 @@ const Cart = () => {
     }
     }
     
+    
+
   return (
     <div className='flex md:justify-center md:items-center'>
       <div className='flex flex-col'>
@@ -133,7 +135,7 @@ const Cart = () => {
                   </div>
                  <div className='grow flex flex-row-reverse'>
                     <div  className='grow flex flex-row-reverse'>
-                      <button className='self-start p-2 text-xl' onClick={()=>{handleRemove(item);remove(paintings[number].title)}} > <MdCancel/>  </button>
+                      <button className='self-start p-2 text-xl' onClick={()=>{handleRemove(item);}} > <MdCancel/>  </button>
                     </div>
                  </div>
               

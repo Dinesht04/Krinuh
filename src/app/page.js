@@ -34,9 +34,9 @@ export default function Home() {
               <div id="image-showcase" className="flex flex-col items-center">
                 <ImageComponent num={imageNum} />
                 <div id="image-list" className="mx-auto p-4">
-                  <div className="flex flex-wrap">
+                  <div className="grid grid-rows-3 grid-flow-col sm:flex">
                     
-                    {[50, 51, 53, 43, 52, 45].map((num) => (
+                    {[50, 52 ,43,53, 51, 45].map((num) => (
                       <Image
                         key={num}
                         onClick={() => handleMainImage(num)}
