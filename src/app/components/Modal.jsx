@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState, useContext, useMemo} from "react";
 import { GlobalContext } from "../Context/store";
 import Form from "./Forma";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useRouter } from "next/navigation";
+import { EasyZoomOnMove,EasyZoomOnHover } from "easy-magnify";
 
 export const paintings = [
   {
@@ -38,7 +39,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "This is a beautiful painting depicting a serene mountain scene with a river flowing through it. The artist has captured the majestic mountains in the background, with their peaks stretching towards the sky. The river winds its way through the valley, reflecting the surrounding greenery and adding a sense of movement to the scene. Lush forests can be seen in the distance, adding depth and texture to the landscape. The painting is framed, enhancing its artistic presentation. The colors used are predominantly earthy tones, creating a peaceful and harmonious atmosphere. The attention to detail in this artwork is truly remarkable, making it a captivating piece for any art enthusiast."
+    description: "This is a beautiful painting depicting a serene mountain scene with a river flowing through it. The artist has captured the majestic mountains in the background, with their peaks stretching towards the sky. The river winds its way through the valley, reflecting the surrounding greenery and adding a sense of movement to the scene. Lush forests can be seen in the distance, adding depth and texture to the landscape. The painting is framed, enhancing its artistic presentation. The colors used are predominantly earthy tones, creating a peaceful and harmonious atmosphere."
   },
   {
     id: 2,
@@ -60,7 +61,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "The painting depicts a serene, winding stream flowing through a lush forest. The painting is framed in a black frame and shows a stream flowing through a forest. The stream is a light blue color with white highlights that suggest sunlight reflecting on the water. The stream flows through the center of the painting from the top to the bottom, and it is surrounded by lush, green trees and bushes on both sides. The trees have dark green leaves and branches, and their foliage is so dense that it creates a sense of mystery and seclusion. The trees are adorned with white and pink flowers, which add a touch of color and vibrancy to the scene. The overall effect of the painting is one of peace and tranquility. The gentle curves of the stream, the dense foliage of the trees, and the soft colors all contribute to a sense of calm and serenity. The painting evokes a feeling of being lost in nature, far away from the hustle and bustle of everyday life."
+    description: "The painting depicts a serene, winding stream flowing through a lush forest. The painting is framed in a black frame and shows a stream flowing through a forest. The stream is a light blue color with white highlights that suggest sunlight reflecting on the water. The stream flows through the center of the painting from the top to the bottom, and it is surrounded by lush, green trees and bushes on both sides. The trees have dark green leaves and branches, and their foliage is so dense that it creates a sense of mystery and seclusion. The trees are adorned with white and pink flowers, which add a touch of color and vibrancy to the scene."
   },
   {
     id: 4,
@@ -82,7 +83,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "The painting depicts a peaceful scene of a river flowing through a lush green forest. The painting shows a rushing river flowing through a narrow gorge. The river is a bright, vibrant green, and the water is clear and sparkling. On either side of the river are steep cliffs covered in lush green foliage. The cliffs are a mix of brown and gray rock, and there are some patches of white that represent fallen snow or rock. The painting is done in a realistic style, and the colors are bright and cheerful. The atmosphere of the painting is peaceful and serene, and the mood is one of tranquility and beauty. The painting is a celebration of nature and the beauty of the natural world."
+    description: "The painting depicts a peaceful scene of a river flowing through a lush green forest. The painting shows a rushing river flowing through a narrow gorge. The river is a bright, vibrant green, and the water is clear and sparkling. On either side of the river are steep cliffs covered in lush green foliage. The cliffs are a mix of brown and gray rock, and there are some patches of white that represent fallen snow or rock. The painting is done in a realistic style, and the colors are bright and cheerful. The atmosphere of the painting is peaceful and serene, and the mood is one of tranquility and beauty."
   },
   {
     id: 6,
@@ -104,7 +105,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "This painting portrays a tranquil forest scene with trees standing in a shallow body of water. The foreground features several tall, brown tree trunks with varying shades of green foliage, reflecting in the calm water below. The water extends into the background, blending seamlessly with a lush green landscape. On the left side, there is a willow tree with long, drooping branches cascading towards the water. The artist has used a range of greens to depict the dense foliage, creating a sense of depth and richness in the forest. The painting is framed in a simple black frame, which accentuates the vibrant natural scenery. The overall atmosphere of the artwork is serene and peaceful, capturing the beauty of a forested wetland."
+    description: "This painting portrays a tranquil forest scene with trees standing in a shallow body of water. The foreground features several tall, brown tree trunks with varying shades of green foliage, reflecting in the calm water below. The water extends into the background, blending seamlessly with a lush green landscape. On the left side, there is a willow tree with long, drooping branches cascading towards the water. The artist has used a range of greens to depict the dense foliage, creating a sense of depth and richness in the forest. The painting is framed in a simple black frame, which accentuates the vibrant natural scenery."
   },
   {
     id: 8,
@@ -126,7 +127,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Framed",
     Sold: false,
-    description: "This painting portrays a lush forest scene with tall trees, vibrant foliage, and a sunlit clearing. The tall trees dominate the composition, their trunks stretching upwards and creating a sense of depth. The forest floor is rich with various plants and flowers, showcasing a spectrum of greens, yellows, blues, and purples. The sunlight filters through the trees, casting dappled light and shadows across the landscape, enhancing the sense of realism. The background features a darker, dense part of the forest, gradually transitioning to a brighter, sunlit area in the foreground. The overall effect is serene and inviting, capturing the beauty and tranquility of a forest environment."
+    description: "This painting portrays a lush forest scene with tall trees, vibrant foliage, and a sunlit clearing. The tall trees dominate the composition, their trunks stretching upwards and creating a sense of depth. The forest floor is rich with various plants and flowers, showcasing a spectrum of greens, yellows, blues, and purples. The sunlight filters through the trees, casting dappled light and shadows across the landscape, enhancing the sense of realism. The background features a darker, dense part of the forest, gradually transitioning to a brighter, sunlit area in the foreground."
   },
   {
     id: 10,
@@ -148,7 +149,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Framed",
     Sold: false,
-    description: "This painting depicts a serene natural landscape with a waterfall as the central focus. The waterfall cascades over a rocky ledge, creating a misty, white flow that contrasts beautifully with the surrounding scenery. In the foreground, three slender trees with textured trunks stand to the left, framing the view. Their branches stretch outwards, adorned with autumnal leaves in shades of red and orange. The leaves add a vibrant touch of color, indicating the season is fall. The background is a lush, green forest, with the foliage rendered in various shades of green, suggesting the density and depth of the woods. The greenery appears to be dotted with hints of autumn colors, creating a harmonious blend of different hues."
+    description: "This painting depicts a serene natural landscape with a waterfall as the central focus. The waterfall cascades over a rocky ledge, creating a misty, white flow that contrasts beautifully with the surrounding scenery. In the foreground, three slender trees with textured trunks stand to the left, framing the view. Their branches stretch outwards, adorned with autumnal leaves in shades of red and orange. The leaves add a vibrant touch of color, indicating the season is fall. The background is a lush, green forest, with the foliage rendered in various shades of green, suggesting the density and depth of the woods."
   },
   {
     id: 12,
@@ -203,7 +204,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "This painting depicts a serene landscape featuring a winding path or stream surrounded by lush greenery and tall trees. The scene appears to be set in a forest or a park, with sunlight filtering through the leaves, casting dappled shadows on the ground and water. The trees, with their trunks and branches forming dynamic shapes, create a sense of depth and movement. The foliage is rendered in various shades of green, with hints of autumn colors like orange and brown, suggesting a transition between seasons. In the foreground, the path or stream reflects the surrounding greenery and the sky, adding a tranquil and reflective quality to the painting. The background shows a continuation of the forest, with trees becoming more blurred and blue, indicating distance and atmospheric perspective.The painting is framed in a dark, wooden frame that complements the earthy tones of the artwork, enhancing its natural and calming aesthetic. The overall composition and use of light and color evoke a peaceful and inviting atmosphere, encouraging the viewer to immerse themselves in the beauty of nature."
+    description: "This painting depicts a serene landscape featuring a winding path or stream surrounded by lush greenery and tall trees. The scene appears to be set in a forest or a park, with sunlight filtering through the leaves, casting dappled shadows on the ground and water. The trees, with their trunks and branches forming dynamic shapes, create a sense of depth and movement. The foliage is rendered in various shades of green, with hints of autumn colors like orange and brown, suggesting a transition between seasons. In the foreground, the path or stream reflects the surrounding greenery and the sky, adding a tranquil and reflective quality to the painting."
   },
   {
     id: 17,
@@ -214,7 +215,7 @@ export const paintings = [
     Surface: "Paper",
     ToBeDeliveredAs: "Glass Framed",
     Sold: false,
-    description: "This painting depicts a sunlit forest scene with tall trees and a path or forest floor covered in leaves and greenery. The light from the sun streams through the canopy, creating dramatic rays of light that illuminate the scene and cast long shadows. The trees are tall and straight, with a mix of green and autumn-colored leaves, indicating a transitional season. The path or forest floor is lush with green foliage and scattered with fallen leaves, suggesting a peaceful and natural setting. The light filtering through the trees enhances the depth and perspective of the painting, drawing the viewer's eye towards the center where the light is brightest. The use of light and shadow creates a sense of movement and dynamism in the scene.The painting is framed in a simple, dark frame that complements the natural tones of the artwork. The overall composition and use of light create a serene and enchanting atmosphere, inviting the viewer to step into the tranquil beauty of the forest."
+    description: "This painting depicts a sunlit forest scene with tall trees and a path or forest floor covered in leaves and greenery. The light from the sun streams through the canopy, creating dramatic rays of light that illuminate the scene and cast long shadows. The trees are tall and straight, with a mix of green and autumn-colored leaves, indicating a transitional season. The path or forest floor is lush with green foliage and scattered with fallen leaves, suggesting a peaceful and natural setting. The light filtering through the trees enhances the depth and perspective of the painting, drawing the viewer's eye towards the center where the light is brightest."
   },
   {
     id: 18,
@@ -533,7 +534,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: true,
-    description: "The painting depicts a serene bamboo forest with tall, slender bamboo stalks rising towards the sky. The perspective is from the ground looking up, emphasizing the height and majesty of the bamboo. The forest is lush with varying shades of green, indicating dense foliage. Sunlight filters through the canopy, creating a soft, dappled light effect that adds to the tranquil atmosphere. The details in the painting, from the texture of the bamboo to the interplay of light and shadow, convey a sense of peacefulness and natural beauty. The overall composition invites the viewer to feel immersed in the calm and refreshing environment of the bamboo forest."
+    description: "The painting depicts a serene bamboo forest with tall, slender bamboo stalks rising towards the sky. The perspective is from the ground looking up, emphasizing the height and majesty of the bamboo. The forest is lush with varying shades of green, indicating dense foliage. Sunlight filters through the canopy, creating a soft, dappled light effect that adds to the tranquil atmosphere. The details in the painting, from the texture of the bamboo to the interplay of light and shadow, convey a sense of peacefulness and natural beauty."
   },
   {
     id: 47,
@@ -654,7 +655,7 @@ export const paintings = [
     Surface: "Canvas",
     ToBeDeliveredAs: "Glass Framed",
     Sold: true,
-    description: "The painting depicts a charming alleyway in a Mediterranean village. The scene is bathed in warm sunlight, creating a cheerful and inviting atmosphere.The buildings are constructed from weathered stone and feature arched doorways and windows with vibrant turquoise shutters. Small balconies adorned with potted plants peek out from the upper stories. A narrow, cobblestone path winds its way through the alley, lined with lush greenery and colorful flowers spilling from terracotta pots.Small trees and shrubs add a touch of nature to the scene, while vibrant flowers in various colors create pops of color throughout. Warm sunlight streams into the alley, casting long shadows and highlighting the textures of the stone walls."
+    description: "The painting depicts a charming alleyway in a Mediterranean village. The scene is bathed in warm sunlight, creating a cheerful and inviting atmosphere.The buildings are constructed from weathered stone and feature arched doorways and windows with vibrant turquoise shutters. Small balconies adorned with potted plants peek out from the upper stories. A narrow, cobblestone path winds its way through the alley, lined with lush greenery and colorful flowers spilling from terracotta pots.Small trees and shrubs add a touch of nature to the scene, while vibrant flowers in various colors create pops of color throughout. "
   }
 ];
 
@@ -671,7 +672,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
     [isVisible]
   );
 
-  
+
 
 
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -874,15 +875,35 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                         id="modal-image"
                         className="bg-white m-2 rounded"
                       >
-                        <Image
+                        <EasyZoomOnHover mainImage={{
+                          src: src,
+                          alt: "My Product",
+                          width: 320,
+                          height: 320
+                          
+                          
+                      }}
+                          zoomImage={{
+                              src: src,
+                              alt: "My Product",
+                          }}
+                          zoomContainerWidth={150}
+                          zoomContainerHeight={150}
+                          zoomLensScale={1}
+
+                          distance={-220}
+
+                      />
+                        {/* <Image
                           alt="painting"
                           src={src}
                           height="400"
                           width="400"
                           loading="eager"
                           priority={true}
-                          className="hover:cursor-grabbing h-fit w-3/4 object-cover object-left-top rounded-lg gap-10 mx-auto !p-0"
-                        />
+                          className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 mx-auto !p-0"
+                          onClick={()=>console.log("helloWorld")}
+                        /> */}
                       </div>
                       <div className="mx-1 my-auto">
                         <div className="mx-auto">
@@ -958,15 +979,22 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                 </Button>
               )}
               </>
-              :
-              <Image
-              alt="sold"
-              src={"/sold.jpg"}
-              width={90}
-              height={90}
-              loading="eager"
-              className="self-center my-auto"
-             />
+              : <div className="flex flex-col items-center">
+                  <Image
+                  alt="sold"
+                  src={"/sold.jpg"}
+                  width={90}
+                  height={90}
+                  loading="eager"
+                  className="self-center my-auto"
+                />
+                <h1 className="p-2">Sold Paintings can be repainted</h1>
+                {/* <Button  onClick={()=>{
+                              setId(id);
+                              setSrc(src);
+                                router.push("Gallery/Enquire")
+                            }} className=" w-full p-1">Enquire</Button> */}
+             </div>
             }
             
               
