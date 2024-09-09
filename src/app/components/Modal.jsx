@@ -873,13 +873,13 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                     <CardContent className="pt-0 pb-2 space-y-1 text-lg">
                       <div
                         id="modal-image"
-                        className="bg-white m-2 rounded"
+                        className="bg-white m-2 rounded flex items-center justify-center"
                       >
                         <EasyZoomOnHover mainImage={{
                           src: src,
                           alt: "My Product",
                           width: 320,
-                          height: 320
+                          height: 250
                           
                           
                       }}
@@ -891,7 +891,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                           zoomContainerHeight={150}
                           zoomLensScale={1}
 
-                          distance={-220}
+                          distance={-150}
 
                       />
                         {/* <Image
