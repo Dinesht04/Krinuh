@@ -29,6 +29,7 @@ import {
 import { useRouter } from "next/navigation";
 import { EasyZoomOnMove,EasyZoomOnHover } from "easy-magnify";
 
+
 export const paintings = [
   {
     id: 1,
@@ -873,7 +874,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                     <CardContent className="pt-0 pb-2 space-y-1 text-lg">
                       <div
                         id="modal-image"
-                        className="bg-white m-2 rounded flex items-center justify-center"
+                        className=" relative bg-white m-2 rounded flex items-center justify-center"
                       >
                         <EasyZoomOnHover mainImage={{
                           src: src,
@@ -894,6 +895,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                           distance={-150}
 
                       />
+                      <span className="absolute bottom-2 right-0 text-white bg-black/20 text-xs p-1 rounded px-3">Hover to zoom</span>
                         {/* <Image
                           alt="painting"
                           src={src}
