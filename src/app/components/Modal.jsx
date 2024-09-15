@@ -679,11 +679,14 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [showForm, setShowForm] = useState(false);
   const { cart, setCart, cartStatus, setCartStatus,setId,setSrc } = useContext(GlobalContext);
+  
   const router = useRouter();
 
   if (!isVisible) {
     return null;
   }
+
+
 
   const handleClick = (e) => {
     if (e.target.id === "wrapper") {
@@ -896,16 +899,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
 
                       />
                       <span className="absolute bottom-2 right-0 text-white bg-black/20 text-xs p-1 rounded px-3">Hover to zoom</span>
-                        {/* <Image
-                          alt="painting"
-                          src={src}
-                          height="400"
-                          width="400"
-                          loading="eager"
-                          priority={true}
-                          className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10 mx-auto !p-0"
-                          onClick={()=>console.log("helloWorld")}
-                        /> */}
+                      
                       </div>
                       <div className="mx-1 my-auto">
                         <div className="mx-auto">
@@ -990,7 +984,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   loading="eager"
                   className="self-center my-auto"
                 />
-                <h1 className="p-2">Sold Paintings can be repainted</h1>
+                <h1 className="p-2 text-rose-600">Sold Paintings can be repainted</h1>
                 {/* <Button  onClick={()=>{
                               setId(id);
                               setSrc(src);

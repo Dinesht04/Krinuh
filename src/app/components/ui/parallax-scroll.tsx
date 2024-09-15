@@ -57,7 +57,7 @@ export const ParallaxScroll = ({
                   
                 <Image
                 src={el}
-                className="hover:cursor-grab h-fit object-cover w-full object-left-top  rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit object-cover w-full object-left-top   gap-10 !m-0 !p-0"
                 height="400"
                 width="300"
                 alt="thumbnail"
@@ -77,7 +77,7 @@ export const ParallaxScroll = ({
                 
               <Image
                 src={el}
-                className="hover:cursor-grab h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit w-full object-cover object-left-top  gap-10 !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
@@ -96,7 +96,7 @@ export const ParallaxScroll = ({
               
               <Image
                 src={el}
-                className="hover:cursor-grab h-fit w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="hover:cursor-grab h-fit w-full object-cover object-left-top  gap-10 !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
