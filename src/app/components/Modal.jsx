@@ -735,7 +735,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   width="400"
                   loading="eager"
                   priority={true}
-                  className="hover:cursor-grabbing h-fit w-full object-cover object-left-top rounded-lg gap-10   "
+                  className="hover:cursor-grabbing h-fit w-full object-cover object-left-top gap-10   "
                 />
                 <div className="">
                 <span className="text-xl italic">{paintings[id].title}</span>
