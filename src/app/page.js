@@ -103,10 +103,10 @@ export default function Home() {
                         <div id="adress" className="basis-1/3 flex flex-col py-2 my-2 md:py-4 md:my-4">
                             <div id="title" className="underline text-2xl font-semibold">SOCIALS</div>
                             <div id="content" className="flex">
-                              <div className="pr-2 py-2 "><Link href="https://www.youtube.com/@sound_of_colours"><FaInstagram /></Link></div>
-                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaFacebook/></Link></div>
-                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaYoutube/></Link></div>
-                              <div className="px-2 py-2"><Link href="https://www.youtube.com/@sound_of_colours"><FaPinterest/></Link></div>
+                              <div className="pr-2 py-2 "><Link aria-label="Instagram" href="https://www.youtube.com/@sound_of_colours"><FaInstagram /></Link></div>
+                              <div className="px-2 py-2"><Link aria-label="Facebook" href="https://www.youtube.com/@sound_of_colours"><FaFacebook/></Link></div>
+                              <div className="px-2 py-2"><Link aria-label="Youtube" href="https://www.youtube.com/@sound_of_colours"><FaYoutube/></Link></div>
+                              <div className="px-2 py-2"><Link aria-label="Pinterest" href="https://www.youtube.com/@sound_of_colours"><FaPinterest/></Link></div>
                             </div>
                         </div>
                         <div id="email" className="basis-1/3 flex flex-col py-2 my-2 md:p-4 md:m-4">
