@@ -9,8 +9,8 @@ import { Toaster } from "./components/ui/toaster";
 
 
 export const metadata = {
-  title: "Shweta's Gallery",
-  description: "Explore the Paintings by the Artist Shweta Tyagi",
+  title: "Krinuh",
+  description: "Explore the Art by the Artist Shweta Tyagi",
 };
 
 export default function RootLayout({ children }) {
