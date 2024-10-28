@@ -1,26 +1,68 @@
 "use client";
-
 import Image from "next/image";
-import React, { useState } from "react";
+import dynamic from "next/dynamic";
+import React, { useState, } from "react";
 import ImageComponent from "./components/ImageComp";
-import ScrollerAnim from "./components/ScrollerAnim";
 import Link from "next/link";
 import { FaInstagram,FaFacebook,FaYoutube,FaPinterest } from "react-icons/fa";
-
-
+import { Button } from "./components/ui/button";
+import ImageCarousel from "./components/ImageCarousel";
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"
+import CustomEnquire from "./components/CustomEnquire";
 
 export default function Home() {
   const [imageNum, setImageNum] = useState(52);
-
+  
   const handleMainImage = (num) => {
     setImageNum(num);
   }; 
 
   return (
     <>
-    <div className="bg-slate-00">
+
+    <div className="">
         
-        <ScrollerAnim/>
+        {/* <ScrollerAnim/> */}
+        <div id="hero" className="m-2 flex flex-col md:flex-row">
+          <div id="text-content" className="text-center flex flex-col m-4 p-4 basis-3/6">
+            <div id="primary-text" className="m-2 p-2 text-2xl">
+              Each painting is crafted with passion, <span className="font-semibold text-amber-300">Recraft</span> it just for yourself, tailored to your space while keeping its <span className="font-bold text-amber-300">Unique Charm</span>.
+            </div>
+            <div id="secondary-text" className="font-semibold flex flex-col md:flex-row justify-evenly md:mx-2 p-2">
+              <div id="sec-text-content" className="text-xl">
+                Feel free to reach out for custom inquiries!
+              </div>
+              <Drawer>
+                <DrawerTrigger asChild>
+                  <Button className="m-4 p-2 md:m-0 font-semibold text-sm bg-[#FFEB00]" variant="outline" >
+                    Enquire
+                  </Button>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <div className="h-max">
+                    <DrawerHeader>
+                      <DrawerTitle>Don&apos;t Worry, We Will Reach Out!</DrawerTitle>
+                      <DrawerDescription>We prefer Whatsapp {'<3'}</DrawerDescription>
+                    </DrawerHeader>
+                    <CustomEnquire />
+                  </div>
+                </DrawerContent>
+              </Drawer>
+            </div>
+          </div>
+          <div id="image-carousel" className="m-4 p-4 basis-3/6">
+            <ImageCarousel />
+          </div>
+        </div>
           <div id="selected-work" className="md:mx-16 mx-4 my-4 p-4 ">
             <div id="heading" className="flex pb-2 border-b-4">
                 <div className="text-2xl md:text-4xl basis-2/3">

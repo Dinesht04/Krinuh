@@ -9,22 +9,27 @@ import emailjs from '@emailjs/browser';
 import { useRouter } from 'next/navigation';
 import { paintings } from './Modal';
 import { Button } from './ui/button';
+import { DrawerClose, DrawerTrigger } from './ui/drawer';
+import { BottomGradient,LabelInputContainer } from './Enquire';
+import { useToast } from './ui/use-toast';
 
-const Enquire = ({id,src,}) =>{
+
+const CustomEnquire = () =>{
     const form = useRef();
-    
+    const id = "Custom"
     // console.log('form src',src)
     const [firstName, setFirstname] = useState("");
     const [lastName, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [phoneNumber, setphoneNumber] = useState("");
-    const [name,setName] = useState("");
+    const name ="Custom Enquiry";
     const router = useRouter();
+    const { toast } = useToast()
 
 
     const closeForm = () => {
-        router.push("/Gallery");
+        router.push("/");
     }
     
     const handleSubmit = (e) => {
@@ -48,7 +53,6 @@ const Enquire = ({id,src,}) =>{
         alert("Please enter a valid phone number");
         return;
         }
-        setName(paintings[id].title);
         emailjs
         .sendForm('service_2uaoxt5', 'template_iguyl89', form.current, {
             publicKey: 'WA_Wbe3R2R6QleO9U',
@@ -56,25 +60,33 @@ const Enquire = ({id,src,}) =>{
         .then(
             () => {
             console.log('SUCCESS!');
+            toast({
+                title: "Enquiry Successful",
+                description: "We'll get in contact shortly!",
+              })
             },
             (error) => {
             console.log('FAILED...', error);
+            toast({
+                title: "Enquiry Failed",
+                description: "It's not You, It's Us </3. Please try Again",error,
+              })
             },
         );
+        
         closeForm();
     };
         
-    console.log(id,src)
 
 
     return(
         <>
-        <div  className='z-50 fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ' >
+        <div  className='flex justify-center items-center ' >
             <div className='w-full flex flex-col'>
                 
                 
                 <div className='bg-white p-2 rounded flex flex-col '>
-                    <div id='paintingRelated' className='flex'>
+                    {/* <div id='paintingRelated' className='flex'>
                         <div className='bg-white p-2 rounded'>
                             <Image
                                 alt='painting'
@@ -100,7 +112,7 @@ const Enquire = ({id,src,}) =>{
                             </div>
                         
                         </div>
-                    </div>
+                    </div> */}
                     
                     <form ref={form} onSubmit={handleSubmit}>
                     <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 mb-4">
@@ -171,6 +183,7 @@ const Enquire = ({id,src,}) =>{
                         name='name'
                         value={name}
                     />
+                    <DrawerClose className='w-full' asChild>
                     <button
                     className="bg-gradient-to-br from-black dark:from-zinc-900 to-neutral-600 block w-full text-white rounded-md h-10 font-medium hover:bg-orange-700 ease-in-out duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-orange-500 focus-visible:ring-offset-neutral-100 dark:focus-visible:ring-offset-neutral-800 dark:focus-visible:ring-orange-500"
                     type="submit"
@@ -179,13 +192,13 @@ const Enquire = ({id,src,}) =>{
                     SEND &rarr;
                     <BottomGradient />
                     </button>
-
+                    </DrawerClose>
                    
                     
                     </form>
-
+                        <DrawerClose asChild>
                     <Button variant="outline" onClick={()=>{closeForm()}} className="w-full my-2" >Close</Button>
-
+                        </DrawerClose>
                     <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 md:my-8 h-[1px] w-full" />
                     
                 </div>
@@ -197,21 +210,4 @@ const Enquire = ({id,src,}) =>{
     )
 }
 
-export default Enquire;
-
-export const BottomGradient = () => {
-    return (
-      <>
-        <span className="opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-        <span className="opacity-0 blur-sm absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-      </>
-    );
-  };
-  
-export const LabelInputContainer = ({ children, className }) => {
-    return (
-      <div className={cn("flex flex-col space-y-4 w-full md:mx-2", className)}>
-        {children}
-      </div>
-    );
-  };
+export default CustomEnquire;

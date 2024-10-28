@@ -6,7 +6,7 @@ const Offer = () => {
     const [showOffer,setShowOffer] = useState(true);
   if(showOffer){
   return (
-    <div className='z-50 bg-amber-400 flex justify-center'>
+    <div className='z-50 bg-amber-300 flex justify-center'>
         <div className='m-1 p-1.5'>
             Free Shipping for Orders in Jaipur
         </div>

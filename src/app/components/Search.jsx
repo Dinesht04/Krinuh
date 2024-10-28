@@ -30,7 +30,7 @@ const Search = () =>{
             <div className='flex'><FaSearch className='absolute ml-3 mt-2.5 pr-1 md:mr-2' /><Input className='bg-amber-100 w-28 pl-8 md:w-64' value={input} onChange={(e)=>handleChange(e.target.value)} placeholder='Enter Search Here' />
             {input?<MdCancel onClick={()=>handleChange("")} className='absolute w-3 mt-2.5 md:ml-60 ml-24 hover:cursor-pointer' />:null}
             </div>
-            <div id='results' className='mt-2 z-40 bg-amber-200 rounded-lg'>
+            <div id='results' className='mt-2 z-40 bg-amber-100 rounded-lg'>
                 {results.map((paint)=>{
                     return(
                         <div key={paint.id} onClick={()=>{

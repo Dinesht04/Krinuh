@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="bg-amber-100">
+      <body className="bg-[#FFFDE3]">
         <GlobalContextProvider>
           <Offer/>
         {/* text-[#987070] */}

@@ -670,7 +670,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
       const match = src.match(/\/(\d+)\.jpg/);
       return match ? parseInt(match[1], 10)-1 : null;
     },
-    [isVisible]
+    [isVisible,src]
   );
 
 
