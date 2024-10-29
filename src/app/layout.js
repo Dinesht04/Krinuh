@@ -33,13 +33,22 @@ export default function RootLayout({ children }) {
               </Link>
             </div>
 
-            <div className="py-2 ml-2 mr-4  md:mx-4  md:px-4 md:py-3 cursor-pointer md:transition-all md:duration-300 md:ease-in-out group">
+            <div className="py-2 ml-2 mr-2  md:mx-4  md:px-4 md:py-3 cursor-pointer md:transition-all md:duration-300 md:ease-in-out group">
               <Link href="/Gallery">
                 <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out md:hover:text-2xl transition duration-300 ease-in-out">
                   Gallery
                 </span>
               </Link>
             </div>
+
+            <div className="py-2 ml-2 mr-4  md:mx-4  md:px-4 md:py-3 cursor-pointer md:transition-all md:duration-300 md:ease-in-out group">
+              <Link href="/Decorations">
+                <span className="bg-left-bottom bg-gradient-to-r from-black to-black bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out md:hover:text-2xl transition duration-300 ease-in-out">
+                  Decorations
+                </span>
+              </Link>
+            </div>
+
           </div>
           <div id="input" className="flex md:py-2">
            <Search/>
