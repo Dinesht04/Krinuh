@@ -89,6 +89,8 @@ const CustomEnquire = () =>{
                     {/* <div id='paintingRelated' className='flex'>
                         <div className='bg-white p-2 rounded'>
                             <Image
+                            
+                quality={100}
                                 alt='painting'
                                 src={src}
                                 height="100"

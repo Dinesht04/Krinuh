@@ -78,6 +78,8 @@ const Form = ({setShowForm,showForm,id,src,size,price,closeForm}) =>{
                                 height="100"
                                 width="100"
                                 loading='eager'
+                                
+                quality={100}
                                 priority={true}
                                 className="hover:cursor-grabbing  object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
                             />

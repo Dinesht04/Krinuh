@@ -27,6 +27,7 @@ const ScrollerAnim = () => {
           className="mx-auto rounded-2xl  h-full object-left-top"
           draggable={false}
           priority
+          quality={100}
         />
       </ContainerScroll>
     </div>

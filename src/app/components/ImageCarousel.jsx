@@ -29,6 +29,8 @@ const ImageCarousel = () => {
                         width={200}
                         height={200}
                         alt={`Carousel ${num}`}
+                        
+                quality={100}
                     />
                   )
                 })}

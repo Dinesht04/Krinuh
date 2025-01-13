@@ -14,6 +14,7 @@ const ImageComponent = ({ num }) => {
           alt={`Image ${num}`}
           className="group-hover:scale-110 transition duration-300 ease-in-out"
           
+          quality={100}
         />
       </span>
     </div>

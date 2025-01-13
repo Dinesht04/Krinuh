@@ -65,6 +65,7 @@ export const ParallaxScroll = ({
                   setSrc(el);
                   setShowModal(true);
                 }}
+                quality={100}
               />
                   
               
@@ -85,6 +86,7 @@ export const ParallaxScroll = ({
                   setSrc(el);
                   setShowModal(true);
                 }}
+                quality={100}
               />
               
             </motion.div>
@@ -104,6 +106,7 @@ export const ParallaxScroll = ({
                   setSrc(el);
                   setShowModal(true);
                 }}
+                quality={100}
               />
               
             </motion.div>

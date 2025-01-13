@@ -79,6 +79,8 @@ const Enquire = ({id,src,}) =>{
                             <Image
                                 alt='painting'
                                 src={src}
+                                
+                quality={100}
                                 height="100"
                                 width="100"
                                 loading='eager'

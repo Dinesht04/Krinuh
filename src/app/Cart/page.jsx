@@ -117,6 +117,8 @@ const Cart = () => {
                 <div key={item} className='flex bg-amber-200 rounded-lg m-2 w-full mx-2 md:my-2 md:mx-8 '>
                   <div className='flex mr-2'>
                       <Image
+                      
+                quality={100}
                     alt='painting'
                     src={item}
                     height="100"

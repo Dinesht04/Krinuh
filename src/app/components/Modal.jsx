@@ -736,6 +736,8 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   loading="eager"
                   priority={true}
                   className="hover:cursor-grabbing h-fit w-full object-cover object-left-top gap-10   "
+                  
+                quality={100}
                 />
                 <div className="">
                 <span className="text-xl italic">{paintings[id].title}</span>
@@ -747,6 +749,8 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                  height={100}
                  loading="eager"
                  className="self-center my-auto"
+                 
+                quality={100}
                 />:null
               }
               </div>
@@ -983,6 +987,8 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, Desktop }) => {
                   height={90}
                   loading="eager"
                   className="self-center my-auto"
+                  
+                quality={100}
                 />
                 <h1 className="p-2 text-rose-600">Sold Paintings can be repainted</h1>
                 {/* <Button  onClick={()=>{

@@ -46,6 +46,7 @@ const Search = () =>{
                             loading='eager'
                             priority={true}
                             className="hover:cursor-grabbing rounded-lg m-2 p-2"
+                            quality={100}
                             />
                             </div>
                             

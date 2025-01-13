@@ -87,6 +87,8 @@ export default function Home() {
                         width={100}
                         height={100}
                         alt={`Thumbnail ${num}`}
+                        
+                quality={100}
                       />
                     ))}
                   </div>
@@ -108,6 +110,8 @@ export default function Home() {
                       alt="headshot"
                       width={1200}
                       height={300}
+                      
+                quality={100}
                     />
                 </div>
                 <div id="textContent" className="flex flex-col m-2 p-2">
