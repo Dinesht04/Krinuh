@@ -34,6 +34,7 @@
     "fs": "^0.0.1-security",
     "googleapis": "^105.0.0",
     "next": "14.2.3",
+    "next-cloudinary": "^6.16.0",
     "react": "^18",
     "react-dom": "^18",
     "react-grid-gallery": "^1.0.1",
