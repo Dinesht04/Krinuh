@@ -7,7 +7,6 @@ import React, {useContext} from 'react'
 const Page = () => {
 
     const {src,id} = useContext(GlobalContext)
-
     function extractNumber(filename) {
         if(!filename) return 1
         const hatch = filename.match(/\d+/g); // Using the global flag 'g' to match all occurrences

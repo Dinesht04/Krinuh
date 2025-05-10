@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { paintings } from '@/components/Modal';
+import { paintings } from 'src/paintings';
 import { MdCancel } from "react-icons/md";
 import {GlobalContext} from '../Context/store'
 import { useContext } from 'react'
@@ -13,6 +13,7 @@ import { cn } from '@/utils/cn';
 import emailjs from '@emailjs/browser';
 import { Separator } from '@/components/ui/Separator';
 import { useToast } from "@/components/ui/use-toast"
+import { CldImage } from 'next-cloudinary';
 
 
 
@@ -27,7 +28,6 @@ const Cart = () => {
     const {cart,setCart} = useContext(GlobalContext);
     const form = useRef();
     const { toast } = useToast()
-    console.log(cart.length)
     const [firstName, setFirstname] = useState("");
     const [lastName, setLastname] = useState("");
     const [email, setEmail] = useState("");
@@ -101,7 +101,7 @@ const Cart = () => {
       <div className='flex flex-col'>
           <div className='mt-8 underline-offset-8	  p-4 text-4xl'>
           Shopping Cart
-            
+
         </div>
         <Separator className="mb-10 bg-amber-800" />
         <div className='flex'>
@@ -109,15 +109,23 @@ const Cart = () => {
         {
           cart.length ==0?<div className='text-3xl mx-8 px-4'>No items</div> :<div className='flex flex-col md:flex-row'><div className='w-fit md:w-min  ml-2 mr-8 flex  flex-col'>{
             cart.map((item)=>{
-              
-              const match = item.match(/\/(\d+)\.jpg/);
-              const number = parseInt(match[1], 10)-1;
-              list.push(paintings[number].title)
+
+              const match = item.match(/^(\d+)_/);
+              var number;
+              if (match) {
+                number = parseInt(match[1], 10) - 1;
+              } else{
+                number = parseInt(item, 10)-1
+              }
+              if (paintings[number]) {
+                list.push(paintings[number].title);
+              } else {
+                console.warn(`Invalid index: ${number}, item: ${item}`);
+              }
               return(
                 <div key={item} className='flex bg-amber-200 rounded-lg m-2 w-full mx-2 md:my-2 md:mx-8 '>
                   <div className='flex mr-2'>
-                      <Image
-                      
+                      <CldImage
                 quality={100}
                     alt='painting'
                     src={item}
@@ -127,36 +135,33 @@ const Cart = () => {
                     priority={true}
                     className="hover:cursor-grabbing object-cover object-left-top rounded-lg gap-10 ml-1 my-2 p-2"
                   />
-                  
+
                   <div className='flex flex-col m-2 p-2'>
                     <div className='text-xl italic'>{paintings[number].title}</div>
                     <div className=''>₹{paintings[number].price} </div>
                   </div>
-                  
-                  
+
                   </div>
-                 <div className='grow flex flex-row-reverse'>
+                    <div className='grow flex flex-row-reverse'>
                     <div  className='grow flex flex-row-reverse'>
                       <button className='self-start p-2 text-xl' onClick={()=>{handleRemove(item);}} > <MdCancel/>  </button>
                     </div>
-                 </div>
-              
-              
+                </div>
+
               </div>
               )
             }
-            ) 
+            )
           }
-          </div> 
+          </div>
           <div id='forma' className=' mt-4 md:mx-8 w-full md:w-max flex justify-center items-center '>
               <div className='w-full flex flex-col justify-center items-center'>
-                    
+
                     <div className='bg-amber-200 w-full ml-20 mr-12 md:mx-12 p-4 rounded flex flex-col '>
-                        
-                        
+
                         <form ref={form} onSubmit={handleSubmit}>
                         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 mb-4">
-                        
+
                         <LabelInputContainer>
                             <Label htmlFor="firstName">First name</Label>
                             <Input
@@ -242,21 +247,10 @@ const Cart = () => {
           
           </div>
         }
-
-
-          
         </div>
-        
-      
-          
-        
-        
-        
         </div>
-        
       </div>
-   
-  
+
   )
 }
 

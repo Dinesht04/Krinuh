@@ -1,5 +1,6 @@
 
 "use client"
+import StackGridComponent from '@/components/StackGridComponent';
 import GalleryImages from '../components/GalleryImages';
 
 const opusPaintings = [];
@@ -16,10 +17,10 @@ export default function Home() {
 
 
   return (
-    
       <>
         <GalleryImages/>
+        <div className='flex justify-center'>
+        </div>
       </>
-    
   );
 }

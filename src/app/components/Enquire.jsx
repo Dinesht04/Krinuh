@@ -7,8 +7,9 @@ import { useRef,useState } from 'react';
 import { cn } from '../utils/cn';
 import emailjs from '@emailjs/browser';
 import { useRouter } from 'next/navigation';
-import { paintings } from './Modal';
+import { paintings } from 'src/paintings';
 import { Button } from './ui/button';
+import { CldImage } from 'next-cloudinary';
 
 const Enquire = ({id,src,}) =>{
     const form = useRef();
@@ -64,7 +65,6 @@ const Enquire = ({id,src,}) =>{
         closeForm();
     };
         
-    console.log(id,src)
 
 
     return(
@@ -76,7 +76,7 @@ const Enquire = ({id,src,}) =>{
                 <div className='bg-white p-2 rounded flex flex-col '>
                     <div id='paintingRelated' className='flex'>
                         <div className='bg-white p-2 rounded'>
-                            <Image
+                            <CldImage
                                 alt='painting'
                                 src={src}
                                 
