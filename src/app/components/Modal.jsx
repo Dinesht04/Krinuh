@@ -99,7 +99,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, isDesktop }) => {
             </button>
             <div className="flex  flex-col md:p-4   md:flex-row">
               <div id="modal-image" className="bg-white flex flex-col items-center my-auto mx-2 p-2 rounded">
-                <CldImage
+                <Image
                   alt="painting"
                   src={src}
                   height="400"
@@ -348,7 +348,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, isDesktop }) => {
               )}
               </>
               : <div className="flex flex-col items-center">
-                  <CldImage
+                  <Image
                   alt="sold"
                   src={"/sold.jpg"}
                   width={90}
