@@ -7,6 +7,8 @@ import Offer from "./components/Offer";
 import ShoppingCart from "./components/ShoppingCart";
 import { Toaster } from "./components/ui/toaster";
 import Navbar from "./components/Navbar";
+import TonotoNavbar from "./components/TonotoNavbar";
+import TonotoOfferCarousel from "./components/TonotoOfferCarousel";
 
 
 export const metadata = {
@@ -20,10 +22,10 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="bg-[#FFFDE3]">
+      <body className="bg-[#ffffff]">
         <GlobalContextProvider>
-          <Offer/>
-        
+          <TonotoNavbar/>
+          <TonotoOfferCarousel/>
         {children}
         </GlobalContextProvider>
         <Toaster />
