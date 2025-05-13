@@ -17,7 +17,7 @@ const ShopByCategories = () => {
       <h2 className="text-xl font-semibold text-center mb-6">SHOP BY CATEGORIES</h2>
       <div className="flex flex-wrap gap-4 justify-center">
         {shopBycategoriesData.map((item, index) => (
-          <Card key={index} className="w-[calc(50%-0.5rem)] relative overflow-hidden">
+          <Card key={index} className="w-[calc(50%-0.5rem)] rounded-none relative overflow-hidden">
             <CardContent className="flex aspect-square items-end justify-center p-3">
                   <span className="text-sm fle text-center font-semibold">{item.title}</span>
             </CardContent>

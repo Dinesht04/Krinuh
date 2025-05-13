@@ -38,7 +38,7 @@ const TonotoHeroCarousel = () => {
         <div className="flex">
           {Array.from({ length: 5 }).map((_, index) => (
             <div className="min-w-full p-1" key={index}>
-              <Card>
+              <Card className="rounded-none">
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                   <span className="text-4xl font-semibold">{index + 1}</span>
                 </CardContent>

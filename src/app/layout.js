@@ -9,6 +9,7 @@ import { Toaster } from "./components/ui/toaster";
 import Navbar from "./components/Navbar";
 import TonotoNavbar from "./components/TonotoNavbar";
 import TonotoOfferCarousel from "./components/TonotoOfferCarousel";
+import TonotoFooter from "./components/TonotoFooter";
 
 
 export const metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
           <TonotoNavbar/>
           <TonotoOfferCarousel/>
         {children}
+        <TonotoFooter/>
         </GlobalContextProvider>
         <Toaster />
       </body>

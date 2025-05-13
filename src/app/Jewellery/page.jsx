@@ -7,6 +7,7 @@ import BestSellingThemes from '@/components/BestSellingThemes'
 import { Sparkles, Home, Users } from "lucide-react";
 import NewIn from '@/components/NewIn'
 import OurStorySection from '@/components/OurStorySection'
+import CustomerReviews from '@/components/CustomerReviews'
 
 const page = () => {
   return (
@@ -14,7 +15,7 @@ const page = () => {
         <TonotoHeroCarousel/>
         <ShopByCategories/>
         <div id='hero-image-1' className="min-w-full p-1">
-            <Card>
+            <Card className="rounded-none">
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                     <span className="text-4xl font-semibold">Hero Image</span>
                 </CardContent>
@@ -23,7 +24,7 @@ const page = () => {
         <BestSellers/>
         <BestSellingThemes/>
         <div id='hero-image-2' className="min-w-full p-1">
-            <Card>
+            <Card className="rounded-none">
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                     <span className="text-4xl font-semibold">Hero Image 2</span>
                 </CardContent>
@@ -57,7 +58,7 @@ const page = () => {
             </section>
         </div>
         <div id='hero-image-3' className="min-w-full p-1">
-            <Card>
+            <Card className="rounded-none">
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                     <span className="text-4xl font-semibold">Hero Image 3</span>
                 </CardContent>
@@ -67,6 +68,7 @@ const page = () => {
         <div id='Our-Story' className=''>
             <OurStorySection/>
         </div>
+        <CustomerReviews/>
     </div>
   )
 }
