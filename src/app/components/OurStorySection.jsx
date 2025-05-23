@@ -2,45 +2,34 @@ import React from "react";
 
 export default function OurStorySection() {
   return (
-    <section className="bg-white text-center px-6 py-12 relative overflow-hidden">
+    <section className="text-center px-6 py-12 relative overflow-hidden">
       <h2 className="text-3xl font-cursive font-semibold mb-6">Our Story</h2>
 
       {/* Dragonflies on both sides */}
+      
       <img
-        src="dragonfly.svg"
+        src="dragonfly.png"
         alt=""
-        className=" sm:block absolute left-0 top-16 h-6 opacity-20"
-        style={{ transform: "rotate(0deg)" }}
+        className=" sm:block absolute left-2 top-64 h-6 opacity-20"
+        style={{ transform: "rotate(12deg)" }}
       />
       <img
-        src="dragonfly.svg"
+        src="dragonfly.png"
         alt=""
-        className=" sm:block absolute left-0 top-40 h-6 opacity-20"
-        style={{ transform: "rotate(100deg)" }}
+        className=" sm:block absolute right-2 top-64 h-6 opacity-20"
+        style={{ transform: "rotate(260deg)" }}
       />
       <img
-        src="dragonfly.svg"
+        src="dragonfly.png"
         alt=""
-        className="sm:block absolute right-0 top-16 h-6 opacity-20"
-        style={{ transform: "rotate(10deg)" }}
+        className=" sm:block absolute left-2 top-2 h-6 opacity-20"
+        style={{ transform: "rotate(90deg)" }}
       />
-      <img
-        src="dragonfly.svg"
+       <img
+        src="dragonfly.png"
         alt=""
-        className=" sm:block absolute right-0 top-40 h-6 opacity-20"
+        className=" sm:block absolute right-2 top-2 h-6 opacity-20"
         style={{ transform: "rotate(200deg)" }}
-      />
-      <img
-        src="dragonfly.svg"
-        alt=""
-        className=" sm:block absolute left-0 top-64 h-6 opacity-20"
-        style={{ transform: "rotate(240deg)" }}
-      />
-      <img
-        src="dragonfly.svg"
-        alt=""
-        className=" sm:block absolute right-0 top-64 h-6 opacity-20"
-        style={{ transform: "rotate(180deg)" }}
       />
 
       <p className="text-gray-700 max-w-md mx-auto leading-relaxed z-10 relative">

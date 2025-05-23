@@ -5,7 +5,7 @@ import Autoplay from 'embla-carousel-autoplay'
 
 const TonotoOfferCarousel = () => {
 
-    const commonClasses = "flex justify-center items-center h-[50px] text-[#121212] text-[12px]";
+    const commonClasses = "flex justify-center items-center py-2 h-[50px] text-[#121212] text-[12px]";
 
   return (
     <div className='bg-[#f4f1ed]  '>
