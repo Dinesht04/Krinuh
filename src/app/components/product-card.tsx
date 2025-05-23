@@ -148,7 +148,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
         </div>
       </DrawerTrigger>
 
-      <DrawerContent className="max-h-[90vh] overflow-y-auto">
+      <DrawerContent className="max-h-[95vh] md:max-h-[90vh]  overflow-y-auto">
         <div className="mx-auto w-full max-w-lg">
           <DrawerHeader>
             <DrawerTitle className="text-xl text-[#942972]">{productName}</DrawerTitle>
@@ -159,7 +159,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
             </DrawerDescription>
           </DrawerHeader>
 
-          <div className="px-4 py-2">
+          <div className="px-4 pb-2 md:py-2">
             <div className="flex flex-col md:flex-row gap-6">
               {/* Product image */}
               <div className="md:w-1/2">
@@ -184,7 +184,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
 
               {/* Product details */}
               <div className="md:w-1/2">
-                <div className="flex justify-between items-start mb-4">
+                <div className="flex justify-between items-start mb-2 md:mb-4">
                   <div>
                     <h3 className="text-xl font-semibold text-[#414141]">{productName}</h3>
                     <div className="flex items-center gap-2 mt-1">
@@ -197,7 +197,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                 </div>
 
                 {/* Specifications */}
-                <div className="space-y-4 mb-6">
+                <div className="space-y-2 mb-4 md:space-y-4 md:mb-6">
                   {/* Artwork specific details */}
                   {isArtwork && (
                     <>
@@ -279,7 +279,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
 
                 {/* Description */}
                 {product.description && (
-                  <div className="mb-6">
+                  <div className="mb-3 md:mb-6">
                     <h4 className="text-sm font-semibold text-[#414141] mb-2">Description</h4>
                     <p className="text-sm text-[#414141BF] leading-relaxed">{product.description}</p>
                   </div>

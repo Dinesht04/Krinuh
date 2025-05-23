@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Home } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { jewelryData } from "../sampleData"
+import { jewelryData } from "@/v2/sampleData"
 
 export default function JewelleryPage() {
   // Categorize jewelry
@@ -59,7 +59,7 @@ export default function JewelleryPage() {
 
         {/* Tabbed interface for jewelry categories */}
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-8">
+          <TabsList className="grid grid-cols-3 grid-rows-2 md:grid-rows-1 md:grid-cols-6 mb-8">
             <TabsTrigger value="all" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
               All
             </TabsTrigger>
