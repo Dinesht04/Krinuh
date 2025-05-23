@@ -9,7 +9,7 @@ import { Toaster } from "sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 
-export const metadata: Metadata = {
+export const metadata : Metadata = {
   title: "Krinuh - Handcrafted Art, Jewelry & Decorations",
   description: "Discover unique handcrafted paintings, jewelry, and home decorations at Krinuh.",
 }

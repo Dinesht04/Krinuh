@@ -17,6 +17,7 @@ import {
 import { Home } from "lucide-react"
 import { bestSellersData } from "@/v2/sampleData"
 import { ProductCard } from "@/components/product-card"
+import { CldImage } from "next-cloudinary"
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart()
@@ -106,8 +107,8 @@ export default function CartPage() {
                         <div className="flex items-center space-x-3">
                           <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
                             {imageUrl ? (
-                              <img
-                                src={imageUrl || "/placeholder.svg"}
+                              <CldImage
+                                src={item.cloudinaryPublicId || "/placeholder.svg"}
                                 alt={productName}
                                 className="w-full h-full object-cover"
                               />
@@ -139,8 +140,8 @@ export default function CartPage() {
                       <div className="hidden md:flex md:col-span-6 items-center space-x-4">
                         <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
                           {imageUrl ? (
-                            <img
-                              src={imageUrl || "/placeholder.svg"}
+                            <CldImage
+                              src={item.cloudinaryPublicId || "/placeholder.svg"}
                               alt={productName}
                               className="w-full h-full object-cover"
                             />
@@ -325,7 +326,7 @@ export default function CartPage() {
                 {/* Shipping note */}
                 <div className="mt-4 text-sm text-[#414141BF] text-center">
                   {subtotal >= 5000 ? (
-                    <p className="text-green-600">You've qualified for free shipping! 🎉</p>
+                    <p className="text-green-600">You`&apos;`ve qualified for free shipping! 🎉</p>
                   ) : (
                     <p>Add items worth {formatPrice(5000 - subtotal)} more for free shipping</p>
                   )}
@@ -362,7 +363,7 @@ export default function CartPage() {
             </div>
             <h2 className="text-xl font-semibold text-[#414141] mb-2">Your cart is empty</h2>
             <p className="text-[#414141BF] mb-6 max-w-md mx-auto">
-              Looks like you haven't added anything to your cart yet. Explore our collections and discover unique
+              Looks like you haven`&apos;`t added anything to your cart yet. Explore our collections and discover unique
               handcrafted items.
             </p>
             <Link href="/">

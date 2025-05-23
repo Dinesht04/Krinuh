@@ -44,7 +44,7 @@ const Modal = ({ isVisible, setIsVisible, src, onClose, isDesktop }) => {
     // If src is just a number string like "21"
     const fallback = parseInt(src, 10);
     return !isNaN(fallback) ? fallback - 1 : 1;
-  }, [isVisible, src]);
+  }, [src]);
 
 
 

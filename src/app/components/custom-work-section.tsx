@@ -9,7 +9,7 @@ export function CustomWorkSection() {
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-[#414141] mb-3">Custom & Bespoke Creations</h2>
           <p className="text-[#414141BF] max-w-2xl mx-auto">
-            Can't find exactly what you're looking for? I create custom paintings, jewelry, and decorative pieces
+            Can`&apos;`t find exactly what you`&apos;`re looking for? I create custom paintings, jewelry, and decorative pieces
             tailored to your specific preferences and requirements.
           </p>
         </div>
@@ -32,7 +32,7 @@ export function CustomWorkSection() {
             </div>
             <h3 className="text-lg font-semibold text-[#414141] mb-2">2. Design</h3>
             <p className="text-sm text-[#414141BF]">
-              I'll create sketches or design concepts for your approval before starting the creation process.
+              I`&apos;`ll create sketches or design concepts for your approval before starting the creation process.
             </p>
           </div>
 
@@ -121,7 +121,7 @@ export function CustomWorkSection() {
         <div className="text-center">
           <h3 className="text-xl font-semibold text-[#414141] mb-3">Ready to create something unique?</h3>
           <p className="text-[#414141BF] mb-6 max-w-2xl mx-auto">
-            Let's collaborate on a one-of-a-kind piece that perfectly suits your needs and preferences.
+            Let`&apos;`s collaborate on a one-of-a-kind piece that perfectly suits your needs and preferences.
           </p>
           <Link href="/contact">
             <Button size="lg" className="bg-[#942972] hover:bg-[#7b1d5e] px-8">

@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export function PromotionBanner() {
   return (
     <div className="bg-[#f8e8f3] py-10 my-12">
@@ -24,9 +26,11 @@ export function PromotionBanner() {
               FREE
             </div>
             <div className="bg-white p-4 rounded-lg shadow-md">
-              <img
+              <Image
                 src="/placeholder.svg?height=150&width=150"
                 alt="Gift with purchase"
+                height={50}
+                width={50}
                 className="w-32 h-32 object-contain"
               />
               <p className="text-center text-sm font-medium text-[#942972] mt-2">
