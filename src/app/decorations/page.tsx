@@ -1,3 +1,5 @@
+"use client"
+import { useState, useMemo } from "react"
 import Navbar from "@/components/Navbar"
 import { ProductCard } from "@/components/product-card"
 import {
@@ -9,10 +11,72 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Home, Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { decorationsData } from "@/v2/sampleData"
 
 export default function DecorationsPage() {
+  const [selectedTheme, setSelectedTheme] = useState<string>("all")
+  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
+  const [selectedStyle, setSelectedStyle] = useState<string>("all")
+  const [priceRange, setPriceRange] = useState<string>("all")
+
+  // Get unique values for filters
+  const themes = useMemo(() => {
+    const allThemes = decorationsData.map((item) => item.theme).filter(Boolean)
+    return ["all", ...Array.from(new Set(allThemes))]
+  }, [])
+
+  const materials = useMemo(() => {
+    const allMaterials = decorationsData.map((item) => item.material_type).filter(Boolean)
+    return ["all", ...Array.from(new Set(allMaterials))]
+  }, [])
+
+  const styles = useMemo(() => {
+    const allStyles = decorationsData.map((item) => item.style).filter(Boolean)
+    return ["all", ...Array.from(new Set(allStyles))]
+  }, [])
+
+  // Filter decorations based on selected filters
+  const filteredDecorations = useMemo(() => {
+    return decorationsData.filter((item) => {
+      // Theme filter
+      if (selectedTheme !== "all" && item.theme !== selectedTheme) return false
+
+      // Material filter
+      if (selectedMaterial !== "all" && item.material_type !== selectedMaterial) return false
+
+      // Style filter
+      if (selectedStyle !== "all" && item.style !== selectedStyle) return false
+
+      // Price filter
+      if (priceRange !== "all") {
+        const price = Number.parseInt(item.price.replace(/[^0-9]/g, ""))
+        switch (priceRange) {
+          case "under-3000":
+            if (price >= 3000) return false
+            break
+          case "3000-5000":
+            if (price < 3000 || price >= 5000) return false
+            break
+          case "5000-8000":
+            if (price < 5000 || price >= 8000) return false
+            break
+          case "over-8000":
+            if (price < 8000) return false
+            break
+        }
+      }
+
+      return true
+    })
+  }, [selectedTheme, selectedMaterial, selectedStyle, priceRange])
+
+  const clearFilters = () => {
+    setSelectedTheme("all")
+    setSelectedMaterial("all")
+    setSelectedStyle("all")
+    setPriceRange("all")
+  }
+
   return (
     <main className="min-h-screen">
       <Navbar />
@@ -46,107 +110,84 @@ export default function DecorationsPage() {
                 <Filter size={18} className="text-[#942972]" />
               </div>
 
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="style">
-                  <AccordionTrigger className="text-[#414141]">Style</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <div className="flex items-center">
-                        <input type="checkbox" id="modern" className="mr-2" />
-                        <label htmlFor="modern" className="text-sm text-[#414141BF]">
-                          Modern
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="bohemian" className="mr-2" />
-                        <label htmlFor="bohemian" className="text-sm text-[#414141BF]">
-                          Bohemian
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="scandinavian" className="mr-2" />
-                        <label htmlFor="scandinavian" className="text-sm text-[#414141BF]">
-                          Scandinavian
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="artdeco" className="mr-2" />
-                        <label htmlFor="artdeco" className="text-sm text-[#414141BF]">
-                          Art Deco
-                        </label>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+              {/* Theme filter */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-[#414141] mb-2">Theme</label>
+                <select
+                  value={selectedTheme}
+                  onChange={(e) => setSelectedTheme(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                >
+                  {themes.map((theme) => (
+                    <option key={theme} value={theme}>
+                      {theme === "all" ? "All Themes" : theme}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                <AccordionItem value="material">
-                  <AccordionTrigger className="text-[#414141]">Material</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <div className="flex items-center">
-                        <input type="checkbox" id="ceramic" className="mr-2" />
-                        <label htmlFor="ceramic" className="text-sm text-[#414141BF]">
-                          Ceramic
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="wood" className="mr-2" />
-                        <label htmlFor="wood" className="text-sm text-[#414141BF]">
-                          Wood
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="metal" className="mr-2" />
-                        <label htmlFor="metal" className="text-sm text-[#414141BF]">
-                          Metal
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="glass" className="mr-2" />
-                        <label htmlFor="glass" className="text-sm text-[#414141BF]">
-                          Glass
-                        </label>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+              {/* Material filter */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-[#414141] mb-2">Material</label>
+                <select
+                  value={selectedMaterial}
+                  onChange={(e) => setSelectedMaterial(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                >
+                  {materials.map((material) => (
+                    <option key={material} value={material}>
+                      {material === "all" ? "All Materials" : material}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-                <AccordionItem value="price">
-                  <AccordionTrigger className="text-[#414141]">Price Range</AccordionTrigger>
-                  <AccordionContent>
-                    <div className="space-y-2">
-                      <div className="flex items-center">
-                        <input type="checkbox" id="price1" className="mr-2" />
-                        <label htmlFor="price1" className="text-sm text-[#414141BF]">
-                          Under ₹3,000
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="price2" className="mr-2" />
-                        <label htmlFor="price2" className="text-sm text-[#414141BF]">
-                          ₹3,000 - ₹5,000
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="price3" className="mr-2" />
-                        <label htmlFor="price3" className="text-sm text-[#414141BF]">
-                          ₹5,000 - ₹8,000
-                        </label>
-                      </div>
-                      <div className="flex items-center">
-                        <input type="checkbox" id="price4" className="mr-2" />
-                        <label htmlFor="price4" className="text-sm text-[#414141BF]">
-                          Over ₹8,000
-                        </label>
-                      </div>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+              {/* Style filter */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-[#414141] mb-2">Style</label>
+                <select
+                  value={selectedStyle}
+                  onChange={(e) => setSelectedStyle(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                >
+                  {styles.map((style) => (
+                    <option key={style} value={style}>
+                      {style === "all" ? "All Styles" : style}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-              <div className="mt-6 space-y-3">
-                <Button className="w-full bg-[#942972] hover:bg-[#7b1d5e]">Apply Filters</Button>
-                <Button variant="outline" className="w-full border-[#942972] text-[#942972] hover:bg-[#f8e8f3]">
+              {/* Price filter */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-[#414141] mb-2">Price Range</label>
+                <select
+                  value={priceRange}
+                  onChange={(e) => setPriceRange(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                >
+                  <option value="all">All Prices</option>
+                  <option value="under-3000">Under ₹3,000</option>
+                  <option value="3000-5000">₹3,000 - ₹5,000</option>
+                  <option value="5000-8000">₹5,000 - ₹8,000</option>
+                  <option value="over-8000">Over ₹8,000</option>
+                </select>
+              </div>
+
+              <div className="space-y-3">
+                <Button
+                  className="w-full bg-[#942972] hover:bg-[#7b1d5e]"
+                  onClick={() => {
+                    /* Filters are applied automatically */
+                  }}
+                >
+                  Apply Filters
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full border-[#942972] text-[#942972] hover:bg-[#f8e8f3]"
+                  onClick={clearFilters}
+                >
                   Clear All
                 </Button>
               </div>
@@ -166,28 +207,38 @@ export default function DecorationsPage() {
                 </select>
               </div>
 
-              <div className="text-[#414141BF] text-sm">Showing {decorationsData.length} products</div>
+              <div className="text-[#414141BF] text-sm">Showing {filteredDecorations.length} products</div>
             </div>
 
             {/* Product grid with featured items */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Featured item - larger */}
-              <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
-                <ProductCard
-                  product={decorationsData.find((item) => item.id === "d1") || decorationsData[0]}
-                  aspectRatio="portrait"
-                />
-              </div>
+              {filteredDecorations.length > 0 && (
+                <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
+                  <ProductCard product={filteredDecorations[0]} aspectRatio="portrait" />
+                </div>
+              )}
 
               {/* Regular items */}
-              {decorationsData
-                .filter((item) => item.id !== "d1") // Exclude the featured item
+              {filteredDecorations
+                .slice(1) // Skip the featured item
                 .map((decoration) => (
                   <div key={decoration.id}>
                     <ProductCard product={decoration} />
                   </div>
                 ))}
+
             </div>
+              {/* No results message */}
+              {filteredDecorations.length === 0 && (
+                <div className="text-center py-12">
+                  <h3 className="text-lg font-medium text-[#414141] mb-2">No products found</h3>
+                  <p className="text-[#414141BF] mb-4">Try adjusting your filters to see more results</p>
+                  <Button onClick={clearFilters} className="bg-[#942972] hover:bg-[#7b1d5e]">
+                    Clear Filters
+                  </Button>
+                </div>
+              )}
           </div>
         </div>
       </div>

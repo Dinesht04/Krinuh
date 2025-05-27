@@ -1,3 +1,6 @@
+"use client"
+
+import { useState, useMemo } from "react"
 import Navbar from "@/components/Navbar"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
@@ -11,19 +14,70 @@ import {
 import { Home } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { jewelryData } from "@/v2/sampleData"
+import { useSearchParams } from "next/navigation"
+
 
 export default function JewelleryPage() {
-  // Categorize jewelry
-  const earrings = jewelryData.filter((item) => item.name?.toLowerCase().includes("earring"))
-  const necklaces = jewelryData.filter(
+  const [selectedTheme, setSelectedTheme] = useState<string>("all")
+  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
+  const [priceRange, setPriceRange] = useState<string>("all")
+
+  const searchParams = useSearchParams();
+
+  // Get unique themes and materials for filters
+  const themes = useMemo(() => {
+    const allThemes = jewelryData.map((item) => item.theme).filter(Boolean)
+    return ["all", ...Array.from(new Set(allThemes))]
+  }, [])
+
+  const materials = useMemo(() => {
+    const allMaterials = jewelryData.map((item) => item.material).filter(Boolean)
+    return ["all", ...Array.from(new Set(allMaterials))]
+  }, [])
+
+  // Filter jewelry based on selected filters
+  const filteredJewelry = useMemo(() => {
+    return jewelryData.filter((item) => {
+      // Theme filter
+      if (selectedTheme !== "all" && item.theme !== selectedTheme) return false
+
+      // Material filter
+      if (selectedMaterial !== "all" && item.material !== selectedMaterial) return false
+
+      // Price filter
+      if (priceRange !== "all") {
+        const price = Number.parseInt(item.price.replace(/[^0-9]/g, ""))
+        switch (priceRange) {
+          case "under-5000":
+            if (price >= 5000) return false
+            break
+          case "5000-10000":
+            if (price < 5000 || price >= 10000) return false
+            break
+          case "10000-15000":
+            if (price < 10000 || price >= 15000) return false
+            break
+          case "over-15000":
+            if (price < 15000) return false
+            break
+        }
+      }
+
+      return true
+    })
+  }, [selectedTheme, selectedMaterial, priceRange])
+
+  // Categorize filtered jewelry
+  const earrings = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("earring"))
+  const necklaces = filteredJewelry.filter(
     (item) =>
       item.name?.toLowerCase().includes("necklace") ||
       item.name?.toLowerCase().includes("pendant") ||
       item.name?.toLowerCase().includes("chain"),
   )
-  const bracelets = jewelryData.filter((item) => item.name?.toLowerCase().includes("bracelet"))
-  const rings = jewelryData.filter((item) => item.name?.toLowerCase().includes("ring"))
-  const other = jewelryData.filter(
+  const bracelets = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("bracelet"))
+  const rings = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("ring"))
+  const other = filteredJewelry.filter(
     (item) =>
       !item.name?.toLowerCase().includes("earring") &&
       !item.name?.toLowerCase().includes("necklace") &&
@@ -32,6 +86,7 @@ export default function JewelleryPage() {
       !item.name?.toLowerCase().includes("bracelet") &&
       !item.name?.toLowerCase().includes("ring"),
   )
+
 
   return (
     <main className="min-h-screen">
@@ -57,41 +112,100 @@ export default function JewelleryPage() {
         <h1 className="text-3xl font-bold text-[#414141] mb-2">Jewellery Collection</h1>
         <p className="text-[#414141BF] mb-8">Discover our handcrafted jewelry pieces</p>
 
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+          <h3 className="font-medium text-[#414141] mb-4">Filters</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Theme filter */}
+            <div>
+              <label className="block text-sm font-medium text-[#414141] mb-2">Theme</label>
+              <select
+                value={selectedTheme}
+                onChange={(e) => setSelectedTheme(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+              >
+                {themes.map((theme) => (
+                  <option key={theme} value={theme}>
+                    {theme === "all" ? "All Themes" : theme}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Material filter */}
+            <div>
+              <label className="block text-sm font-medium text-[#414141] mb-2">Material</label>
+              <select
+                value={selectedMaterial}
+                onChange={(e) => setSelectedMaterial(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+              >
+                {materials.map((material) => (
+                  <option key={material} value={material}>
+                    {material === "all" ? "All Materials" : material}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Price filter */}
+            <div>
+              <label className="block text-sm font-medium text-[#414141] mb-2">Price Range</label>
+              <select
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+              >
+                <option value="all">All Prices</option>
+                <option value="under-5000">Under ₹5,000</option>
+                <option value="5000-10000">₹5,000 - ₹10,000</option>
+                <option value="10000-15000">₹10,000 - ₹15,000</option>
+                <option value="over-15000">Over ₹15,000</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Results count */}
+        <div className="mb-6">
+          <p className="text-[#414141BF]">Showing {filteredJewelry.length} products</p>
+        </div>
+
         {/* Tabbed interface for jewelry categories */}
         <Tabs defaultValue="all" className="w-full">
           <TabsList className="grid grid-cols-3 grid-rows-2 md:grid-rows-1 md:grid-cols-6 mb-8">
             <TabsTrigger value="all" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-              All
+            All ({filteredJewelry.length})
             </TabsTrigger>
             <TabsTrigger
               value="earrings"
               className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
             >
-              Earrings
+              Earrings ({earrings.length})
             </TabsTrigger>
             <TabsTrigger
               value="necklaces"
               className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
             >
-              Necklaces
+              Necklaces ({necklaces.length})
             </TabsTrigger>
             <TabsTrigger
               value="bracelets"
               className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
             >
-              Bracelets
+              Bracelets ({bracelets.length})
             </TabsTrigger>
             <TabsTrigger value="rings" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-              Rings
+              Rings ({rings.length})
             </TabsTrigger>
             <TabsTrigger value="other" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-              Other
+              Other ({other.length})
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="all" className="mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {jewelryData.map((jewelry) => (
+              {filteredJewelry.map((jewelry) => (
                 <ProductCard key={jewelry.id} product={jewelry} />
               ))}
             </div>

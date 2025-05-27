@@ -50,6 +50,7 @@
     "csv-parser": "^3.1.0",
     "date-fns": "^4.1.0",
     "easy-magnify": "^1.1.4",
+    "emailjs": "^4.0.3",
     "embla-carousel-autoplay": "^8.3.0",
     "embla-carousel-react": "^8.3.0",
     "framer-motion": "^11.2.10",

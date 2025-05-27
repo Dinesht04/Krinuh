@@ -16,11 +16,11 @@ const navItems = [
 
 const mobileNavItems = [
   { name: "Paintings", href: "/gallery", hasArrow: true },
-  { name: "Wall Art", href: "/gallery?type=wall-art", hasArrow: false },
-  { name: "Canvas Prints", href: "/gallery?type=canvas", hasArrow: false },
+  // { name: "Wall Art", href: "/gallery?type=wall-art", hasArrow: false },
+  // { name: "Canvas Prints", href: "/gallery?type=canvas", hasArrow: false },
   { name: "Decorations", href: "/decorations", hasArrow: true },
-  { name: "Home Accents", href: "/decorations?type=accents", hasArrow: false },
-  { name: "Vases & Planters", href: "/decorations?type=vases", hasArrow: false },
+  // { name: "Home Accents", href: "/decorations?type=accents", hasArrow: false },
+  // { name: "Vases & Planters", href: "/decorations?type=vases", hasArrow: false },
   { name: "Jewelry", href: "/jewellery", hasArrow: true },
   { name: "Earrings", href: "/jewellery?category=earrings", hasArrow: false },
   { name: "Necklaces", href: "/jewellery?category=necklaces", hasArrow: false },

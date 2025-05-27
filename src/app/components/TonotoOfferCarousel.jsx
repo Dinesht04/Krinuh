@@ -19,7 +19,7 @@ const TonotoOfferCarousel = () => {
             }),
           ]}>
             <CarouselContent>
-                <CarouselItem> <div className={commonClasses}> 100k Celebration is Live  🎉</div></CarouselItem>
+                <CarouselItem> <div className={commonClasses}> Summer Collections are live  🎉</div></CarouselItem>
                 <CarouselItem> <div className={commonClasses}>Free Shipping all over Jaipur!</div></CarouselItem>
                 <CarouselItem> <div className={commonClasses}>Handmade & Limited: Shop Now!</div></CarouselItem>
                 <CarouselItem> <div className={commonClasses}>New Jewellery Out Now!</div></CarouselItem>

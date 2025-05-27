@@ -18,11 +18,15 @@ import { Home } from "lucide-react"
 import { bestSellersData } from "@/v2/sampleData"
 import { ProductCard } from "@/components/product-card"
 import { CldImage } from "next-cloudinary"
+import { CheckoutForm } from "@/components/checkout-form"
+
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart()
   const [couponCode, setCouponCode] = useState("")
   const [isApplyingCoupon, setIsApplyingCoupon] = useState(false)
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false)
+
 
   // Calculate cart summary
   const subtotal = getCartTotal()
@@ -57,6 +61,7 @@ export default function CartPage() {
   }
 
   return (
+    <>
     <main className="min-h-screen bg-gray-50">
       <Navbar />
 
@@ -110,6 +115,8 @@ export default function CartPage() {
                               <CldImage
                                 src={item.cloudinaryPublicId || "/placeholder.svg"}
                                 alt={productName}
+                                height={500}
+                                width={500}
                                 className="w-full h-full object-cover"
                               />
                             ) : (
@@ -143,6 +150,8 @@ export default function CartPage() {
                             <CldImage
                               src={item.cloudinaryPublicId || "/placeholder.svg"}
                               alt={productName}
+                              height={500}
+                              width={500}
                               className="w-full h-full object-cover"
                             />
                           ) : (
@@ -297,7 +306,7 @@ export default function CartPage() {
                 </div>
 
                 {/* Coupon code */}
-                <div className="mb-6">
+                {/* <div className="mb-6">
                   <label htmlFor="coupon" className="block text-sm font-medium text-[#414141] mb-2">
                     Apply Coupon Code
                   </label>
@@ -318,18 +327,28 @@ export default function CartPage() {
                       Apply
                     </Button>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Checkout button */}
-                <Button className="w-full bg-[#942972] hover:bg-[#7b1d5e] py-6 text-lg">Proceed to Checkout</Button>
+                <Button
+                    className="w-full bg-[#942972] hover:bg-[#7b1d5e] py-6 text-lg"
+                    onClick={() => setShowCheckoutForm(true)}
+                  >
+                    Proceed to Checkout
+                  </Button>
 
                 {/* Shipping note */}
                 <div className="mt-4 text-sm text-[#414141BF] text-center">
                   {subtotal >= 5000 ? (
-                    <p className="text-green-600">You`&apos;`ve qualified for free shipping! 🎉</p>
+                    <p className="text-green-600">You&apos;ve qualified for free shipping! 🎉</p>
                   ) : (
                     <p>Add items worth {formatPrice(5000 - subtotal)} more for free shipping</p>
                   )}
+                </div>
+
+                {/* WhatsApp note */}
+                <div className="mt-4 text-sm text-[#414141BF] text-center">
+                    We prefer WhatsApp ❤️ for order updates
                 </div>
 
                 {/* Payment methods */}
@@ -337,16 +356,16 @@ export default function CartPage() {
                   <p className="text-sm text-[#414141BF] mb-2">We Accept:</p>
                   <div className="flex gap-2 justify-center">
                     <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
-                      <span className="text-xs font-medium">Visa</span>
-                    </div>
-                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
-                      <span className="text-xs font-medium">MC</span>
-                    </div>
-                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
-                      <span className="text-xs font-medium">PayPal</span>
-                    </div>
-                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
                       <span className="text-xs font-medium">UPI</span>
+                    </div>
+                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
+                      <span className="text-xs font-medium">Credit Card</span>
+                    </div>
+                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
+                      <span className="text-xs font-medium">Debit Card</span>
+                    </div>
+                    <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
+                      <span className="text-xs font-medium">Cash</span>
                     </div>
                   </div>
                 </div>
@@ -363,7 +382,7 @@ export default function CartPage() {
             </div>
             <h2 className="text-xl font-semibold text-[#414141] mb-2">Your cart is empty</h2>
             <p className="text-[#414141BF] mb-6 max-w-md mx-auto">
-              Looks like you haven`&apos;`t added anything to your cart yet. Explore our collections and discover unique
+              Looks like you haven&apos;t added anything to your cart yet. Explore our collections and discover unique
               handcrafted items.
             </p>
             <Link href="/">
@@ -384,5 +403,9 @@ export default function CartPage() {
       </div>
 
     </main>
+    
+    <CheckoutForm isOpen={showCheckoutForm} onClose={() => setShowCheckoutForm(false)} />
+
+    </>
   )
 }
