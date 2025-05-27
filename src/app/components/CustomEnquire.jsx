@@ -83,42 +83,11 @@ const CustomEnquire = () =>{
         <>
         <div  className='flex justify-center items-center ' >
             <div className='w-full flex flex-col'>
-                
-                
+
                 <div className='bg-white p-2 rounded flex flex-col '>
-                    {/* <div id='paintingRelated' className='flex'>
-                        <div className='bg-white p-2 rounded'>
-                            <Image
-                            
-                quality={100}
-                                alt='painting'
-                                src={src}
-                                height="100"
-                                width="100"
-                                loading='eager'
-                                priority={true}
-                                className="hover:cursor-grabbing  object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
-                            />
-                        </div>
-                    
-                        <div id='info' className='m-2 p-2'>
-                            
-                            
-                            <div id='size' className='p-2 flex md:p-2 md:py-4'>
-                                <div><span className='font-semibold rounded bg-zinc-300 px-2'>Size</span></div>    
-                                <div className=' pl-2'>{paintings[id].size}</div>
-                            </div>
-                            <div id='price' className='p-2 flex md:p-2 md:py-4'>
-                                <div className=' rounded bg-green-300 px-2 '>Price</div>
-                                <div className='pl-2'>₹{paintings[id].price}</div>    
-                            </div>
-                        
-                        </div>
-                    </div> */}
-                    
+
                     <form ref={form} onSubmit={handleSubmit}>
                     <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 mb-4">
-                    
                     <LabelInputContainer>
                         <Label htmlFor="firstName">First name</Label>
                         <Input

@@ -2,10 +2,12 @@
 import React, { useState } from 'react'
 import {  FaSearch } from 'react-icons/fa';
 import { MdCancel } from "react-icons/md";
-import { Input } from './ui/SimpleInput';
-import { paintings } from './Modal';
+import { Input } from './ui/input';
+import { paintings } from 'src/paintings';
 import Image from 'next/image';
 import Modal from './Modal';
+import { CldImage } from 'next-cloudinary';
+import { cloudinary_URLS } from 'src/cloudinary_URLS';
 
 const Search = () =>{
     const [input,setInput] = useState("");
@@ -34,13 +36,13 @@ const Search = () =>{
                 {results.map((paint)=>{
                     return(
                         <div key={paint.id} onClick={()=>{
-                            setSrc("/"+paint.id+".jpg");
+                            setSrc(cloudinary_URLS[paint.id-1]);
                             setShowModal(true);
                         }} className='flex hover:bg-amber-300 hover:cursor-pointer hover:rounded-lg m-2 p-2'>
                             <div>
-                            <Image 
+                            <CldImage
                             alt='painting'
-                            src={"/"+paint.id+".jpg"}
+                            src={cloudinary_URLS[paint.id-1]}
                             height="50"
                             width="50"
                             loading='eager'
@@ -49,7 +51,6 @@ const Search = () =>{
                             quality={100}
                             />
                             </div>
-                            
                             <div className=' m-2 p-2'>
                                 {paint.title}
                             </div>
