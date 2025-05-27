@@ -10,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import type { Product } from "@/components/product-card"
 import { toast } from "sonner"
+import emailjs from '@emailjs/browser';
+import { CldImage } from "next-cloudinary"
+
 
 // Validation functions
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -68,18 +71,12 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
     setIsSubmitting(true)
 
     try {
-      // Simulate EmailJS call (replace with actual EmailJS implementation)
-      // emailjs.sendForm(
-      //   'service_2uaoxt5',
-      //   'template_iguyl89',
-      //   formRef.current,
-      //   { publicKey: 'WA_Wbe3R2R6QleO9U' }
-      // )
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      console.log("Email sent successfully!")
+      emailjs.sendForm(
+        process.env.EMAILJS_SERVICE,
+        process.env.EMAILJS_TEMPLATE,
+        formRef.current,
+        { publicKey: 'WA_Wbe3R2R6QleO9U' }
+      )
 
       toast.success(
         enquiryType === "custom"
@@ -138,8 +135,8 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
           <div className="flex items-center space-x-4 p-4 bg-[#f8e8f3] rounded-lg mb-4">
             <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
               {getImageUrl() ? (
-                <img
-                  src={getImageUrl() || "/placeholder.svg"}
+                <CldImage
+                  src={product?.cloudinaryPublicId || "/placeholder.svg"}
                   alt={productName}
                   className="w-full h-full object-cover"
                 />
