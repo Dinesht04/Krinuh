@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { CldImage } from "next-cloudinary"
 
 interface Slide {
   id: number
@@ -44,7 +45,7 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
   return (
     <div className="relative overflow-hidden">
       <div
-        className="flex transition-transform duration-500 ease-in-out h-[300px] md:h-[400px] lg:h-[500px]"
+        className="flex transition-transform duration-500 ease-in-out h-[400px] md:h-[400px] lg:h-[500px]"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {slides.map((slide) => (
@@ -53,20 +54,15 @@ export function HeroCarousel({ slides }: HeroCarouselProps) {
             className="flex-shrink-0 w-full relative"
             style={{ backgroundColor: slide.backgroundColor }}
           >
-            <div className="container mx-auto px-4 h-full flex flex-col md:flex-row items-center justify-between">
-              <div className="text-center md:text-left md:w-1/2 py-8 md:py-0">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#414141] mb-4">{slide.title}</h1>
-                <p className="text-lg md:text-xl text-[#414141BF] mb-6">{slide.subtitle}</p>
-                <Button className="bg-[#942972] hover:bg-[#7b1d5e] text-white px-6 py-2 text-lg">{slide.cta}</Button>
-              </div>
-              <div className="md:w-1/2 flex justify-center">
-                <img
-                  src={slide.image || "/placeholder.svg"}
-                  alt={slide.title}
-                  className="max-h-[250px] md:max-h-[350px] object-contain"
-                />
-              </div>
-            </div>
+            <Link href={slide.link} className="block w-full h-full">
+              <CldImage
+                src={slide.image || "/placeholder.svg"}
+                alt={slide.title}
+                height={300}
+                width={300}
+                className="w-full h-full object-cover cursor-pointer"
+              />
+            </Link>
           </div>
         ))}
       </div>

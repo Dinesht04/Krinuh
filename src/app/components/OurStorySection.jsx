@@ -10,28 +10,18 @@ export default function OurStorySection() {
       <img
         src="dragonfly.png"
         alt=""
-        className=" sm:block absolute left-2 top-64 h-6 opacity-20"
-        style={{ transform: "rotate(12deg)" }}
-      />
-      <img
-        src="dragonfly.png"
-        alt=""
-        className=" sm:block absolute right-2 top-64 h-6 opacity-20"
-        style={{ transform: "rotate(260deg)" }}
-      />
-      <img
-        src="dragonfly.png"
-        alt=""
-        className=" sm:block absolute left-2 top-2 h-6 opacity-20"
+        className="  absolute top-2 left-2  h-6 opacity-20"
         style={{ transform: "rotate(90deg)" }}
       />
        <img
         src="dragonfly.png"
         alt=""
-        className=" sm:block absolute right-2 top-2 h-6 opacity-20"
+        className=" absolute top-2 right-2  h-6 opacity-20"
         style={{ transform: "rotate(200deg)" }}
       />
 
+      
+      
       <p className="text-gray-700 max-w-md mx-auto leading-relaxed z-10 relative">
         KRINUH brings you a line of handcrafted accessories combining traditional
         craftsmanship with a modern aesthetic and a shared passion for innovation
@@ -42,6 +32,20 @@ export default function OurStorySection() {
       <button className="mt-8 bg-[#414141] text-white px-6 py-2 font-semibold tracking-wide z-10 relative">
         LEARN MORE
       </button>
+      
+      <img
+        src="dragonfly.png"
+        alt=""
+        className=" absolute left-2  h-6 opacity-20"
+        style={{ transform: "rotate(12deg)" }}
+      />
+      <img
+        src="dragonfly.png"
+        alt=""
+        className=" absolute right-2  h-6 opacity-20"
+        style={{ transform: "rotate(260deg)" }}
+      />
+
     </section>
   );
 }

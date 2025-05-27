@@ -14,14 +14,36 @@ link: string;
 backgroundColor: string;
 }
 
-export const heroSlides: HeroSlide[] = [
-{id: 1,image: "/placeholder.svg?height=600&width=1200&query=Artistic+Living+Room+Decor",title: "Elevate Your Ambiance",subtitle: "Discover unique paintings and decor that tell your story.",cta: "Explore Art Collection",link: "#paintings",backgroundColor: "#fdf0e6",
-},
-{id: 2,image: "/placeholder.svg?height=600&width=1200&query=Handcrafted+Jewelry+Showcase",title: "Timeless Elegance",subtitle: "Handcrafted jewelry pieces for unforgettable moments.",cta: "Browse Jewelry",link: "#jewelry",backgroundColor: "#e6f5fd",
-},
-{id: 3,image: "/placeholder.svg?height=600&width=1200&query=Home+Decor+Inspiration+Sale",title: "New Season Decor",subtitle: "Refresh your space with our latest home decor arrivals. Up to 25% off!",cta: "Shop Decorations",link: "#decorations",backgroundColor: "#e6fdef",
-},
-];
+export const heroSlides = [
+  {
+    id: 1,
+    image: "Paintings-Hero_z2wyxr",
+    title: "Elevate Your Space",
+    subtitle: "Discover our handcrafted paintings and decorations",
+    cta: "Shop Now",
+    link: "/gallery",
+    backgroundColor: "#f8e8f3",
+  },
+  {
+    id: 2,
+    image: "Jewelry-Hero_xas0s7",
+    title: "Adorn Yourself",
+    subtitle: "Explore our exquisite jewelry collection",
+    cta: "Shop Jewelry",
+    link: "/jewellery",
+    backgroundColor: "#e8f0f8",
+  },
+  {
+    id: 3,
+    image: "Decor-Hero_uvuwy8",
+    title: "Transform Your Home",
+    subtitle: "Unique decorative pieces for every space",
+    cta: "Shop Decorations",
+    link: "/decorations",
+    backgroundColor: "#f0f8e8",
+  },
+]
+
 
 // --- Announcements Data ---
 export const announcements: string[] = ["Enjoy Free Shipping on All Orders Above ₹2500!","Grand Art Sale: Up to 40% Off on Select Paintings!","New Arrivals: Check out the latest in Home Decor & Jewelry!",

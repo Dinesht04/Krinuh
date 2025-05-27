@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo,useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import Navbar from "@/components/Navbar"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
@@ -14,15 +15,24 @@ import {
 import { Home } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { jewelryData } from "@/v2/sampleData"
-import { useSearchParams } from "next/navigation"
 
 
 export default function JewelleryPage() {
+
+  const searchParams = useSearchParams()
+  const categoryParam = searchParams.get("category")
+
   const [selectedTheme, setSelectedTheme] = useState<string>("all")
   const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
   const [priceRange, setPriceRange] = useState<string>("all")
+  const [activeTab, setActiveTab] = useState("all")
 
-  const searchParams = useSearchParams();
+  // Set active tab based on URL parameter
+  useEffect(() => {
+    if (categoryParam) {
+      setActiveTab(categoryParam)
+    }
+  }, [categoryParam])
 
   // Get unique themes and materials for filters
   const themes = useMemo(() => {
@@ -77,6 +87,9 @@ export default function JewelleryPage() {
   )
   const bracelets = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("bracelet"))
   const rings = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("ring"))
+  const head = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("head"))
+  const hair = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("hair"))
+  const anklets = filteredJewelry.filter((item) => item.name?.toLowerCase().includes("anklet"))
   const other = filteredJewelry.filter(
     (item) =>
       !item.name?.toLowerCase().includes("earring") &&
@@ -84,9 +97,35 @@ export default function JewelleryPage() {
       !item.name?.toLowerCase().includes("pendant") &&
       !item.name?.toLowerCase().includes("chain") &&
       !item.name?.toLowerCase().includes("bracelet") &&
-      !item.name?.toLowerCase().includes("ring"),
+      !item.name?.toLowerCase().includes("ring") &&
+      !item.name?.toLowerCase().includes("head") &&
+      !item.name?.toLowerCase().includes("hair") &&
+      !item.name?.toLowerCase().includes("anklet"),
   )
 
+  // Get current tab data
+  const getCurrentTabData = () => {
+    switch (activeTab) {
+      case "earrings":
+        return earrings
+      case "necklaces":
+        return necklaces
+      case "bracelets":
+        return bracelets
+      case "rings":
+        return rings
+      case "head":
+        return head
+      case "hair":
+        return hair
+      case "anklets":
+        return anklets
+      case "other":
+        return other
+      default:
+        return filteredJewelry
+    }
+  }
 
   return (
     <main className="min-h-screen">
@@ -168,12 +207,12 @@ export default function JewelleryPage() {
 
         {/* Results count */}
         <div className="mb-6">
-          <p className="text-[#414141BF]">Showing {filteredJewelry.length} products</p>
+          <p className="text-[#414141BF]">Showing {getCurrentTabData().length} products</p>
         </div>
 
         {/* Tabbed interface for jewelry categories */}
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid grid-cols-3 grid-rows-2 md:grid-rows-1 md:grid-cols-6 mb-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid grid-cols-4 md:grid-cols-8 mb-8 overflow-x-auto">
             <TabsTrigger value="all" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
             All ({filteredJewelry.length})
             </TabsTrigger>
@@ -198,8 +237,17 @@ export default function JewelleryPage() {
             <TabsTrigger value="rings" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
               Rings ({rings.length})
             </TabsTrigger>
-            <TabsTrigger value="other" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-              Other ({other.length})
+            <TabsTrigger value="head" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
+              Head ({head.length})
+            </TabsTrigger>
+            <TabsTrigger value="hair" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
+              Hair ({hair.length})
+            </TabsTrigger>
+            <TabsTrigger
+              value="anklets"
+              className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
+            >
+              Anklets ({anklets.length})
             </TabsTrigger>
           </TabsList>
 
@@ -243,9 +291,25 @@ export default function JewelleryPage() {
             </div>
           </TabsContent>
 
-          <TabsContent value="other" className="mt-0">
+          <TabsContent value="head" className="mt-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {other.map((jewelry) => (
+              {head.map((jewelry) => (
+                <ProductCard key={jewelry.id} product={jewelry} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="hair" className="mt-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {hair.map((jewelry) => (
+                <ProductCard key={jewelry.id} product={jewelry} />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="anklets" className="mt-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {anklets.map((jewelry) => (
                 <ProductCard key={jewelry.id} product={jewelry} />
               ))}
             </div>

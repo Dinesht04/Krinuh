@@ -4,6 +4,8 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Palette, Gem, Home, MessageSquare } from "lucide-react"
 import { EnquiryForm } from "@/components/enquiry-form"
+import Image from "next/image"
+import { CldImage } from "next-cloudinary"
 
 export function CustomWorkSection() {
   const [showEnquiryForm, setShowEnquiryForm] = useState(false)
@@ -72,8 +74,14 @@ export function CustomWorkSection() {
           {/* Custom categories - mobile: stacked, desktop: side by side */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-[#f8e8f3] flex items-center justify-center">
-                <div className="text-[#942972] text-opacity-20 text-6xl font-light">PA</div>
+              <div className="h-48 overflow-hidden">
+                <CldImage
+                  src="43_x1uhw4"
+                  height={360}
+                  width={360}
+                  alt="Custom Paintings"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-[#414141] mb-2">Custom Paintings</h3>
@@ -96,8 +104,14 @@ export function CustomWorkSection() {
             </div>
 
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-[#f8e8f3] flex items-center justify-center">
-                <div className="text-[#942972] text-opacity-20 text-6xl font-light">JE</div>
+              <div className="h-48 overflow-hidden">
+                <Image
+                  src="https://www.tonoto.in/cdn/shop/files/Untitled-6.jpg?v=1732715077&width=535"
+                  alt="Custom Jewelry"
+                  height={360}
+                  width={360}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-[#414141] mb-2">Custom Jewelry</h3>
@@ -120,8 +134,14 @@ export function CustomWorkSection() {
             </div>
 
             <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-              <div className="h-48 bg-[#f8e8f3] flex items-center justify-center">
-                <div className="text-[#942972] text-opacity-20 text-6xl font-light">DE</div>
+              <div className="h-48 overflow-hidden">
+                <CldImage
+                  src="Screenshot_from_2025-05-28_00-58-17_tk9xus"
+                  alt="Custom Decorations"
+                  height={360}
+                  width={360}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-[#414141] mb-2">Custom Decorations</h3>

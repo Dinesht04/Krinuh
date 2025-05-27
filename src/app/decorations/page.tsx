@@ -18,6 +18,8 @@ export default function DecorationsPage() {
   const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
   const [selectedStyle, setSelectedStyle] = useState<string>("all")
   const [priceRange, setPriceRange] = useState<string>("all")
+  const [sortBy, setSortBy] = useState<string>("featured")
+
 
   // Get unique values for filters
   const themes = useMemo(() => {
@@ -36,8 +38,9 @@ export default function DecorationsPage() {
   }, [])
 
   // Filter decorations based on selected filters
-  const filteredDecorations = useMemo(() => {
-    return decorationsData.filter((item) => {
+  const filteredAndSortedDecorations = useMemo(() => {
+    // First filter
+    const filtered = decorationsData.filter((item) => {
       // Theme filter
       if (selectedTheme !== "all" && item.theme !== selectedTheme) return false
 
@@ -68,14 +71,53 @@ export default function DecorationsPage() {
 
       return true
     })
-  }, [selectedTheme, selectedMaterial, selectedStyle, priceRange])
+
+    // Then sort
+    switch (sortBy) {
+      case "price-low-high":
+        filtered.sort((a, b) => {
+          const priceA = Number.parseInt(a.price.replace(/[^0-9]/g, ""))
+          const priceB = Number.parseInt(b.price.replace(/[^0-9]/g, ""))
+          return priceA - priceB
+        })
+        break
+      case "price-high-low":
+        filtered.sort((a, b) => {
+          const priceA = Number.parseInt(a.price.replace(/[^0-9]/g, ""))
+          const priceB = Number.parseInt(b.price.replace(/[^0-9]/g, ""))
+          return priceB - priceA
+        })
+        break
+      case "newest":
+        // Sort by ID in descending order (assuming higher ID = newer)
+        filtered.sort((a, b) => {
+          const idA = typeof a.id === "string" ? Number.parseInt(a.id.replace(/[^0-9]/g, "")) : Number(a.id)
+          const idB = typeof b.id === "string" ? Number.parseInt(b.id.replace(/[^0-9]/g, "")) : Number(b.id)
+          return idB - idA
+        })
+        break
+      case "featured":
+      default:
+        // Keep original order (featured items first if they have isBestSeller)
+        filtered.sort((a, b) => {
+          if (a.isBestSeller && !b.isBestSeller) return -1
+          if (!a.isBestSeller && b.isBestSeller) return 1
+          return 0
+        })
+        break
+    }
+
+    return filtered
+  }, [selectedTheme, selectedMaterial, selectedStyle, priceRange, sortBy])
 
   const clearFilters = () => {
     setSelectedTheme("all")
     setSelectedMaterial("all")
     setSelectedStyle("all")
     setPriceRange("all")
+    setSortBy("featured")
   }
+
 
   return (
     <main className="min-h-screen">
@@ -199,28 +241,32 @@ export default function DecorationsPage() {
             <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-[#414141BF]">Sort by:</span>
-                <select className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]">
-                  <option>Featured</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Newest</option>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="price-low-high">Price: Low to High</option>
+                  <option value="price-high-low">Price: High to Low</option>
+                  <option value="newest">Newest</option>
                 </select>
               </div>
 
-              <div className="text-[#414141BF] text-sm">Showing {filteredDecorations.length} products</div>
+              <div className="text-[#414141BF] text-sm">Showing {filteredAndSortedDecorations.length} products</div>
             </div>
 
             {/* Product grid with featured items */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Featured item - larger */}
-              {filteredDecorations.length > 0 && (
+              {filteredAndSortedDecorations.length > 0 && (
                 <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
-                  <ProductCard product={filteredDecorations[0]} aspectRatio="portrait" />
+                  <ProductCard product={filteredAndSortedDecorations[0]} aspectRatio="portrait" />
                 </div>
               )}
 
               {/* Regular items */}
-              {filteredDecorations
+              {filteredAndSortedDecorations
                 .slice(1) // Skip the featured item
                 .map((decoration) => (
                   <div key={decoration.id}>
@@ -230,7 +276,7 @@ export default function DecorationsPage() {
 
             </div>
               {/* No results message */}
-              {filteredDecorations.length === 0 && (
+              {filteredAndSortedDecorations.length === 0 && (
                 <div className="text-center py-12">
                   <h3 className="text-lg font-medium text-[#414141] mb-2">No products found</h3>
                   <p className="text-[#414141BF] mb-4">Try adjusting your filters to see more results</p>
