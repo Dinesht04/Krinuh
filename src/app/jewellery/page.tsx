@@ -317,7 +317,6 @@ export default function JewelleryPage() {
         </Tabs>
       </div>
 
-      <Footer />
     </main>
   )
 }
