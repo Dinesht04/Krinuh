@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
             
               {children}
               <TonotoFooter/>
-              <Toaster position="top-right" />
+              <Toaster  />
            
           </CartProvider>
      
