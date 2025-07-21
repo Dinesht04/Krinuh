@@ -4,15 +4,15 @@ import { useState } from "react"
 import { Heart, ShoppingCart, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import { Badge } from "@/components/ui/badge"
 import { useCart } from "@/Context/cart-context"
 import { EnquiryForm } from "@/components/enquiry-form"
@@ -30,27 +30,22 @@ export interface Product {
   isBestSeller?: boolean
   cloudinaryPublicId?: string
   category?: string
-
   // Painting specific
   size?: string
   Medium?: string
   Surface?: string
   ToBeDeliveredAs?: string
   Sold?: boolean
-
   // Jewelry specific
   material?: string
   gemstones?: string
   weight?: string
-
   // Decoration specific
   dimensions?: string
   material_type?: string
   style?: string
-
   // Jewel and Decor Specific
-  theme?:string
-
+  theme?: string
   // Common
   description?: string
 }
@@ -111,8 +106,8 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
 
   return (
     <>
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerTrigger asChild>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <SheetTrigger asChild>
           <div className="group relative cursor-pointer overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
             <div className="relative">
               {/* Image with Cloudinary support */}
@@ -189,205 +184,207 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
               </Button>
             </div>
           </div>
-        </DrawerTrigger>
+        </SheetTrigger>
 
-        <DrawerContent className="max-h-[95vh] md:max-h-[90vh] overflow-y-auto">
-          <div className="mx-auto w-full max-w-lg">
-            <DrawerHeader>
-              <DrawerTitle className="text-xl text-[#942972]">{productName}</DrawerTitle>
-              <DrawerDescription className="text-[#414141BF]">
-                {isArtwork && "Original Artwork"}
-                {isJewelry && "Handcrafted Jewelry"}
-                {isDecoration && "Home Decoration"}
-                {product.theme && ` • ${product.theme} Theme`}
-              </DrawerDescription>
-            </DrawerHeader>
+        <SheetContent side="bottom" className="h-[90vh] sm:h-[85vh] flex flex-col">
+          <SheetHeader className="flex-shrink-0">
+            <SheetTitle className="text-xl text-[#942972]">{productName}</SheetTitle>
+            <SheetDescription className="text-[#414141BF]">
+              {isArtwork && "Original Artwork"}
+              {isJewelry && "Handcrafted Jewelry"}
+              {isDecoration && "Home Decoration"}
+              {product.theme && ` • ${product.theme} Theme`}
+            </SheetDescription>
+          </SheetHeader>
 
-            <div className="px-4 pb-2 md:py-2">
-              <div className="flex flex-col md:flex-row gap-6">
-                {/* Product image */}
-                <div className="md:w-1/2">
-                  <div className="rounded-lg aspect-square flex items-center justify-center overflow-hidden">
-                    {imageUrl ? (
-                      <CldImage
-                        src={product.cloudinaryPublicId || "/placeholder.svg"}
-                        alt={productName}
-                        width={500}
-                        height={500}
-                        className="w-full h-full object-cover rounded-lg"
-                      />
-                    ) : (
-                      <div className="bg-[#f8e8f3] w-full h-full flex items-center justify-center rounded-lg">
-                        <div className="text-[#942972] text-opacity-20 text-6xl font-light">
-                          {productName.substring(0, 2).toUpperCase()}
-                        </div>
+          {/* Scrollable content area */}
+          <div className="flex-1 overflow-y-auto px-0 py-4">
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Product image */}
+              <div className="lg:w-1/2">
+                <div className="rounded-lg aspect-square flex items-center justify-center overflow-hidden">
+                  {imageUrl ? (
+                    <CldImage
+                      src={product.cloudinaryPublicId || "/placeholder.svg"}
+                      alt={productName}
+                      width={500}
+                      height={500}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="bg-[#f8e8f3] w-full h-full flex items-center justify-center rounded-lg">
+                      <div className="text-[#942972] text-opacity-20 text-6xl font-light">
+                        {productName.substring(0, 2).toUpperCase()}
                       </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Product details */}
-                <div className="md:w-1/2">
-                  <div className="flex justify-between items-start mb-2 md:mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-[#414141]">{productName}</h3>
-                      {product.theme && <p className="text-sm text-[#942972] mb-1">{product.theme} Theme</p>}
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xl font-bold text-[#942972]">₹{product.price}</span>
-                        {originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">₹{originalPrice}/-</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {product.isBestSeller && <Badge className="bg-[#942972]">Best Seller</Badge>}
-                  </div>
-
-                  {/* Specifications */}
-                  <div className="space-y-2 mb-4 md:space-y-4 md:mb-6">
-                    {/* Artwork specific details */}
-                    {isArtwork && (
-                      <>
-                        {product.size && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Size:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.size}</span>
-                          </div>
-                        )}
-                        {product.Medium && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Medium:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.Medium}</span>
-                          </div>
-                        )}
-                        {product.Surface && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Surface:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.Surface}</span>
-                          </div>
-                        )}
-                        {product.ToBeDeliveredAs && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Delivered As:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.ToBeDeliveredAs}</span>
-                          </div>
-                        )}
-                      </>
-                    )}
-
-                    {/* Jewelry specific details */}
-                    {isJewelry && (
-                      <>
-                        {product.material && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Material:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.material}</span>
-                          </div>
-                        )}
-                        {product.gemstones && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Gemstones:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.gemstones}</span>
-                          </div>
-                        )}
-                        {product.weight && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Weight:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.weight}</span>
-                          </div>
-                        )}
-                        {product.theme && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Theme:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.theme}</span>
-                          </div>
-                        )}
-                      </>
-                    )}
-
-                    {/* Decoration specific details */}
-                    {isDecoration && (
-                      <>
-                        {product.dimensions && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Dimensions:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.dimensions}</span>
-                          </div>
-                        )}
-                        {product.material_type && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Material:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.material_type}</span>
-                          </div>
-                        )}
-                        {product.style && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Style:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.style}</span>
-                          </div>
-                        )}
-                        {product.theme && (
-                          <div className="flex justify-between">
-                            <span className="text-sm text-[#414141BF]">Theme:</span>
-                            <span className="text-sm font-medium text-[#414141]">{product.theme}</span>
-                          </div>
-                        )}
-                      </>
-                    )}
-                  </div>
-
-                  {/* Description */}
-                  {product.description && (
-                    <div className="mb-3 md:mb-6">
-                      <h4 className="text-sm font-semibold text-[#414141] mb-2">Description</h4>
-                      <p className="text-sm text-[#414141BF] leading-relaxed">{product.description}</p>
                     </div>
                   )}
-
-                  {/* Action buttons */}
-                  <div className="space-y-3">
-                    {!product.Sold ? (
-                      <>
-                        <Button className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white" onClick={handleAddToCart}>
-                          <ShoppingCart size={16} className="mr-2" />
-                          Add to Cart
-                        </Button>
-                        <div className="grid grid-cols-2 gap-2">
-                          <Button
-                            variant="outline"
-                            className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3]"
-                            onClick={handleBuyNow}
-                          >
-                            Buy Now
-                          </Button>
-                          <Button
-                            variant="outline"
-                            className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3]"
-                            onClick={handleEnquiry}
-                          >
-                            <MessageSquare size={16} className="mr-2" />
-                            Enquire
-                          </Button>
-                        </div>
-                      </>
-                    ) : (
-                      <Button disabled className="w-full">
-                        Sold Out
-                      </Button>
-                    )}
-                  </div>
                 </div>
               </div>
-            </div>
 
-            <DrawerFooter>
-              <DrawerClose asChild>
-                <Button variant="outline">Close</Button>
-              </DrawerClose>
-            </DrawerFooter>
+              {/* Product details */}
+              <div className="lg:w-1/2">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-[#414141]">{productName}</h3>
+                    {product.theme && <p className="text-sm text-[#942972] mb-1">{product.theme} Theme</p>}
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="text-xl font-bold text-[#942972]">₹{product.price}</span>
+                      {originalPrice && <span className="text-sm text-gray-500 line-through">₹{originalPrice}/-</span>}
+                    </div>
+                  </div>
+                  {product.isBestSeller && <Badge className="bg-[#942972]">Best Seller</Badge>}
+                </div>
+
+                {/* Specifications */}
+                <div className="space-y-3 mb-6">
+                  {/* Artwork specific details */}
+                  {isArtwork && (
+                    <>
+                      {product.size && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Size:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.size}</span>
+                        </div>
+                      )}
+                      {product.Medium && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Medium:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.Medium}</span>
+                        </div>
+                      )}
+                      {product.Surface && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Surface:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.Surface}</span>
+                        </div>
+                      )}
+                      {product.ToBeDeliveredAs && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Delivered As:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.ToBeDeliveredAs}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {/* Jewelry specific details */}
+                  {isJewelry && (
+                    <>
+                      {product.material && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Material:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.material}</span>
+                        </div>
+                      )}
+                      {product.gemstones && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Gemstones:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.gemstones}</span>
+                        </div>
+                      )}
+                      {product.weight && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Weight:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.weight}</span>
+                        </div>
+                      )}
+                      {product.theme && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Theme:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.theme}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+
+                  {/* Decoration specific details */}
+                  {isDecoration && (
+                    <>
+                      {product.dimensions && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Dimensions:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.dimensions}</span>
+                        </div>
+                      )}
+                      {product.material_type && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Material:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.material_type}</span>
+                        </div>
+                      )}
+                      {product.style && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Style:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.style}</span>
+                        </div>
+                      )}
+                      {product.theme && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-[#414141BF]">Theme:</span>
+                          <span className="text-sm font-medium text-[#414141]">{product.theme}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {/* Description */}
+                {product.description && (
+                  <div className="mb-6">
+                    <h4 className="text-sm font-semibold text-[#414141] mb-2">Description</h4>
+                    <p className="text-sm text-[#414141BF] leading-relaxed">{product.description}</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </DrawerContent>
-      </Drawer>
+
+          {/* Fixed footer with action buttons */}
+          <SheetFooter className="flex-shrink-0 border-t pt-4">
+            <div className="w-full space-y-3">
+              {!product.Sold ? (
+                <>
+                  <Button className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white" onClick={handleAddToCart}>
+                    <ShoppingCart size={16} className="mr-2" />
+                    Add to Cart
+                  </Button>
+                  <div className="grid grid-cols-3 gap-2">
+                    <Button
+                      variant="outline"
+                      className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3] bg-transparent"
+                      onClick={handleBuyNow}
+                    >
+                      Buy Now
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3] bg-transparent"
+                      onClick={handleEnquiry}
+                    >
+                      <MessageSquare size={16} className="mr-1" />
+                      Enquire
+                    </Button>
+                    <SheetClose asChild>
+                      <Button variant="outline">Close</Button>
+                    </SheetClose>
+                  </div>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  <Button disabled className="w-full">
+                    Sold Out
+                  </Button>
+                  <SheetClose asChild>
+                    <Button variant="outline" className="w-full bg-transparent">
+                      Close
+                    </Button>
+                  </SheetClose>
+                </div>
+              )}
+            </div>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
 
       {/* Enquiry Form */}
       <EnquiryForm
