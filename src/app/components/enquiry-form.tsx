@@ -80,8 +80,8 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
 
       toast.success(
         enquiryType === "custom"
-          ? "Custom enquiry placed! We will get in contact with you soon. We prefer WhatsApp ❤️"
-          : "Product enquiry sent! We will get in contact with you soon. We prefer WhatsApp ❤️",
+          ? "Custom enquiry placed! We will get in contact with you soon through WhatsApp ❤️"
+          : "Product enquiry sent! We will get in contact with you soon through WhatsApp ❤️",
       )
 
       // Reset form
@@ -173,7 +173,7 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
               <Input
                 id="firstName"
                 name="firstName"
-                placeholder="Jane"
+                placeholder="First Name"
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
@@ -185,7 +185,7 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
               <Input
                 id="lastName"
                 name="lastName"
-                placeholder="Doe"
+                placeholder="Last Name"
                 type="text"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
@@ -199,7 +199,7 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
             <Input
               id="email"
               name="Email"
-              placeholder="jane@example.com"
+              placeholder="First Name@example.com"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

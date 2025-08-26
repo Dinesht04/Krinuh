@@ -20,7 +20,8 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/dragonfly.png" sizes="any" />
       </head>
-      <body className="bg-[#ffffff]">
+      <body className=" ">
+      
         
           <CartProvider>
             

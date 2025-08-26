@@ -3,28 +3,30 @@ import { FaFacebookF, FaInstagram, FaPinterestP } from "react-icons/fa";
 
 export default function TonotoFooter() {
   return (
-    <footer className="bg-[#dfcce3] text-black text-center px-4 py-10">
-      {/* Logo */}
-      <div className="flex justify-center mb-4">
-        <Image
-          src="/dragonfly.svg"
-          alt="Sound of Colours"
-          width={40}
-          height={40}
-        />
-      </div>
+    <footer className="bg-pattern text-black text-center px-4 py-10">
+      <div className="flex justify-center items-center space-x-8">
+        <div>
+          <div className="flex justify-center mb-4">
+          <Image
+            src="/dragonfly.svg"
+            alt="Sound of Colours"
+            width={40}
+            height={40}
+          />
+        </div>
 
-      {/* Brand Name */}
-      <h2 className="text-2xl font-bold mb-4 text-[#952e6a] tracking-wide">KRINUH</h2>
+        {/* Brand Name */}
+        <h2 className="text-2xl font-bold mb-4 text-[#952e6a] tracking-wide">KRINUH</h2>
 
-      {/* Description */}
-      <p className="max-w-md mx-auto mb-6 text-sm leading-relaxed">
-        Discover exquisite, handcrafted jewelry that radiates elegance and
-        captures your unique style. A brand which stands for everything Made In
-        India yet is modern and contemporary.
-      </p>
-
-      {/* Contact Section */}
+        {/* Description */}
+        <p className="max-w-md mx-auto mb-6 text-sm leading-relaxed">
+          Discover exquisite, handcrafted jewelry that radiates elegance and
+          captures your unique style. A brand which stands for everything Made In
+          India yet is modern and contemporary.
+        </p>
+        </div>
+        <div>
+             {/* Contact Section */}
       <div className="text-sm mb-6">
         <p className="font-bold">CONTACT US</p>
         <p className="font-semibold mt-2">For Order Related Queries:</p>
@@ -66,6 +68,10 @@ export default function TonotoFooter() {
           <FaPinterestP />
         </a>
       </div>
+        </div>
+      </div>
+
+     
     </footer>
   );
 }

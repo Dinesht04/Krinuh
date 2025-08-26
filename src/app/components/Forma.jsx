@@ -109,7 +109,7 @@ const Form = ({ setShowForm, showForm, id, src, size, price, closeForm }) => {
                 <Input
                   id="firstName"
                   name="firstName"
-                  placeholder="Jane"
+                  placeholder="First Name"
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -120,7 +120,7 @@ const Form = ({ setShowForm, showForm, id, src, size, price, closeForm }) => {
                 <Input
                   id="lastName"
                   name="lastName"
-                  placeholder="Doe"
+                  placeholder="Last Name"
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -133,7 +133,7 @@ const Form = ({ setShowForm, showForm, id, src, size, price, closeForm }) => {
               <Input
                 id="email"
                 name="Email"
-                placeholder="jane@example.com"
+                placeholder="First Name@example.com"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

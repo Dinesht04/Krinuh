@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export function CategoryFeature() {
   return (
-    <div className="py-12 bg-[#f8f8f8]">
+    <div className="py-12 bg-pattern ">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8 text-[#414141]">Shop by Category</h2>
 

@@ -2,7 +2,7 @@ import React from "react";
 
 export default function OurStorySection() {
   return (
-    <section className="text-center px-6 py-12 relative overflow-hidden">
+    <section className="text-center bg-pattern  px-6 py-12 relative overflow-hidden">
       <h2 className="text-3xl font-cursive font-semibold mb-6">Our Story</h2>
 
       {/* Dragonflies on both sides */}

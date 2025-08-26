@@ -72,7 +72,7 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
   }
 
   return (
-    <div className={cn("py-8", className)}>
+    <div className={cn("py-8 bg-pattern", className)}>
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-[#414141]">{title}</h2>
 

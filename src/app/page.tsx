@@ -15,7 +15,6 @@ import {
 import TonotoOfferCarousel from "@/components/TonotoOfferCarousel"
 import OurStorySection from "@/components/OurStorySection"
 
-//todo
 
 export default function Home() {
   // Filter for unsold paintings and limit to 7
@@ -34,6 +33,8 @@ export default function Home() {
       <TonotoOfferCarousel/>
       <HeroCarousel slides={heroSlides} />
 
+      
+
       <ProductCarousel title="Best Sellers" products={limitedBestSellers} />
 
       <ShopByCategories />
@@ -46,7 +47,7 @@ export default function Home() {
         <ProductCarousel
           title="Beautiful Paintings"
           products={availablePaintings}
-          className="bg-[#f8f8f8]"
+          className="bg-pattern"
           viewAllLink="/gallery"
         />
       </div>
@@ -61,7 +62,7 @@ export default function Home() {
         <ProductCarousel
           title="Exquisite Jewelry"
           products={limitedJewelry}
-          className="bg-[#f8f8f8]"
+          className="bg-pattern"
           viewAllLink="/jewellery"
         />
       </div>

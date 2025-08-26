@@ -112,7 +112,7 @@ const Enquire = ({id,src,}) =>{
                         <Input
                         id="firstName"
                         name="firstName"
-                        placeholder="Jane"
+                        placeholder=""
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstname(e.target.value)}
@@ -123,7 +123,7 @@ const Enquire = ({id,src,}) =>{
                         <Input
                         id="lastName"
                         name="lastName"
-                        placeholder="Doe"
+                        placeholder="Last Name"
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastname(e.target.value)}
@@ -135,7 +135,7 @@ const Enquire = ({id,src,}) =>{
                     <Input
                         id="email"
                         name="Email"
-                        placeholder="JaneDoe@gmai.com"
+                        placeholder="Your Email Address@gmai.com"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

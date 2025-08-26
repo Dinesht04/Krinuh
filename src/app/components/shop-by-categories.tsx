@@ -44,7 +44,7 @@ const categories = [
 
 export function ShopByCategories() {
   return (
-    <div className="py-12 bg-white">
+    <div className="py-12 bg-pattern ">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8 text-[#414141] tracking-wider">
           SHOP BY CATEGORIES

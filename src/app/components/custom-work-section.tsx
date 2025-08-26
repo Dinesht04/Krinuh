@@ -11,14 +11,14 @@ export function CustomWorkSection() {
   const [showEnquiryForm, setShowEnquiryForm] = useState(false)
   const [enquiryCategory, setEnquiryCategory] = useState<"paintings" | "jewelry" | "decorations">("paintings")
 
-  const handleCustomEnquiry = (category: "paintings" | "jewelry" | "decorations") => {
+   const handleCustomEnquiry = (category: "paintings" | "jewelry" | "decorations") => {
     setEnquiryCategory(category)
     setShowEnquiryForm(true)
   }
 
   return (
     <>
-      <div className="py-16 bg-[#f8f8f8]">
+      <div className="py-16 bg-pattern ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-[#414141] mb-3">Custom & Bespoke Creations</h2>
@@ -83,7 +83,7 @@ export function CustomWorkSection() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-6">
+              <div id="custom-work" className="p-6">
                 <h3 className="text-xl font-semibold text-[#414141] mb-2">Custom Paintings</h3>
                 <p className="text-[#414141BF] mb-4">
                   Commission a unique painting for your space. From landscapes to abstracts, I can create artwork that
@@ -168,8 +168,8 @@ export function CustomWorkSection() {
           <div className="text-center">
             <h3 className="text-xl font-semibold text-[#414141] mb-3">Ready to create something unique?</h3>
             <p className="text-[#414141BF] mb-6 max-w-2xl mx-auto">
-              Let&apos;s collaborate on a one-of-a-kind piece that perfectly suits your needs and preferences. We prefer
-              WhatsApp ❤️ for quick communication!
+              Let&apos;s collaborate on a one-of-a-kind piece that perfectly suits your needs and preferences. We use
+              WhatsApp  for quick communication!
             </p>
             <Button
               size="lg"

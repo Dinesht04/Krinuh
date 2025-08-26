@@ -93,7 +93,7 @@ const CustomEnquire = () =>{
                         <Input
                         id="firstName"
                         name="firstName"
-                        placeholder="Jane"
+                        placeholder="First Name"
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstname(e.target.value)}
@@ -104,7 +104,7 @@ const CustomEnquire = () =>{
                         <Input
                         id="lastName"
                         name="lastName"
-                        placeholder="Doe"
+                        placeholder="Last name"
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastname(e.target.value)}
@@ -116,7 +116,7 @@ const CustomEnquire = () =>{
                     <Input
                         id="email"
                         name="Email"
-                        placeholder="JaneDoe@gmai.com"
+                        placeholder="Your Email Address"
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
