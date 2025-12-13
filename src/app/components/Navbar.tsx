@@ -125,7 +125,7 @@ export default function Navbar() {
           </nav>
 
           {/* Logo */}
-          <div className={cn("absolute left-1/2 transform -translate-x-1/2", "lg:static lg:transform-none lg:left-0")}>
+          <div className={cn("absolute left-1/2 transform -translate-x-1/2", "lg:transform-none lg:left-12")}>
             <Link href="/" className="text-[#942972] text-2xl font-semibold">
               KRINUH
             </Link>
