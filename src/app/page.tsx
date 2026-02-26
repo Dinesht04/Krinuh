@@ -35,7 +35,7 @@ export default function Home() {
 
       
 
-      <ProductCarousel title="Best Sellers" products={limitedBestSellers} />
+      {/* <ProductCarousel title="Best Sellers" products={limitedBestSellers} /> */}
 
       <ShopByCategories />
 
@@ -54,18 +54,18 @@ export default function Home() {
 
       <CustomWorkSection />
 
-      <div id="decorations">
+      {/* <div id="decorations">
         <ProductCarousel title="Home Decorations" products={limitedDecorations} viewAllLink="/decorations" />
-      </div>
+      </div> */}
 
-      <div id="jewelry">
+      {/* <div id="jewelry">
         <ProductCarousel
           title="Exquisite Jewelry"
           products={limitedJewelry}
           className="bg-pattern"
           viewAllLink="/jewellery"
         />
-      </div>
+      </div> */}
 
     </main>
   )

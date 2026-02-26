@@ -47,13 +47,13 @@ export function ShopByCategories() {
     <div className="py-12 bg-pattern ">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8 text-[#414141] tracking-wider">
-          SHOP BY CATEGORIES
+         JEWELLERY CATEGORIES
         </h2>
 
         {/* Mobile: Single column grid, Tablet: 2 columns, Desktop: 3 columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {categories.map((category) => (
-            <Link key={category.id} href={category.href} className="group">
+            <Link key={category.id} href="#custom-work" className="group">
               <div className="relative overflow-hidden rounded-lg aspect-[4/3]">
                 {/* Category image */}
                 <Image
@@ -82,13 +82,13 @@ export function ShopByCategories() {
         </div>
 
         {/* Call to action */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <Link href="/jewellery">
             <button className="bg-[#942972] hover:bg-[#7b1d5e] text-white px-6 py-3 rounded-full font-medium transition-colors duration-200">
               Explore All Jewelry
             </button>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   )

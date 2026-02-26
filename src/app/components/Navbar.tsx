@@ -10,15 +10,15 @@ import { useCart } from "@/Context/cart-context"
 
 const navItems = [
   { name: "Paintings", href: "/gallery" },
-  { name: "Decorations", href: "/decorations" },
-  { name: "Jewelry", href: "/jewellery" },
+  // { name: "Decorations", href: "/decorations" },
+  // { name: "Jewelry", href: "/jewellery" },
 ]
 
 const mobileNavItems = [
   { name: "Paintings", href: "/gallery", hasArrow: true },
   // { name: "Wall Art", href: "/gallery?type=wall-art", hasArrow: false },
   // { name: "Canvas Prints", href: "/gallery?type=canvas", hasArrow: false },
-  { name: "Decorations", href: "/decorations", hasArrow: true },
+  // { name: "Decorations", href: "/decorations", hasArrow: true },
   // { name: "Home Accents", href: "/decorations?type=accents", hasArrow: false },
   // { name: "Vases & Planters", href: "/decorations?type=vases", hasArrow: false },
   { name: "Jewelry", href: "/jewellery", hasArrow: true },

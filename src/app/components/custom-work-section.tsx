@@ -18,7 +18,7 @@ export function CustomWorkSection() {
 
   return (
     <>
-      <div className="py-16 bg-pattern ">
+      <div id="custom-work" className="py-16 bg-pattern ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-[#414141] mb-3">Custom & Bespoke Creations</h2>

@@ -286,7 +286,7 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
           </Button>
         </form>
 
-        <div className="mt-4 text-sm text-[#414141BF] text-center flex">
+        <div className="mt-4 text-sm text-[#414141BF] text-center flex lg:justify-center lg:items-center lg:space-x-4">
                     
                   <div> We use WhatsApp
                   for order updates and further communications.
