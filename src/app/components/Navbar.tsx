@@ -9,7 +9,7 @@ import { SearchDialog } from "@/components/search-dialog"
 import { useCart } from "@/Context/cart-context"
 
 const navItems = [
-  { name: "Paintings", href: "/gallery" },
+  // { name: "Paintings", href: "/gallery" },
   // { name: "Decorations", href: "/decorations" },
   // { name: "Jewelry", href: "/jewellery" },
 ]
