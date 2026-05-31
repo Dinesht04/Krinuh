@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Heart, ShoppingCart, MessageSquare } from "lucide-react"
+import { Heart, ShoppingCart, MessageSquare, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -29,6 +29,7 @@ export interface Product {
   image?: string
   isBestSeller?: boolean
   cloudinaryPublicId?: string
+  cloudinaryPublicIds?: string[] // Added support for multiple images
   category?: string
   // Painting specific
   size?: string
@@ -60,20 +61,34 @@ interface ProductCardProps {
 export function ProductCard({ product, aspectRatio = "square", width = 400, height = 400 }: ProductCardProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [showEnquiryForm, setShowEnquiryForm] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const { addToCart } = useCart()
 
   // Get product name (title or name)
   const productName = product.title || product.name || "Product"
 
-  // Handle Cloudinary image URL
-  const getImageUrl = () => {
-    if (product.cloudinaryPublicId) {
-      return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1/paintings/${product.cloudinaryPublicId}`
-    }
-    return product.image || null
+  // Aggregate images for the carousel
+  const images = product.cloudinaryPublicIds && product.cloudinaryPublicIds.length > 0
+    ? product.cloudinaryPublicIds
+    : product.cloudinaryPublicId
+      ? [product.cloudinaryPublicId]
+      : []
+  
+  const hasMultipleImages = images.length > 1
+  const currentImage = images[currentImageIndex]
+
+  // Image Navigation Handlers
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation() // Prevents opening the Sheet
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
   }
 
-  const imageUrl = getImageUrl()
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation() // Prevents opening the Sheet
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
+  }
 
   // Calculate original price if discount exists
   const numericPrice = Number.parseInt(product.price.replace(/[^0-9]/g, ""))
@@ -94,7 +109,6 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
   const handleBuyNow = () => {
     if (!product.Sold) {
       addToCart(product)
-      // Navigate to cart page or checkout
       window.location.href = "/cart"
     }
   }
@@ -110,17 +124,17 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
         <SheetTrigger asChild>
           <div className="group relative cursor-pointer overflow-hidden rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
             <div className="relative">
-              {/* Image with Cloudinary support */}
+              {/* Image Container */}
               <div
-                className="w-full aspect-square flex items-center justify-center overflow-hidden"
+                className="w-full relative flex items-center justify-center overflow-hidden bg-gray-50"
                 style={{
                   aspectRatio: aspectRatio === "portrait" ? "3/4" : "1/1",
                 }}
               >
-                {imageUrl ? (
+                {currentImage || product.image ? (
                   <CldImage
-                    src={product.cloudinaryPublicId || "/placeholder.svg"}
-                    alt={productName}
+                    src={currentImage || product.image || "/placeholder.svg"}
+                    alt={`${productName} - Image ${currentImageIndex + 1}`}
                     width={500}
                     height={500}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
@@ -132,30 +146,65 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                     </div>
                   </div>
                 )}
+
+                {/* Carousel Navigation Arrows */}
+                {hasMultipleImages && (
+                  <>
+                    <button
+                      onClick={handlePrevImage}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none"
+                    >
+                      <ChevronLeft className="w-5 h-5 text-gray-800" />
+                    </button>
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity focus:outline-none"
+                    >
+                      <ChevronRight className="w-5 h-5 text-gray-800" />
+                    </button>
+
+                    {/* Pagination Dots */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                      {images.map((_, idx) => (
+                        <div
+                          key={idx}
+                          className={`h-1.5 rounded-full transition-all ${
+                            idx === currentImageIndex
+                              ? "w-3 bg-[#942972]"
+                              : "w-1.5 bg-gray-400/80"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
 
               <button
-                className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity z-10"
                 aria-label="Add to wishlist"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  // Add wishlist logic here
+                }}
               >
                 <Heart size={18} className="text-[#942972]" />
               </button>
 
               {product.discount && (
-                <div className="absolute top-2 left-2 bg-[#F36F4A] text-white text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-2 left-2 bg-[#F36F4A] text-white text-xs font-bold px-2 py-1 rounded z-10">
                   {product.discount}% OFF
                 </div>
               )}
 
               {product.isBestSeller && (
-                <div className="absolute top-2 left-2 bg-[#942972] text-white text-xs font-bold px-2 py-1 rounded">
+                <div className="absolute top-2 left-2 bg-[#942972] text-white text-xs font-bold px-2 py-1 rounded z-10">
                   Best Seller
                 </div>
               )}
 
               {product.Sold && (
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
                   <span className="text-white font-bold text-lg">SOLD</span>
                 </div>
               )}
@@ -172,7 +221,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
               {/* Quick add to cart button */}
               <Button
                 size="sm"
-                className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white"
+                className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white relative z-10"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleAddToCart()
@@ -200,13 +249,13 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
           {/* Scrollable content area */}
           <div className="flex-1 overflow-y-auto px-0 py-4">
             <div className="flex flex-col lg:flex-row gap-6">
-              {/* Product image */}
+              {/* Product image (Sheet View) */}
               <div className="lg:w-1/2">
-                <div className="rounded-lg aspect-square flex items-center justify-center overflow-hidden">
-                  {imageUrl ? (
+                <div className="rounded-lg aspect-square relative flex items-center justify-center overflow-hidden bg-gray-50 group">
+                  {currentImage || product.image ? (
                     <CldImage
-                      src={product.cloudinaryPublicId || "/placeholder.svg"}
-                      alt={productName}
+                      src={currentImage || product.image || "/placeholder.svg"}
+                      alt={`${productName} - Image ${currentImageIndex + 1}`}
                       width={500}
                       height={500}
                       className="w-full h-full object-cover rounded-lg"
@@ -217,6 +266,34 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                         {productName.substring(0, 2).toUpperCase()}
                       </div>
                     </div>
+                  )}
+
+                  {/* Carousel inside the Sheet view */}
+                  {hasMultipleImages && (
+                    <>
+                      <button
+                        onClick={handlePrevImage}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <ChevronLeft className="w-6 h-6 text-gray-800" />
+                      </button>
+                      <button
+                        onClick={handleNextImage}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <ChevronRight className="w-6 h-6 text-gray-800" />
+                      </button>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 bg-black/20 px-3 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        {images.map((_, idx) => (
+                          <div
+                            key={idx}
+                            className={`h-2 rounded-full transition-all ${
+                              idx === currentImageIndex ? "w-4 bg-white" : "w-2 bg-white/60"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
