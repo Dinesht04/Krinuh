@@ -9,9 +9,9 @@ import { SearchDialog } from "@/components/search-dialog"
 import { useCart } from "@/Context/cart-context"
 
 const navItems = [
-  // { name: "Paintings", href: "/gallery" },
+  { name: "Paintings", href: "/gallery" },
   // { name: "Decorations", href: "/decorations" },
-  // { name: "Jewelry", href: "/jewellery" },
+  { name: "Jewelry", href: "/jewellery" },
 ]
 
 const mobileNavItems = [
@@ -24,7 +24,7 @@ const mobileNavItems = [
   { name: "Jewelry", href: "/jewellery", hasArrow: true },
   { name: "Earrings", href: "/jewellery?category=earrings", hasArrow: false },
   { name: "Necklaces", href: "/jewellery?category=necklaces", hasArrow: false },
-  { name: "Bracelets", href: "/jewellery?category=bracelets", hasArrow: false },
+  // { name: "Bracelets", href: "/jewellery?category=bracelets", hasArrow: false },
 ]
 
 export default function Navbar() {
@@ -37,7 +37,9 @@ export default function Navbar() {
   return (
     <header className="border-b border-gray-200 sticky top-0 bg-white z-50">
       <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+        {/* ADDED 'relative' HERE to contain the absolute mobile logo */}
+        <div className="flex h-16 items-center justify-between relative">
+          
           {/* Mobile menu button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
@@ -113,8 +115,15 @@ export default function Navbar() {
             </SheetContent>
           </Sheet>
 
+          {/* FIX APPLIED HERE: Added lg:static to restore normal flex flow on desktop */}
+          <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
+            <Link href="/" className="text-[#942972] text-2xl font-semibold">
+              KRINUH
+            </Link>
+          </div>
+
           {/* Desktop navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 <Link href={item.href} className="text-[#414141BF] hover:text-[#942972] transition-colors">
@@ -122,13 +131,6 @@ export default function Navbar() {
                 </Link>
               </div>
             ))}
-          </nav>
-
-          {/* Logo */}
-          <div className={cn("absolute left-1/2 transform -translate-x-1/2", "lg:transform-none lg:left-12")}>
-            <Link href="/" className="text-[#942972] text-2xl font-semibold">
-              KRINUH
-            </Link>
           </div>
 
           {/* Right navigation */}
@@ -146,6 +148,7 @@ export default function Navbar() {
               )}
             </Link>
           </div>
+          
         </div>
       </div>
     </header>

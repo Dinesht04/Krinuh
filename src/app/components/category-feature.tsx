@@ -71,9 +71,9 @@ export function CategoryFeature() {
               <div className="p-6 w-full">
                 <h3 className="text-white text-xl font-semibold mb-2">Jewelry</h3>
                 <p className="text-white/80 mb-4 text-sm">Adorn yourself with our exquisite handcrafted jewelry</p>
-                <Link href="#custom-work">
+                <Link href="/jewellery">
                   <button className="bg-white text-[#942972] px-4 py-2 rounded-full text-sm font-medium hover:bg-[#f8e8f3] transition-colors">
-                    Enquire
+                    Browse
                   </button>
                 </Link>
               </div>
