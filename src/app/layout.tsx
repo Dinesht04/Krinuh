@@ -1,10 +1,10 @@
-import "./globals.css";
 import TonotoFooter from "./components/TonotoFooter";
 import { Inter } from "next/font/google"
 import "./globals.css"
 import type { Metadata } from "next"
 import { CartProvider } from "@/Context/cart-context"
 import { Toaster } from "sonner"
+import WakeBackend from "./lib/wake-backend";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/dragonfly.png" sizes="any" />
       </head>
       <body className=" ">
-      
+              <WakeBackend />
         
           <CartProvider>
             
