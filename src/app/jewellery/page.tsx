@@ -28,6 +28,7 @@ interface JewelleryAPIItem {
   type: "earring" | "head" | "necklace" | "foot" | "hair" | "hand"
   isBestSeller?: boolean
   cldImagePublicIds: string[]
+  sold: boolean
 }
 
 interface JewelleryAPIResponse {
@@ -84,6 +85,7 @@ export default function JewelleryPage() {
   category: "Jewelry",
   isBestSeller: item.isBestSeller,
   name: item.title, 
+  sold: item.sold,
   ...(item.type && { _type: item.type }),
 }))
 

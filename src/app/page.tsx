@@ -18,7 +18,7 @@ import OurStorySection from "@/components/OurStorySection"
 
 export default function Home() {
   // Filter for unsold paintings and limit to 7
-  const availablePaintings = paintingsData.filter((painting) => !painting.Sold).slice(0, 7)
+  const availablePaintings = paintingsData.filter((painting) => !painting.sold).slice(0, 7)
 
   // Limit jewelry and decorations to 7 each
   const limitedJewelry = jewelryData.slice(0, 7)

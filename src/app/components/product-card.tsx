@@ -36,7 +36,7 @@ export interface Product {
   Medium?: string
   Surface?: string
   ToBeDeliveredAs?: string
-  Sold?: boolean
+  sold?: boolean
   // Jewelry specific
   material?: string
   gemstones?: string
@@ -100,14 +100,14 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
   const isDecoration = Boolean(product.dimensions || product.material_type)
 
   const handleAddToCart = () => {
-    if (!product.Sold) {
+    if (!product.sold) {
       addToCart(product)
       toast.success(`${productName} added to cart!`)
     }
   }
 
   const handleBuyNow = () => {
-    if (!product.Sold) {
+    if (!product.sold) {
       addToCart(product)
       window.location.href = "/cart"
     }
@@ -203,7 +203,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                 </div>
               )}
 
-              {product.Sold && (
+              {product.sold && (
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
                   <span className="text-white font-bold text-lg">SOLD</span>
                 </div>
@@ -226,10 +226,10 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                   e.stopPropagation()
                   handleAddToCart()
                 }}
-                disabled={product.Sold}
+                disabled={product.sold}
               >
                 <ShoppingCart size={16} className="mr-2" />
-                {product.Sold ? "Sold Out" : "Add to Cart"}
+                {product.sold ? "Sold Out" : "Add to Cart"}
               </Button>
             </div>
           </div>
@@ -419,7 +419,7 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
           {/* Fixed footer with action buttons */}
           <SheetFooter className="flex-shrink-0 border-t pt-4">
             <div className="w-full space-y-3">
-              {!product.Sold ? (
+              {!product.sold ? (
                 <>
                   <Button className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white" onClick={handleAddToCart}>
                     <ShoppingCart size={16} className="mr-2" />

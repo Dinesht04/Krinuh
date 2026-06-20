@@ -9,7 +9,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Home } from "lucide-react"
-import { toast } from "sonner"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export const dynamic = "force-dynamic"
 
@@ -25,6 +25,7 @@ interface PaintingAPIResponse {
     surface?: string
     toBeDeliveredAs?: string
     cldImagePublicIds: string[]
+    sold: boolean
   }>
 }
 
@@ -35,18 +36,17 @@ async function getPaintings(): Promise<Product[]> {
     })
 
     if (!response.ok) {
-      toast.error("Failed to fetch paintings, Please try again later")
-      return []
+      // Can't toast from a server function — throw instead so the
+      // PaintingsGrid component below can render an inline error message.
+      throw new Error("Failed to fetch paintings")
     }
 
     const apiData: PaintingAPIResponse = await response.json()
 
     if (!apiData.success || !apiData.data) {
-      toast.error("Failed to fetch paintings, Please try again later")
-      return []
+      throw new Error("Failed to fetch paintings")
     }
 
-    // Map API response to Product interface
     return apiData.data.map((painting) => ({
       id: painting._id,
       title: painting.title,
@@ -58,21 +58,62 @@ async function getPaintings(): Promise<Product[]> {
       ToBeDeliveredAs: painting.toBeDeliveredAs,
       cloudinaryPublicId: painting.cldImagePublicIds?.[0],
       category: "Paintings",
-      Sold: false,
+      sold: painting.sold,
     }))
   } catch (error) {
-    toast.error("Failed to fetching paintings, Please try again later")
+    console.error("getPaintings error:", error)
     return []
   }
 }
 
-export default async function GalleryPage() {
+// This is the part that actually awaits the (potentially cold-start-slow)
+// fetch. Wrapping just this piece in <Suspense> means the Navbar, breadcrumb,
+// and heading render immediately, and only this section shows a fallback.
+async function PaintingsGrid() {
   const paintings = await getPaintings()
 
+  if (paintings.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <p className="text-[#414141BF]">No paintings available at the moment.</p>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <p className="text-[#414141BF] mb-6">Showing {paintings.length} paintings</p>
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        {paintings.map((painting, index) => (
+          <div key={painting.id} className="break-inside-avoid">
+            <ProductCard product={painting} aspectRatio={index % 3 === 0 ? "portrait" : "square"} />
+          </div>
+        ))}
+      </div>
+    </>
+  )
+}
+
+function GalleryLoadingSkeleton() {
+  return (
+    <div>
+      <p className="text-[#414141BF] mb-6">Loading paintings...</p>
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="break-inside-avoid">
+            <Skeleton />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// No longer async — page shell renders immediately, grid streams in via Suspense.
+export default function GalleryPage() {
   return (
     <main className="min-h-screen">
       <Navbar />
-
       <div className="container mx-auto px-4 py-6">
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -89,29 +130,13 @@ export default async function GalleryPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-
         <h1 className="text-3xl font-bold text-[#414141] mb-2">Art Gallery</h1>
         <p className="text-[#414141BF] mb-8">Explore our collection of original paintings</p>
 
-        {paintings.length === 0 ? (
-          <div className="flex items-center justify-center min-h-[400px]">
-            <p className="text-[#414141BF]">No paintings available at the moment.</p>
-          </div>
-        ) : (
-          <>
-            <p className="text-[#414141BF] mb-6">Showing {paintings.length} paintings</p>
-            {/* Pinterest-like masonry grid */}
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-              {paintings.map((painting, index) => (
-                <div key={painting.id} className="break-inside-avoid">
-                  <ProductCard product={painting} aspectRatio={index % 3 === 0 ? "portrait" : "square"} />
-                </div>
-              ))}
-            </div>
-          </>
-        )}
+        <Suspense fallback={<GalleryLoadingSkeleton />}>
+          <PaintingsGrid />
+        </Suspense>
       </div>
-
     </main>
   )
 }
