@@ -32,7 +32,7 @@ function mapPaintings(apiData: PaintingAPIResponse): Product[] {
     ToBeDeliveredAs: painting.toBeDeliveredAs,
     cloudinaryPublicId: painting.cldImagePublicIds?.[0],
     category: "Paintings",
-    Sold: painting.sold,
+    sold: painting.sold,
   }))
 }
 
@@ -62,7 +62,6 @@ export function PaintingsClient() {
 
         const apiData: PaintingAPIResponse = await response.json()
         if (!apiData.success || !apiData.data) throw new Error("Malformed response")
-
         if (!cancelled) {
           setPaintings(mapPaintings(apiData))
         }

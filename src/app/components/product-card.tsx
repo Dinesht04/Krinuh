@@ -218,19 +218,33 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                 {originalPrice && <span className="text-sm text-gray-500 line-through">₹{originalPrice}/-</span>}
               </div>
 
-              {/* Quick add to cart button */}
-              <Button
-                size="sm"
-                className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white relative z-10"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleAddToCart()
-                }}
-                disabled={product.sold}
-              >
-                <ShoppingCart size={16} className="mr-2" />
-                {product.sold ? "Sold Out" : "Add to Cart"}
-              </Button>
+              {/* Quick action button: Add to Cart, or Enquire if sold out */}
+              {product.sold ? (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full border-[#942972] text-[#942972] hover:bg-[#f8e8f3] relative z-10"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleEnquiry()
+                  }}
+                >
+                  <MessageSquare size={16} className="mr-2" />
+                  Enquire
+                </Button>
+              ) : (
+                <Button
+                  size="sm"
+                  className="w-full bg-[#942972] hover:bg-[#7b1d5e] text-white relative z-10"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleAddToCart()
+                  }}
+                >
+                  <ShoppingCart size={16} className="mr-2" />
+                  Add to Cart
+                </Button>
+              )}
             </div>
           </div>
         </SheetTrigger>
@@ -309,7 +323,10 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                       {originalPrice && <span className="text-sm text-gray-500 line-through">₹{originalPrice}/-</span>}
                     </div>
                   </div>
-                  {product.isBestSeller && <Badge className="bg-[#942972]">Best Seller</Badge>}
+                  <div className="flex flex-col items-end gap-1">
+                    {product.isBestSeller && <Badge className="bg-[#942972]">Best Seller</Badge>}
+                    {product.sold && <Badge variant="destructive">Sold</Badge>}
+                  </div>
                 </div>
 
                 {/* Specifications */}
@@ -451,11 +468,19 @@ export function ProductCard({ product, aspectRatio = "square", width = 400, heig
                   <Button disabled className="w-full">
                     Sold Out
                   </Button>
-                  <SheetClose asChild>
-                    <Button variant="outline" className="w-full bg-transparent">
-                      Close
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      variant="outline"
+                      className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3] bg-transparent"
+                      onClick={handleEnquiry}
+                    >
+                      <MessageSquare size={16} className="mr-1" />
+                      Enquire
                     </Button>
-                  </SheetClose>
+                    <SheetClose asChild>
+                      <Button variant="outline">Close</Button>
+                    </SheetClose>
+                  </div>
                 </div>
               )}
             </div>
