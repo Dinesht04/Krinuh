@@ -52,7 +52,7 @@ export function PaintingsClient() {
         const controller = new AbortController()
         const timeoutId = setTimeout(() => controller.abort(), 15000)
 
-        const response = await fetch("https://krinuh-be-ts.onrender.com/painting/all", {
+        const response = await fetch("https://krinuh-be-ts.vercel.app/painting/all", {
           cache: "no-store",
           signal: controller.signal,
         })

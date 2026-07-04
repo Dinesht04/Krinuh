@@ -54,7 +54,7 @@ export default function JewelleryPage() {
     const fetchJewelry = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch("https://krinuh-be-ts.onrender.com/jewellery/all", {
+        const response = await fetch("https://krinuh-be-ts.vercel.app/jewellery/all", {
           cache: "no-store",
         })
 
