@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { FaFacebookF, FaInstagram, FaPinterestP } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function TonotoFooter() {
   return (
@@ -23,7 +22,7 @@ export default function TonotoFooter() {
           <div className="text-xs text-krinuh-text space-y-2.5">
             <p className="">
               WhatsApp{" "}
-              <a href="https://wa.me/918302386540" className="hover:text-krinuh-primary">+91 83023 86540</a>
+              <a href="https://wa.me/919783194096" className="hover:text-krinuh-primary">+91 83023 86540</a>
             </p>
             <p>
               <a href="mailto:contact.krinuh@gmail.com" className="hover:text-krinuh-primary">contact.krinuh@gmail.com</a>
@@ -34,9 +33,9 @@ export default function TonotoFooter() {
 
         {/* Social */}
         <div className="flex justify-center gap-2 text-krinuh-ink text-lg">
-          <a href="#" aria-label="Facebook" className="hover:text-krinuh-primary transition-colors"><FaFacebookF /></a>
-          <a href="#" aria-label="Instagram" className="hover:text-krinuh-primary transition-colors"><FaInstagram /></a>
-          <a href="#" aria-label="Pinterest" className="hover:text-krinuh-primary transition-colors"><FaPinterestP /></a>
+          <a href="https://www.facebook.com/people/Krinuh/100063800927065/" aria-label="Facebook" className="hover:text-krinuh-primary transition-colors"><FaFacebookF /></a>
+          <a href="https://www.instagram.com/krinuh.art/" aria-label="Instagram" className="hover:text-krinuh-primary transition-colors"><FaInstagram /></a>
+          <a href="https://www.youtube.com/@krinuh" aria-label="Pinterest" className="hover:text-krinuh-primary transition-colors"><FaYoutube /></a>
         </div>
 
         {/* Newsletter */}
