@@ -12,6 +12,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { useCart } from "@/Context/cart-context"
 import { toast } from "sonner"
 import emailjs from '@emailjs/browser';
+import { WHATSAPP_NUMBER } from "@/lib/whatsapp"
+
+// EmailJS config (public identifiers — safe to expose to the browser).
+const EMAILJS_SERVICE = process.env.NEXT_PUBLIC_EMAILJS_SERVICE || "service_2uaoxt5"
+const EMAILJS_TEMPLATE = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE || "template_iguyl89"
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "WA_Wbe3R2R6QleO9U"
 
 // Validation functions
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -75,21 +81,72 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
     }
 
     setIsSubmitting(true)
-    
+
     try {
-      emailjs.sendForm(
-        process.env.EMAILJS_SERVICE,
-        process.env.EMAILJS_TEMPLATE,
-        formRef.current,
-        { publicKey: 'WA_Wbe3R2R6QleO9U' }
-      )
+      const orderItems = cartItems.map((item) => ({
+        productId: String(item.id),
+        title: item.title || item.name,
+        price: item.price,
+        quantity: item.quantity,
+      }))
+
+      const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_API+"/order/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          address,
+          city,
+          state,
+          pincode,
+          notes,
+          items: orderItems,
+          shipping,
+          totalAmount: finalTotal,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to save order")
+      }
+
+      const orderResult = await response.json()
+      const orderId = orderResult?.data?._id ?? ""
+
+      try {
+        await emailjs.sendForm(
+          EMAILJS_SERVICE,
+          EMAILJS_TEMPLATE,
+          formRef.current,
+          { publicKey: EMAILJS_PUBLIC_KEY }
+        )
+      } catch (emailError) {
+        console.error("Order email sending failed:", emailError)
+      }
 
       toast.success("Order placed successfully! We will get in contact with you soon through WhatsApp ❤️")
+
+      // Redirect the customer to WhatsApp pre-filled with their order details.
+      const itemsSummary = orderItems
+        .map((item) => `- ${item.title} × ${item.quantity}`)
+        .join("\n")
+      const whatsappMessage =
+        `hi my name is ${firstName} ${lastName}, I've placed an order.\n\n` +
+        `${itemsSummary}\n\n` +
+        `Total cost: ${formatPrice(finalTotal)}\n` +
+        `Order ID: ${orderId}`
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
+
       clearCart()
-      
       onClose()
+
+      // Open in a new tab so the storefront stays put behind the chat.
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer")
     } catch (error) {
-      console.error("Order email sending failed:", error)
+      console.error("Order placement failed:", error)
       toast.error("Failed to place order. Please try again.")
     } finally {
       setIsSubmitting(false)
@@ -100,34 +157,34 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-[#942972]">Complete Your Order</DialogTitle>
+          <DialogTitle className="text-krinuh-primary">Complete Your Order</DialogTitle>
         </DialogHeader>
 
         {/* Order Summary */}
-        <div className="bg-[#f8e8f3] rounded-lg p-4 mb-6">
-          <h3 className="font-medium text-[#414141] mb-3">Order Summary</h3>
+        <div className="bg-krinuh-light rounded-none p-4 mb-6">
+          <h3 className="font-medium text-krinuh-text mb-3">Order Summary</h3>
           <div className="space-y-2 text-sm">
             {cartItems.map((item) => {
               const itemPrice = Number.parseInt(item.price.replace(/[^0-9]/g, ""))
               return (
                 <div key={item.id} className="flex justify-between">
-                  <span className="text-[#414141BF]">
+                  <span className="text-krinuh-text/75">
                     {item.title || item.name} × {item.quantity}
                   </span>
-                  <span className="text-[#414141]">{formatPrice(itemPrice * item.quantity)}</span>
+                  <span className="text-krinuh-text">{formatPrice(itemPrice * item.quantity)}</span>
                 </div>
               )
             })}
             <div className="border-t pt-2 mt-2">
               <div className="flex justify-between">
-                <span className="text-[#414141BF]">Subtotal:</span>
-                <span className="text-[#414141]">{formatPrice(total)}</span>
+                <span className="text-krinuh-text/75">Subtotal:</span>
+                <span className="text-krinuh-text">{formatPrice(total)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#414141BF]">Shipping:</span>
-                <span className="text-[#414141]">{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
+                <span className="text-krinuh-text/75">Shipping:</span>
+                <span className="text-krinuh-text">{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
               </div>
-              <div className="flex justify-between font-medium text-[#942972]">
+              <div className="flex justify-between font-medium text-krinuh-primary">
                 <span>Total:</span>
                 <span>{formatPrice(finalTotal)}</span>
               </div>
@@ -138,7 +195,7 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           {/* Personal Information */}
           <div className="space-y-4">
-            <h3 className="font-medium text-[#414141]">Personal Information</h3>
+            <h3 className="font-medium text-krinuh-text">Personal Information</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="firstName">First Name *</Label>
@@ -195,7 +252,7 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
 
           {/* Shipping Address */}
           <div className="space-y-4">
-            <h3 className="font-medium text-[#414141]">Shipping Address</h3>
+            <h3 className="font-medium text-krinuh-text">Shipping Address</h3>
             <div className="space-y-2">
               <Label htmlFor="address">Address *</Label>
               <Textarea
@@ -270,7 +327,7 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
               checked={agreeToTerms}
               onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
             />
-            <Label htmlFor="terms" className="text-sm text-[#414141BF]">
+            <Label htmlFor="terms" className="text-sm text-krinuh-text/75">
               I agree to the terms and conditions and privacy policy
             </Label>
           </div>
@@ -281,12 +338,12 @@ export function CheckoutForm({ isOpen, onClose }: CheckoutFormProps) {
           <input type="hidden" name="itemCount" value={cartItems.length} />
           <input type="hidden" name="orderItems" value={JSON.stringify(cartItems)} />
 
-          <Button type="submit" className="w-full bg-[#942972] hover:bg-[#7b1d5e] py-6 text-lg" disabled={isSubmitting}>
+          <Button type="submit" className="w-full bg-krinuh-primary hover:bg-krinuh-primaryDark rounded-none py-6 text-lg" disabled={isSubmitting}>
             {isSubmitting ? "Placing Order..." : `Place Order - ${formatPrice(finalTotal)}`}
           </Button>
         </form>
 
-        <div className="mt-4 text-sm text-[#414141BF] text-center flex lg:justify-center lg:items-center lg:space-x-4">
+        <div className="mt-4 text-sm text-krinuh-text/75 text-center flex lg:justify-center lg:items-center lg:space-x-4">
                     
                   <div> We use WhatsApp
                   for order updates and further communications.

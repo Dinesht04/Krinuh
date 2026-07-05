@@ -25,13 +25,13 @@ export function AnnouncementBar({ messages, interval = 5000 }: AnnouncementBarPr
   if (!isVisible) return null
 
   return (
-    <div className="bg-[#f8e8f3] text-[#942972] py-2 relative">
+    <div className="bg-krinuh-light text-krinuh-primary py-2 relative">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-center">
           <p className="text-center text-sm md:text-base font-medium animate-fade-in">{messages[currentMessage]}</p>
           <button
             onClick={() => setIsVisible(false)}
-            className="absolute right-4 text-[#942972]"
+            className="absolute right-4 text-krinuh-primary"
             aria-label="Close announcement"
           >
             <X size={18} />

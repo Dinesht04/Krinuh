@@ -12,6 +12,7 @@ const navItems = [
   { name: "Paintings", href: "/gallery" },
   // { name: "Decorations", href: "/decorations" },
   { name: "Jewelry", href: "/jewellery" },
+  { name: "Themes", href: "/themes" },
 ]
 
 const mobileNavItems = [
@@ -25,6 +26,7 @@ const mobileNavItems = [
   { name: "Earrings", href: "/jewellery?category=earrings", hasArrow: false },
   { name: "Necklaces", href: "/jewellery?category=necklaces", hasArrow: false },
   // { name: "Bracelets", href: "/jewellery?category=bracelets", hasArrow: false },
+  { name: "Themes", href: "/themes", hasArrow: true },
 ]
 
 export default function Navbar() {
@@ -35,7 +37,7 @@ export default function Navbar() {
   const cartItemCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0)
 
   return (
-    <header className="border-b border-gray-200 sticky top-0 bg-white z-50">
+    <header className="border-b border-krinuh-hairline sticky top-0 bg-white z-50">
       <div className="container mx-auto px-4">
         {/* ADDED 'relative' HERE to contain the absolute mobile logo */}
         <div className="flex h-16 items-center justify-between relative">
@@ -43,33 +45,33 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="lg:hidden">
-              <button className="text-[#414141BF]" aria-label="Open menu">
+              <button className="text-krinuh-text/75" aria-label="Open menu">
                 <Menu size={24} />
               </button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full max-w-xs p-0 bg-[#dfcce3]">
-              <div className="flex items-center justify-center h-16 border-b border-[#d0bdd7]">
+            <SheetContent side="left" className="w-full max-w-xs p-0 bg-krinuh-secondary">
+              <div className="flex items-center justify-center h-16 border-b border-krinuh-secondaryBorder">
                 <SheetClose className="absolute left-4">
-                  <X size={24} className="text-[#414141BF]" />
+                  <X size={24} className="text-krinuh-text/75" />
                 </SheetClose>
-                <Link href="/" className="text-[#942972] text-2xl font-semibold">
+                <Link href="/" className="text-krinuh-primary text-2xl font-semibold">
                   KRINUH
                 </Link>
               </div>
               <div className="py-4 px-6 space-y-4">
                 {/* Search in mobile menu */}
-                <div className="py-2 border-b border-[#d0bdd7]">
-                  <Link href="/search" className="flex items-center text-[#414141BF] text-lg">
+                <div className="py-2 border-b border-krinuh-secondaryBorder">
+                  <Link href="/search" className="flex items-center text-krinuh-text/75 text-lg">
                     <Search size={20} className="mr-2" />
                     Search
                   </Link>
                 </div>
 
                 {mobileNavItems.map((item) => (
-                  <div key={item.name} className="py-2 border-b border-[#d0bdd7] last:border-b-0">
+                  <div key={item.name} className="py-2 border-b border-krinuh-secondaryBorder last:border-b-0">
                     <Link
                       href={item.href}
-                      className="flex items-center justify-between text-[#414141BF] text-lg"
+                      className="flex items-center justify-between text-krinuh-text/75 text-lg"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.name}
@@ -78,7 +80,7 @@ export default function Navbar() {
                   </div>
                 ))}
                 <div className="pt-6 flex gap-4">
-                  <Link href="#" className="bg-teal-700 text-white p-2 rounded-md">
+                  <Link href="#" className="bg-krinuh-primary text-white p-2 rounded-none">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -93,7 +95,7 @@ export default function Navbar() {
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
                   </Link>
-                  <Link href="#" className="text-[#414141BF]">
+                  <Link href="#" className="text-krinuh-text/75">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -117,8 +119,9 @@ export default function Navbar() {
 
           {/* FIX APPLIED HERE: Added lg:static to restore normal flex flow on desktop */}
           <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0">
-            <Link href="/" className="text-[#942972] text-2xl font-semibold">
-              KRINUH
+            <Link href="/" className="flex flex-col items-center leading-none">
+              <span className="font-serif text-krinuh-primary text-2xl font-medium tracking-[0.15em]">KRINUH</span>
+              <span className="font-script text-krinuh-muted text-sm -mt-0.5">by Shweta Tyagi</span>
             </Link>
           </div>
 
@@ -126,7 +129,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-8">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
-                <Link href={item.href} className="text-[#414141BF] hover:text-[#942972] transition-colors">
+                <Link href={item.href} className="text-krinuh-text/75 hover:text-krinuh-primary transition-colors">
                   {item.name}
                 </Link>
               </div>
@@ -136,13 +139,13 @@ export default function Navbar() {
           {/* Right navigation */}
           <div className="flex items-center space-x-4">
             {/* Search dialog */}
-            <SearchDialog className="text-[#414141BF] hover:text-[#942972]" />
+            <SearchDialog className="text-krinuh-text/75 hover:text-krinuh-primary" />
 
             {/* Cart link with counter */}
-            <Link href="/cart" className="relative text-[#414141BF] hover:text-[#942972]" aria-label="Cart">
+            <Link href="/cart" className="relative text-krinuh-text/75 hover:text-krinuh-primary" aria-label="Cart">
               <ShoppingBag size={20} />
               {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#942972] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-krinuh-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                   {cartItemCount > 99 ? "99+" : cartItemCount}
                 </span>
               )}

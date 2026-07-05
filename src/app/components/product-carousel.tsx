@@ -74,7 +74,7 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
   return (
     <div className={cn("py-8 bg-pattern", className)}>
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-[#414141]">{title}</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-6 text-krinuh-text">{title}</h2>
 
         <div className="relative">
           <div ref={containerRef} className="overflow-hidden" onTouchStart={handleTouchScroll}>
@@ -93,7 +93,7 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
           {currentIndex > 0 && (
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 text-[#942972] hidden md:block"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-dropdown-lift z-10 text-krinuh-primary hidden md:block"
               aria-label="Previous products"
             >
               <ChevronLeft size={24} />
@@ -103,7 +103,7 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
           {currentIndex < maxIndex && (
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 text-[#942972] hidden md:block"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white p-2 rounded-full shadow-dropdown-lift z-10 text-krinuh-primary hidden md:block"
               aria-label="Next products"
             >
               <ChevronRight size={24} />
@@ -117,7 +117,7 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`h-2 rounded-full transition-all ${
-                currentIndex === index ? "w-6 bg-[#942972]" : "w-2 bg-gray-300"
+                currentIndex === index ? "w-6 bg-krinuh-primary" : "w-2 bg-krinuh-hairline"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -127,12 +127,18 @@ export function ProductCarousel({ title, products, className, viewAllLink }: Pro
         <div className="text-center mt-6">
           {viewAllLink ? (
             <Link href={viewAllLink}>
-              <Button variant="outline" className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3]">
+              <Button
+                variant="outline"
+                className="bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none"
+              >
                 View All
               </Button>
             </Link>
           ) : (
-            <Button variant="outline" className="border-[#942972] text-[#942972] hover:bg-[#f8e8f3]">
+            <Button
+              variant="outline"
+              className="bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none"
+            >
               View All
             </Button>
           )}

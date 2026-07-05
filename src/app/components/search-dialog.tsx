@@ -83,7 +83,7 @@ export function SearchDialog({ children, className }: SearchDialogProps) {
           <DialogTitle className="sr-only">Search products</DialogTitle>
         </DialogHeader>
         <div className="flex items-center border-b pb-4">
-          <Search className="mr-2 h-5 w-5 shrink-0 text-[#942972]" />
+          <Search className="mr-2 h-5 w-5 shrink-0 text-krinuh-primary" />
           <Input
             ref={inputRef}
             value={query}
@@ -106,13 +106,13 @@ export function SearchDialog({ children, className }: SearchDialogProps) {
         {/* Suggestions */}
         {suggestions.length > 0 && (
           <div className="mt-4 space-y-2">
-            <h3 className="text-sm font-medium text-[#414141]">Suggestions</h3>
+            <h3 className="text-sm font-medium text-krinuh-text">Suggestions</h3>
             <ul className="space-y-2">
               {suggestions.map((suggestion, index) => (
                 <li key={`suggestion-${index}`}>
                   <Button
                     variant="ghost"
-                    className="w-full justify-start text-[#414141BF] hover:text-[#942972] hover:bg-[#f8e8f3]"
+                    className="w-full justify-start text-krinuh-text/75 hover:text-krinuh-primary hover:bg-krinuh-light"
                     onClick={() => handleSearch(suggestion)}
                   >
                     <Search className="mr-2 h-4 w-4" />
@@ -128,11 +128,11 @@ export function SearchDialog({ children, className }: SearchDialogProps) {
         {recentSearches.length > 0 && !query && (
           <div className="mt-4 space-y-2">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-medium text-[#414141]">Recent Searches</h3>
+              <h3 className="text-sm font-medium text-krinuh-text">Recent Searches</h3>
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-xs text-[#414141BF] hover:text-[#942972]"
+                className="text-xs text-krinuh-text/75 hover:text-krinuh-primary"
                 onClick={clearRecentSearches}
               >
                 Clear all
@@ -143,7 +143,7 @@ export function SearchDialog({ children, className }: SearchDialogProps) {
                 <li key={`recent-${index}`} className="flex items-center justify-between">
                   <Button
                     variant="ghost"
-                    className="justify-start text-[#414141BF] hover:text-[#942972] hover:bg-[#f8e8f3]"
+                    className="justify-start text-krinuh-text/75 hover:text-krinuh-primary hover:bg-krinuh-light"
                     onClick={() => handleSearch(search)}
                   >
                     <Search className="mr-2 h-4 w-4" />
@@ -167,13 +167,13 @@ export function SearchDialog({ children, className }: SearchDialogProps) {
         {/* Popular categories */}
         {!query && recentSearches.length === 0 && (
           <div className="mt-4 space-y-2">
-            <h3 className="text-sm font-medium text-[#414141]">Popular Categories</h3>
+            <h3 className="text-sm font-medium text-krinuh-text">Popular Categories</h3>
             <div className="grid grid-cols-2 gap-2">
               {["Paintings", "Jewelry", "Decorations", "Earrings", "Necklaces", "Wall Art"].map((category) => (
                 <Button
                   key={category}
                   variant="outline"
-                  className="justify-start text-[#414141BF] hover:text-[#942972] hover:bg-[#f8e8f3] border-[#e0e0e0]"
+                  className="justify-start text-krinuh-text/75 hover:text-krinuh-primary hover:bg-krinuh-light border-[#e0e0e0]"
                   onClick={() => handleSearch(category)}
                 >
                   {category}

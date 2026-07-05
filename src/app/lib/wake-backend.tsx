@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 export default function WakeBackend() {
   useEffect(() => {
-    fetch("https://krinuh-be-ts.vercel.app.com/", { mode: "no-cors" }).catch(() => {})
+    fetch(process.env.NEXT_PUBLIC_BACKEND_API+"/", { mode: "no-cors" }).catch(() => {})
   }, [])
   return null
 }

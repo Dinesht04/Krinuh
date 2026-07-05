@@ -27,14 +27,14 @@ export default function GalleryPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/gallery" className="text-[#942972]">
+              <BreadcrumbLink href="/gallery" className="text-krinuh-primary">
                 Gallery
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <h1 className="text-3xl font-bold text-[#414141] mb-2">Art Gallery</h1>
-        <p className="text-[#414141BF] mb-8">Explore our collection of original paintings</p>
+        <h1 className="text-3xl font-bold text-krinuh-text mb-2">Art Gallery</h1>
+        <p className="text-krinuh-text/75 mb-8">Explore our collection of original paintings</p>
 
         <PaintingsClient />
       </div>

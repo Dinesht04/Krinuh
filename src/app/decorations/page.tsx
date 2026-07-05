@@ -2,6 +2,7 @@
 import { useState, useMemo } from "react"
 import Navbar from "@/components/Navbar"
 import { ProductCard } from "@/components/product-card"
+import { ProductFilters, type FilterGroup } from "@/components/product-filters"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,115 +10,110 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Home, Filter } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Home } from "lucide-react"
 import { decorationsData } from "@/v2/sampleData"
 
+const numericPrice = (p: string) => Number.parseInt(p.replace(/[^0-9]/g, "")) || 0
+
+const PRICE_BUCKETS = [
+  { value: "all", label: "All prices", test: () => true },
+  { value: "u3000", label: "Under ₹3,000", test: (n: number) => n < 3000 },
+  { value: "3000-5000", label: "₹3,000–5,000", test: (n: number) => n >= 3000 && n < 5000 },
+  { value: "5000-8000", label: "₹5,000–8,000", test: (n: number) => n >= 5000 && n < 8000 },
+  { value: "o8000", label: "₹8,000 & up", test: (n: number) => n >= 8000 },
+]
+
+const SORT_OPTIONS = [
+  { value: "featured", label: "Featured" },
+  { value: "price-asc", label: "Price: low to high" },
+  { value: "price-desc", label: "Price: high to low" },
+  { value: "newest", label: "Newest" },
+]
+
 export default function DecorationsPage() {
-  const [selectedTheme, setSelectedTheme] = useState<string>("all")
-  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
-  const [selectedStyle, setSelectedStyle] = useState<string>("all")
-  const [priceRange, setPriceRange] = useState<string>("all")
-  const [sortBy, setSortBy] = useState<string>("featured")
+  const [theme, setTheme] = useState("all")
+  const [material, setMaterial] = useState("all")
+  const [style, setStyle] = useState("all")
+  const [price, setPrice] = useState("all")
+  const [sort, setSort] = useState("featured")
 
+  const themes = useMemo(
+    () => Array.from(new Set(decorationsData.map((i) => i.theme).filter(Boolean))) as string[],
+    [],
+  )
+  const materials = useMemo(
+    () => Array.from(new Set(decorationsData.map((i) => i.material_type).filter(Boolean))) as string[],
+    [],
+  )
+  const styles = useMemo(
+    () => Array.from(new Set(decorationsData.map((i) => i.style).filter(Boolean))) as string[],
+    [],
+  )
 
-  // Get unique values for filters
-  const themes = useMemo(() => {
-    const allThemes = decorationsData.map((item) => item.theme).filter(Boolean)
-    return ["all", ...Array.from(new Set(allThemes))]
-  }, [])
-
-  const materials = useMemo(() => {
-    const allMaterials = decorationsData.map((item) => item.material_type).filter(Boolean)
-    return ["all", ...Array.from(new Set(allMaterials))]
-  }, [])
-
-  const styles = useMemo(() => {
-    const allStyles = decorationsData.map((item) => item.style).filter(Boolean)
-    return ["all", ...Array.from(new Set(allStyles))]
-  }, [])
-
-  // Filter decorations based on selected filters
-  const filteredAndSortedDecorations = useMemo(() => {
-    // First filter
-    const filtered = decorationsData.filter((item) => {
-      // Theme filter
-      if (selectedTheme !== "all" && item.theme !== selectedTheme) return false
-
-      // Material filter
-      if (selectedMaterial !== "all" && item.material_type !== selectedMaterial) return false
-
-      // Style filter
-      if (selectedStyle !== "all" && item.style !== selectedStyle) return false
-
-      // Price filter
-      if (priceRange !== "all") {
-        const price = Number.parseInt(item.price.replace(/[^0-9]/g, ""))
-        switch (priceRange) {
-          case "under-3000":
-            if (price >= 3000) return false
-            break
-          case "3000-5000":
-            if (price < 3000 || price >= 5000) return false
-            break
-          case "5000-8000":
-            if (price < 5000 || price >= 8000) return false
-            break
-          case "over-8000":
-            if (price < 8000) return false
-            break
-        }
-      }
-
+  const filtered = useMemo(() => {
+    const list = decorationsData.filter((item) => {
+      if (theme !== "all" && item.theme !== theme) return false
+      if (material !== "all" && item.material_type !== material) return false
+      if (style !== "all" && item.style !== style) return false
+      const bucket = PRICE_BUCKETS.find((b) => b.value === price)
+      if (bucket && !bucket.test(numericPrice(item.price))) return false
       return true
     })
 
-    // Then sort
-    switch (sortBy) {
-      case "price-low-high":
-        filtered.sort((a, b) => {
-          const priceA = Number.parseInt(a.price.replace(/[^0-9]/g, ""))
-          const priceB = Number.parseInt(b.price.replace(/[^0-9]/g, ""))
-          return priceA - priceB
-        })
-        break
-      case "price-high-low":
-        filtered.sort((a, b) => {
-          const priceA = Number.parseInt(a.price.replace(/[^0-9]/g, ""))
-          const priceB = Number.parseInt(b.price.replace(/[^0-9]/g, ""))
-          return priceB - priceA
-        })
-        break
+    switch (sort) {
+      case "price-asc":
+        return [...list].sort((a, b) => numericPrice(a.price) - numericPrice(b.price))
+      case "price-desc":
+        return [...list].sort((a, b) => numericPrice(b.price) - numericPrice(a.price))
       case "newest":
-        // Sort by ID in descending order (assuming higher ID = newer)
-        filtered.sort((a, b) => {
+        return [...list].sort((a, b) => {
           const idA = typeof a.id === "string" ? Number.parseInt(a.id.replace(/[^0-9]/g, "")) : Number(a.id)
           const idB = typeof b.id === "string" ? Number.parseInt(b.id.replace(/[^0-9]/g, "")) : Number(b.id)
           return idB - idA
         })
-        break
-      case "featured":
       default:
-        // Keep original order (featured items first if they have isBestSeller)
-        filtered.sort((a, b) => {
-          if (a.isBestSeller && !b.isBestSeller) return -1
-          if (!a.isBestSeller && b.isBestSeller) return 1
-          return 0
-        })
-        break
+        return [...list].sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0))
     }
+  }, [theme, material, style, price, sort])
 
-    return filtered
-  }, [selectedTheme, selectedMaterial, selectedStyle, priceRange, sortBy])
+  const groups: FilterGroup[] = [
+    {
+      key: "theme",
+      label: "Theme",
+      value: theme,
+      onChange: setTheme,
+      options: [{ value: "all", label: "All" }, ...themes.map((t) => ({ value: t, label: t }))],
+    },
+    {
+      key: "material",
+      label: "Material",
+      value: material,
+      onChange: setMaterial,
+      options: [{ value: "all", label: "All" }, ...materials.map((m) => ({ value: m, label: m }))],
+    },
+    {
+      key: "style",
+      label: "Style",
+      value: style,
+      onChange: setStyle,
+      options: [{ value: "all", label: "All" }, ...styles.map((s) => ({ value: s, label: s }))],
+    },
+    {
+      key: "price",
+      label: "Price",
+      value: price,
+      onChange: setPrice,
+      options: PRICE_BUCKETS.map(({ value, label }) => ({ value, label })),
+    },
+  ]
 
-  const clearFilters = () => {
-    setSelectedTheme("all")
-    setSelectedMaterial("all")
-    setSelectedStyle("all")
-    setPriceRange("all")
-    setSortBy("featured")
+  const activeCount = [theme, material, style, price].filter((v) => v !== "all").length
+  const clearAll = () => {
+    setTheme("all")
+    setMaterial("all")
+    setStyle("all")
+    setPrice("all")
   }
-
 
   return (
     <main className="min-h-screen">
@@ -133,162 +129,46 @@ export default function DecorationsPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/decorations" className="text-[#942972]">
+              <BreadcrumbLink href="/decorations" className="text-krinuh-primary">
                 Decorations
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <h1 className="text-3xl font-bold text-[#414141] mb-2">Home Decorations</h1>
-        <p className="text-[#414141BF] mb-8">Transform your space with our unique decorative pieces</p>
+        <h1 className="font-serif text-3xl font-medium text-krinuh-ink mb-2">Home Decorations</h1>
+        <p className="text-krinuh-text/75 mb-8">Transform your space with our unique decorative pieces</p>
 
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Sidebar filters */}
-          <div className="md:w-1/4 lg:w-1/5">
-            <div className="bg-white rounded-lg shadow-sm p-4 sticky top-20">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-[#414141]">Filters</h2>
-                <Filter size={18} className="text-[#942972]" />
-              </div>
+        <ProductFilters
+          groups={groups}
+          sort={{ value: sort, onChange: setSort, options: SORT_OPTIONS }}
+          resultCount={filtered.length}
+          activeCount={activeCount}
+          onClear={clearAll}
+        />
 
-              {/* Theme filter */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-[#414141] mb-2">Theme</label>
-                <select
-                  value={selectedTheme}
-                  onChange={(e) => setSelectedTheme(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-                >
-                  {themes.map((theme) => (
-                    <option key={theme} value={theme}>
-                      {theme === "all" ? "All Themes" : theme}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Material filter */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-[#414141] mb-2">Material</label>
-                <select
-                  value={selectedMaterial}
-                  onChange={(e) => setSelectedMaterial(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-                >
-                  {materials.map((material) => (
-                    <option key={material} value={material}>
-                      {material === "all" ? "All Materials" : material}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Style filter */}
-              <div className="mb-4">
-                <label className="block text-sm font-medium text-[#414141] mb-2">Style</label>
-                <select
-                  value={selectedStyle}
-                  onChange={(e) => setSelectedStyle(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-                >
-                  {styles.map((style) => (
-                    <option key={style} value={style}>
-                      {style === "all" ? "All Styles" : style}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Price filter */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-[#414141] mb-2">Price Range</label>
-                <select
-                  value={priceRange}
-                  onChange={(e) => setPriceRange(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-                >
-                  <option value="all">All Prices</option>
-                  <option value="under-3000">Under ₹3,000</option>
-                  <option value="3000-5000">₹3,000 - ₹5,000</option>
-                  <option value="5000-8000">₹5,000 - ₹8,000</option>
-                  <option value="over-8000">Over ₹8,000</option>
-                </select>
-              </div>
-
-              <div className="space-y-3">
-                <Button
-                  className="w-full bg-[#942972] hover:bg-[#7b1d5e]"
-                  onClick={() => {
-                    /* Filters are applied automatically */
-                  }}
-                >
-                  Apply Filters
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full border-[#942972] text-[#942972] hover:bg-[#f8e8f3]"
-                  onClick={clearFilters}
-                >
-                  Clear All
-                </Button>
-              </div>
-            </div>
+        {filtered.length === 0 ? (
+          <div className="text-center py-16">
+            <h3 className="font-serif text-xl text-krinuh-ink mb-2">No products match those filters</h3>
+            <button onClick={clearAll} className="text-sm text-krinuh-primary hover:underline">
+              Clear all filters
+            </button>
           </div>
-
-          {/* Main content */}
-          <div className="md:w-3/4 lg:w-4/5">
-            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-[#414141BF]">Sort by:</span>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-                >
-                  <option value="featured">Featured</option>
-                  <option value="price-low-high">Price: Low to High</option>
-                  <option value="price-high-low">Price: High to Low</option>
-                  <option value="newest">Newest</option>
-                </select>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.length > 0 && (
+              <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
+                <ProductCard product={filtered[0]} aspectRatio="portrait" />
               </div>
-
-              <div className="text-[#414141BF] text-sm">Showing {filteredAndSortedDecorations.length} products</div>
-            </div>
-
-            {/* Product grid with featured items */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Featured item - larger */}
-              {filteredAndSortedDecorations.length > 0 && (
-                <div className="sm:col-span-2 lg:col-span-1 lg:row-span-2">
-                  <ProductCard product={filteredAndSortedDecorations[0]} aspectRatio="portrait" />
-                </div>
-              )}
-
-              {/* Regular items */}
-              {filteredAndSortedDecorations
-                .slice(1) // Skip the featured item
-                .map((decoration) => (
-                  <div key={decoration.id}>
-                    <ProductCard product={decoration} />
-                  </div>
-                ))}
-
-            </div>
-              {/* No results message */}
-              {filteredAndSortedDecorations.length === 0 && (
-                <div className="text-center py-12">
-                  <h3 className="text-lg font-medium text-[#414141] mb-2">No products found</h3>
-                  <p className="text-[#414141BF] mb-4">Try adjusting your filters to see more results</p>
-                  <Button onClick={clearFilters} className="bg-[#942972] hover:bg-[#7b1d5e]">
-                    Clear Filters
-                  </Button>
-                </div>
-              )}
+            )}
+            {filtered.slice(1).map((decoration) => (
+              <div key={decoration.id}>
+                <ProductCard product={decoration} />
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </div>
-
     </main>
   )
 }

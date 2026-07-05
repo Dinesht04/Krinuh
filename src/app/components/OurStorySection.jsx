@@ -2,50 +2,44 @@ import React from "react";
 
 export default function OurStorySection() {
   return (
-    <section className="text-center bg-pattern  px-6 py-12 relative overflow-hidden">
-      <h2 className="text-3xl font-cursive font-semibold mb-6">Our Story</h2>
+    <section className="text-center bg-white px-8 pt-24 pb-20 relative overflow-hidden">
+      <h2 className="font-script text-5xl sm:text-6xl text-krinuh-ink mb-4 mt-4">Our Story</h2>
 
-      {/* Dragonflies on both sides */}
-      
       <img
-        src="dragonfly.png"
+        src="/dragonfly.png"
         alt=""
-        className="  absolute top-2 left-2  h-6 opacity-20"
+        aria-hidden="true"
+        className="absolute top-5 left-4 h-7 opacity-20"
         style={{ transform: "rotate(90deg)" }}
       />
-       <img
-        src="dragonfly.png"
+      <img
+        src="/dragonfly.png"
         alt=""
-        className=" absolute top-2 right-2  h-6 opacity-20"
+        aria-hidden="true"
+        className="absolute top-5 right-4 h-7 opacity-20"
         style={{ transform: "rotate(200deg)" }}
       />
 
-      
-      
-      <p className="text-gray-700 max-w-md mx-auto leading-relaxed z-10 relative">
-        KRINUH brings you a line of handcrafted accessories combining traditional
-        craftsmanship with a modern aesthetic and a shared passion for innovation
-        and design. Founded by Shweta Tyagi in Jaipur, KRINUH is a solo journey
-        of artistry, where every piece of jewelry is lovingly handmade by Shweta
-        herself.
+      <p className="text-[15px] sm:text-base text-krinuh-text max-w-lg mx-auto leading-[1.9] relative z-10">
+        KRINUH is the solo journey of Shweta Tyagi — a Jaipur artist who hand-paints every
+        canvas and hand-makes every piece of jewellery herself, blending traditional craft
+        with a quiet, modern eye.
       </p>
-      <button className="mt-8 bg-[#414141] text-white px-6 py-2 font-semibold tracking-wide z-10 relative">
-        LEARN MORE
-      </button>
-      
+
       <img
-        src="dragonfly.png"
+        src="/dragonfly.png"
         alt=""
-        className=" absolute left-2  h-6 opacity-20"
+        aria-hidden="true"
+        className="absolute bottom-5 left-4 h-7 opacity-20"
         style={{ transform: "rotate(12deg)" }}
       />
       <img
-        src="dragonfly.png"
+        src="/dragonfly.png"
         alt=""
-        className=" absolute right-2  h-6 opacity-20"
+        aria-hidden="true"
+        className="absolute bottom-5 right-4 h-7 opacity-20"
         style={{ transform: "rotate(260deg)" }}
       />
-
     </section>
   );
 }

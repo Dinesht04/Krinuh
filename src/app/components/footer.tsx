@@ -3,52 +3,52 @@ import Link from "next/link"
 
 export function Footer() {
   return (
-    <footer className="bg-[#f8f8f8] pt-12 pb-6">
+    <footer className="bg-krinuh-ash pt-12 pb-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold text-[#414141] mb-4">About Krinuh</h3>
-            <p className="text-[#414141BF] text-sm mb-4">
+            <h3 className="text-lg font-semibold text-krinuh-text mb-4">About Krinuh</h3>
+            <p className="text-krinuh-text/75 text-sm mb-4">
               Krinuh offers unique, handcrafted paintings, decorations, and jewelry to elevate your space and style.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-[#942972] hover:text-[#7b1d5e]">
+              <Link href="#" className="text-krinuh-primary hover:text-krinuh-primaryDark">
                 <Instagram size={20} />
               </Link>
-              <Link href="#" className="text-[#942972] hover:text-[#7b1d5e]">
+              <Link href="#" className="text-krinuh-primary hover:text-krinuh-primaryDark">
                 <Facebook size={20} />
               </Link>
-              <Link href="#" className="text-[#942972] hover:text-[#7b1d5e]">
+              <Link href="#" className="text-krinuh-primary hover:text-krinuh-primaryDark">
                 <Twitter size={20} />
               </Link>
             </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-[#414141] mb-4">Categories</h3>
+            <h3 className="text-lg font-semibold text-krinuh-text mb-4">Categories</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#paintings" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#paintings" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Paintings
                 </Link>
               </li>
               <li>
-                <Link href="#decorations" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#decorations" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Decorations
                 </Link>
               </li>
               <li>
-                <Link href="#jewelry" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#jewelry" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Jewelry
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   New Arrivals
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Best Sellers
                 </Link>
               </li>
@@ -56,25 +56,25 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-[#414141] mb-4">Customer Service</h3>
+            <h3 className="text-lg font-semibold text-krinuh-text mb-4">Customer Service</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Shipping & Returns
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[#414141BF] hover:text-[#942972]">
+                <Link href="#" className="text-krinuh-text/75 hover:text-krinuh-primary">
                   Track Order
                 </Link>
               </li>
@@ -82,31 +82,31 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-[#414141] mb-4">Newsletter</h3>
-            <p className="text-[#414141BF] text-sm mb-4">
+            <h3 className="text-lg font-semibold text-krinuh-text mb-4">Newsletter</h3>
+            <p className="text-krinuh-text/75 text-sm mb-4">
               Subscribe to receive updates, access to exclusive deals, and more.
             </p>
             <div className="flex">
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-[#942972]"
+                className="flex-1 px-3 py-2 text-sm border border-krinuh-hairline rounded-none focus:outline-none focus:ring-1 focus:ring-krinuh-primary"
               />
-              <button className="bg-[#942972] text-white px-3 py-2 text-sm rounded-r-md hover:bg-[#7b1d5e]">
+              <button className="bg-krinuh-primary text-white px-3 py-2 text-sm rounded-none hover:bg-krinuh-primaryDark">
                 Subscribe
               </button>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-10 pt-6">
+        <div className="border-t border-krinuh-hairline mt-10 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-[#414141BF] text-sm mb-4 md:mb-0">© 2023 Krinuh. All rights reserved.</p>
+            <p className="text-krinuh-text/75 text-sm mb-4 md:mb-0">© 2023 Krinuh. All rights reserved.</p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-[#414141BF] text-sm hover:text-[#942972]">
+              <Link href="#" className="text-krinuh-text/75 text-sm hover:text-krinuh-primary">
                 Privacy Policy
               </Link>
-              <Link href="#" className="text-[#414141BF] text-sm hover:text-[#942972]">
+              <Link href="#" className="text-krinuh-text/75 text-sm hover:text-krinuh-primary">
                 Terms of Service
               </Link>
             </div>

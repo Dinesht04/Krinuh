@@ -3,8 +3,8 @@
 import { useState, useMemo, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import Navbar from "@/components/Navbar"
-import { Footer } from "@/components/footer"
 import { ProductCard, type Product } from "@/components/product-card"
+import { ProductFilters, type FilterGroup } from "@/components/product-filters"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,7 +13,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Home } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toast } from "sonner"
 
 interface JewelleryAPIItem {
@@ -22,7 +21,6 @@ interface JewelleryAPIItem {
   price: string
   description?: string
   weight?: string
-  theme?: string
   material?: string
   gemstone?: string
   type: "earring" | "head" | "necklace" | "foot" | "hair" | "hand"
@@ -36,6 +34,41 @@ interface JewelleryAPIResponse {
   data: JewelleryAPIItem[]
 }
 
+const numericPrice = (p: string) => Number.parseInt(p.replace(/[^0-9]/g, "")) || 0
+
+const PRICE_BUCKETS = [
+  { value: "all", label: "All prices", test: () => true },
+  { value: "u5000", label: "Under ₹5,000", test: (n: number) => n < 5000 },
+  { value: "5000-10000", label: "₹5,000–10,000", test: (n: number) => n >= 5000 && n < 10000 },
+  { value: "10000-15000", label: "₹10,000–15,000", test: (n: number) => n >= 10000 && n < 15000 },
+  { value: "o15000", label: "₹15,000 & up", test: (n: number) => n >= 15000 },
+]
+
+const CATEGORY_OPTIONS = [
+  { value: "all", label: "All" },
+  { value: "earring", label: "Earrings" },
+  { value: "necklace", label: "Necklaces" },
+  { value: "head", label: "Head" },
+  { value: "hair", label: "Hair" },
+  { value: "hand", label: "Hand" },
+  { value: "foot", label: "Foot" },
+]
+
+const SORT_OPTIONS = [
+  { value: "featured", label: "Featured" },
+  { value: "price-asc", label: "Price: low to high" },
+  { value: "price-desc", label: "Price: high to low" },
+]
+
+// The URL uses plural category names; map them to the singular `type` field.
+const URL_CATEGORY_MAP: Record<string, string> = {
+  earrings: "earring",
+  necklaces: "necklace",
+  head: "head",
+  hair: "hair",
+  hand: "hand",
+  foot: "foot",
+}
 
 export default function JewelleryPage() {
   const searchParams = useSearchParams()
@@ -44,50 +77,36 @@ export default function JewelleryPage() {
   const [jewelryData, setJewelryData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [selectedTheme, setSelectedTheme] = useState<string>("all")
-  const [selectedMaterial, setSelectedMaterial] = useState<string>("all")
-  const [priceRange, setPriceRange] = useState<string>("all")
-  const [activeTab, setActiveTab] = useState("all")
 
-  // Fetch jewelry data on mount
+  const [category, setCategory] = useState("all")
+  const [material, setMaterial] = useState("all")
+  const [price, setPrice] = useState("all")
+  const [sort, setSort] = useState("featured")
+
   useEffect(() => {
     const fetchJewelry = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch("https://krinuh-be-ts.vercel.app/jewellery/all", {
-          cache: "no-store",
-        })
-
-        if (!response.ok) {
-          throw new Error(`Failed to fetch jewelry: ${response.status}`)
-        }
-
+        const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_API + "/jewellery/all", { cache: "no-store" })
+        if (!response.ok) throw new Error(`Failed to fetch jewelry: ${response.status}`)
         const apiData: JewelleryAPIResponse = await response.json()
+        if (!apiData.success || !apiData.data) throw new Error("Invalid API response")
 
-        if (!apiData.success || !apiData.data) {
-          throw new Error("Invalid API response")
-        }
-
-        // Map API response to Product interface
-       const mappedData: Product[] = apiData.data.map((item) => ({
-  id: item._id,
-  title: item.title,
-  price: item.price.endsWith("/-") ? item.price : `${item.price}/-`,
-  description: item.description,
-  weight: item.weight,
-  theme: item.theme,
-  material: item.material,
-  gemstones: item.gemstone,
-  
-  // CHANGE HERE: Pass the whole array instead of just [0]
-  cloudinaryPublicIds: item.cldImagePublicIds || [], 
-  
-  category: "Jewelry",
-  isBestSeller: item.isBestSeller,
-  name: item.title, 
-  sold: item.sold,
-  ...(item.type && { _type: item.type }),
-}))
+        const mappedData: Product[] = apiData.data.map((item) => ({
+          id: item._id,
+          title: item.title,
+          name: item.title,
+          price: item.price.endsWith("/-") ? item.price : `${item.price}/-`,
+          description: item.description,
+          weight: item.weight,
+          material: item.material,
+          gemstones: item.gemstone,
+          cloudinaryPublicIds: item.cldImagePublicIds || [],
+          category: "Jewelry",
+          isBestSeller: item.isBestSeller,
+          sold: item.sold,
+          ...(item.type && { _type: item.type }),
+        }))
 
         setJewelryData(mappedData)
         setError(null)
@@ -103,93 +122,52 @@ export default function JewelleryPage() {
     fetchJewelry()
   }, [])
 
-  // Set active tab based on URL parameter
+  // Honour ?category= from the homepage nav
   useEffect(() => {
-    if (categoryParam) {
-      setActiveTab(categoryParam)
-    }
+    if (categoryParam) setCategory(URL_CATEGORY_MAP[categoryParam] ?? categoryParam)
   }, [categoryParam])
 
-  // Get unique themes and materials for filters
-  const themes = useMemo(() => {
-    const allThemes = jewelryData.map((item) => item.theme).filter(Boolean)
-    return ["all", ...Array.from(new Set(allThemes))]
-  }, [jewelryData])
-
-  const materials = useMemo(() => {
-    const allMaterials = jewelryData.map((item) => item.material).filter(Boolean)
-    return ["all", ...Array.from(new Set(allMaterials))]
-  }, [jewelryData])
-
-  // Filter jewelry based on selected filters
-  const filteredJewelry = useMemo(() => {
-    return jewelryData.filter((item) => {
-      // Theme filter
-      if (selectedTheme !== "all" && item.theme !== selectedTheme) return false
-
-      // Material filter
-      if (selectedMaterial !== "all" && item.material !== selectedMaterial) return false
-
-      // Price filter
-      if (priceRange !== "all") {
-        const price = Number.parseInt(item.price.replace(/[^0-9]/g, ""))
-        switch (priceRange) {
-          case "under-5000":
-            if (price >= 5000) return false
-            break
-          case "5000-10000":
-            if (price < 5000 || price >= 10000) return false
-            break
-          case "10000-15000":
-            if (price < 10000 || price >= 15000) return false
-            break
-          case "over-15000":
-            if (price < 15000) return false
-            break
-        }
-      }
-
-      return true
-    })
-  }, [jewelryData, selectedTheme, selectedMaterial, priceRange])
-
-  // Categorize filtered jewelry using type field
-  const earrings = filteredJewelry.filter((item: any) => item._type === "earring")
-  const necklaces = filteredJewelry.filter((item: any) => item._type === "necklace")
-  const head = filteredJewelry.filter((item: any) => item._type === "head")
-  const hair = filteredJewelry.filter((item: any) => item._type === "hair")
-  const hand = filteredJewelry.filter((item: any) => item._type === "hand")
-  const foot = filteredJewelry.filter((item: any) => item._type === "foot")
-  const other = filteredJewelry.filter(
-    (item: any) =>
-      item._type !== "earring" &&
-      item._type !== "necklace" &&
-      item._type !== "head" &&
-      item._type !== "hair" &&
-      item._type !== "hand" &&
-      item._type !== "foot",
+  const materials = useMemo(
+    () => Array.from(new Set(jewelryData.map((i) => i.material).filter(Boolean))) as string[],
+    [jewelryData],
   )
 
-  // Get current tab data
-  const getCurrentTabData = () => {
-    switch (activeTab) {
-      case "earrings":
-        return earrings
-      case "necklaces":
-        return necklaces
-      case "head":
-        return head
-      case "hair":
-        return hair
-      case "hand":
-        return hand
-      case "foot":
-        return foot
-      case "other":
-        return other
-      default:
-        return filteredJewelry
-    }
+  const filtered = useMemo(() => {
+    let list = jewelryData.filter((item) => {
+      if (category !== "all" && (item as any)._type !== category) return false
+      if (material !== "all" && item.material !== material) return false
+      const bucket = PRICE_BUCKETS.find((b) => b.value === price)
+      if (bucket && !bucket.test(numericPrice(item.price))) return false
+      return true
+    })
+    if (sort === "price-asc") list = [...list].sort((a, b) => numericPrice(a.price) - numericPrice(b.price))
+    if (sort === "price-desc") list = [...list].sort((a, b) => numericPrice(b.price) - numericPrice(a.price))
+    return list
+  }, [jewelryData, category, material, price, sort])
+
+  const groups: FilterGroup[] = [
+    { key: "category", label: "Category", value: category, onChange: setCategory, options: CATEGORY_OPTIONS },
+    {
+      key: "material",
+      label: "Material",
+      value: material,
+      onChange: setMaterial,
+      options: [{ value: "all", label: "All" }, ...materials.map((m) => ({ value: m, label: m }))],
+    },
+    {
+      key: "price",
+      label: "Price",
+      value: price,
+      onChange: setPrice,
+      options: PRICE_BUCKETS.map(({ value, label }) => ({ value, label })),
+    },
+  ]
+
+  const activeCount = [category, material, price].filter((v) => v !== "all").length
+  const clearAll = () => {
+    setCategory("all")
+    setMaterial("all")
+    setPrice("all")
   }
 
   return (
@@ -206,184 +184,55 @@ export default function JewelleryPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/jewellery" className="text-[#942972]">
+              <BreadcrumbLink href="/jewellery" className="text-krinuh-primary">
                 Jewellery
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <h1 className="text-3xl font-bold text-[#414141] mb-2">Jewellery Collection</h1>
-        <p className="text-[#414141BF] mb-8">Discover our handcrafted jewelry pieces</p>
+        <h1 className="font-serif text-3xl font-medium text-krinuh-ink mb-2">Jewellery Collection</h1>
+        <p className="text-krinuh-text/75 mb-8">Discover our handcrafted jewellery pieces</p>
 
-        {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-          <h3 className="font-medium text-[#414141] mb-4">Filters</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Theme filter */}
-            <div>
-              <label className="block text-sm font-medium text-[#414141] mb-2">Theme</label>
-              <select
-                value={selectedTheme}
-                onChange={(e) => setSelectedTheme(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-              >
-                {themes.map((theme) => (
-                  <option key={theme} value={theme}>
-                    {theme === "all" ? "All Themes" : theme}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Material filter */}
-            <div>
-              <label className="block text-sm font-medium text-[#414141] mb-2">Material</label>
-              <select
-                value={selectedMaterial}
-                onChange={(e) => setSelectedMaterial(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-              >
-                {materials.map((material) => (
-                  <option key={material} value={material}>
-                    {material === "all" ? "All Materials" : material}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Price filter */}
-            <div>
-              <label className="block text-sm font-medium text-[#414141] mb-2">Price Range</label>
-              <select
-                value={priceRange}
-                onChange={(e) => setPriceRange(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#942972]"
-              >
-                <option value="all">All Prices</option>
-                <option value="under-5000">Under ₹5,000</option>
-                <option value="5000-10000">₹5,000 - ₹10,000</option>
-                <option value="10000-15000">₹10,000 - ₹15,000</option>
-                <option value="over-15000">Over ₹15,000</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Results count */}
-        <div className="mb-6">
-          <p className="text-[#414141BF]">Showing {getCurrentTabData().length} products</p>
-        </div>
-
-        {/* Loading state */}
         {isLoading && (
           <div className="flex items-center justify-center min-h-[400px]">
-            <p className="text-[#414141BF]">Loading jewelry collection...</p>
+            <p className="text-krinuh-text/75">Loading jewellery collection...</p>
           </div>
         )}
 
-        {/* Error state */}
         {error && !isLoading && (
           <div className="flex items-center justify-center min-h-[400px]">
-            <p className="text-red-500">Failed to load jewelry. Please try again later.</p>
+            <p className="text-red-500">Failed to load jewellery. Please try again later.</p>
           </div>
         )}
 
-        {/* Jewelry content */}
         {!isLoading && !error && (
           <>
-            {/* Tabbed interface for jewelry categories */}
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid grid-cols-4 md:grid-cols-7 mb-8 overflow-x-auto">
-                <TabsTrigger value="all" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-                  All ({filteredJewelry.length})
-                </TabsTrigger>
-                <TabsTrigger
-                  value="earrings"
-                  className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
-                >
-                  Earrings ({earrings.length})
-                </TabsTrigger>
-                <TabsTrigger
-                  value="necklaces"
-                  className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]"
-                >
-                  Necklaces ({necklaces.length})
-                </TabsTrigger>
-                <TabsTrigger value="head" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-                  Head ({head.length})
-                </TabsTrigger>
-                <TabsTrigger value="hair" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-                  Hair ({hair.length})
-                </TabsTrigger>
-                <TabsTrigger value="hand" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-                  Hand ({hand.length})
-                </TabsTrigger>
-                <TabsTrigger value="foot" className="data-[state=active]:bg-[#f8e8f3] data-[state=active]:text-[#942972]">
-                  Foot ({foot.length})
-                </TabsTrigger>
-              </TabsList>
+            <ProductFilters
+              groups={groups}
+              sort={{ value: sort, onChange: setSort, options: SORT_OPTIONS }}
+              resultCount={filtered.length}
+              activeCount={activeCount}
+              onClear={clearAll}
+            />
 
-              <TabsContent value="all" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {filteredJewelry.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="earrings" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {earrings.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="necklaces" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {necklaces.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="head" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {head.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="hair" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {hair.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="hand" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {hand.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="foot" className="mt-0">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {foot.map((jewelry) => (
-                    <ProductCard key={jewelry.id} product={jewelry} />
-                  ))}
-                </div>
-              </TabsContent>
-            </Tabs>
+            {filtered.length === 0 ? (
+              <div className="text-center py-16">
+                <h3 className="font-serif text-xl text-krinuh-ink mb-2">No pieces match those filters</h3>
+                <button onClick={clearAll} className="text-sm text-krinuh-primary hover:underline">
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {filtered.map((jewelry) => (
+                  <ProductCard key={jewelry.id} product={jewelry} />
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>
-
     </main>
   )
 }

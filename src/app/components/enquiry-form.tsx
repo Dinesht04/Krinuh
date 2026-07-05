@@ -13,6 +13,11 @@ import { toast } from "sonner"
 import emailjs from '@emailjs/browser';
 import { CldImage } from "next-cloudinary"
 
+// EmailJS config (public identifiers — safe to expose to the browser).
+const EMAILJS_SERVICE = process.env.NEXT_PUBLIC_EMAILJS_SERVICE || "service_2uaoxt5"
+const EMAILJS_TEMPLATE = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE || "template_iguyl89"
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "WA_Wbe3R2R6QleO9U"
+
 
 // Validation functions
 const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
@@ -71,11 +76,11 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
     setIsSubmitting(true)
 
     try {
-      emailjs.sendForm(
-        process.env.EMAILJS_SERVICE,
-        process.env.EMAILJS_TEMPLATE,
+      await emailjs.sendForm(
+        EMAILJS_SERVICE,
+        EMAILJS_TEMPLATE,
         formRef.current,
-        { publicKey: 'WA_Wbe3R2R6QleO9U' }
+        { publicKey: EMAILJS_PUBLIC_KEY }
       )
 
       toast.success(
@@ -127,13 +132,13 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-[#942972]">{getTitle()}</DialogTitle>
+          <DialogTitle className="text-krinuh-primary">{getTitle()}</DialogTitle>
         </DialogHeader>
 
         {/* Product preview for product enquiries */}
         {enquiryType === "product" && product && (
-          <div className="flex items-center space-x-4 p-4 bg-[#f8e8f3] rounded-lg mb-4">
-            <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+          <div className="flex items-center space-x-4 p-4 bg-krinuh-light rounded-none mb-4">
+            <div className="w-16 h-16 flex-shrink-0 rounded-none overflow-hidden">
               {getImageUrl() ? (
                 <CldImage
                   src={product?.cloudinaryPublicId || "/placeholder.svg"}
@@ -142,24 +147,24 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
                 />
               ) : (
                 <div className="w-full h-full bg-[#e8d5eb] flex items-center justify-center">
-                  <span className="text-[#942972] text-opacity-50 text-sm">
+                  <span className="text-krinuh-primary text-opacity-50 text-sm">
                     {productName.substring(0, 2).toUpperCase()}
                   </span>
                 </div>
               )}
             </div>
             <div className="flex-1">
-              <h3 className="font-medium text-[#414141] text-sm">{productName}</h3>
+              <h3 className="font-medium text-krinuh-text text-sm">{productName}</h3>
               {productSize && (
                 <div className="flex items-center mt-1">
-                  <span className="bg-gray-200 px-2 py-1 rounded text-xs font-medium">Size</span>
-                  <span className="ml-2 text-xs text-[#414141BF]">{productSize}</span>
+                  <span className="bg-krinuh-hairline px-2 py-1 rounded text-xs font-medium">Size</span>
+                  <span className="ml-2 text-xs text-krinuh-text/75">{productSize}</span>
                 </div>
               )}
               {productPrice && (
                 <div className="flex items-center mt-1">
                   <span className="bg-green-200 px-2 py-1 rounded text-xs font-medium">Price</span>
-                  <span className="ml-2 text-xs text-[#414141BF]">₹{productPrice}</span>
+                  <span className="ml-2 text-xs text-krinuh-text/75">₹{productPrice}</span>
                 </div>
               )}
             </div>
@@ -245,12 +250,12 @@ export function EnquiryForm({ isOpen, onClose, product, enquiryType, category }:
             </>
           )}
 
-          <Button type="submit" className="w-full bg-[#942972] hover:bg-[#7b1d5e]" disabled={isSubmitting}>
+          <Button type="submit" className="w-full bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none" disabled={isSubmitting}>
             {isSubmitting ? "Sending..." : "Send Enquiry →"}
           </Button>
         </form>
 
-        <div className="text-center text-sm text-[#414141BF] mt-4">We prefer WhatsApp ❤️ for quick responses</div>
+        <div className="text-center text-sm text-krinuh-text/75 mt-4">We prefer WhatsApp ❤️ for quick responses</div>
       </DialogContent>
     </Dialog>
   )

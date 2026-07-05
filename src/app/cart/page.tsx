@@ -75,25 +75,25 @@ export default function CartPage() {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/cart" className="text-[#942972]">
+              <BreadcrumbLink href="/cart" className="text-krinuh-primary">
                 Shopping Cart
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        <h1 className="text-2xl md:text-3xl font-bold text-[#414141] mb-6">Your Shopping Cart</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-krinuh-text mb-6">Your Shopping Cart</h1>
 
         {cartItems.length > 0 ? (
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Cart items */}
             <div className="lg:w-2/3">
-              <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+              <div className="bg-white rounded-none shadow-card-float overflow-hidden">
                 <div className="hidden md:grid grid-cols-12 gap-4 p-4 border-b border-gray-100 bg-gray-50">
-                  <div className="col-span-6 font-medium text-[#414141]">Product</div>
-                  <div className="col-span-2 font-medium text-[#414141] text-center">Price</div>
-                  <div className="col-span-2 font-medium text-[#414141] text-center">Quantity</div>
-                  <div className="col-span-2 font-medium text-[#414141] text-right">Total</div>
+                  <div className="col-span-6 font-medium text-krinuh-text">Product</div>
+                  <div className="col-span-2 font-medium text-krinuh-text text-center">Price</div>
+                  <div className="col-span-2 font-medium text-krinuh-text text-center">Quantity</div>
+                  <div className="col-span-2 font-medium text-krinuh-text text-right">Total</div>
                 </div>
 
                 {cartItems.map((item) => {
@@ -110,7 +110,7 @@ export default function CartPage() {
                       {/* Mobile: Product info with image, name, price */}
                       <div className="md:hidden flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+                          <div className="w-16 h-16 flex-shrink-0 rounded-none overflow-hidden">
                             {imageUrl ? (
                               <CldImage
                                 src={item.cloudinaryPublicId || "/placeholder.svg"}
@@ -120,16 +120,16 @@ export default function CartPage() {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <div className="w-full h-full bg-[#f8e8f3] flex items-center justify-center">
-                                <span className="text-[#942972] text-opacity-20 text-lg">
+                              <div className="w-full h-full bg-krinuh-light flex items-center justify-center">
+                                <span className="text-krinuh-primary text-opacity-20 text-lg">
                                   {productName.substring(0, 2).toUpperCase()}
                                 </span>
                               </div>
                             )}
                           </div>
                           <div>
-                            <h3 className="font-medium text-[#414141]">{productName}</h3>
-                            <p className="text-sm text-[#414141BF]">
+                            <h3 className="font-medium text-krinuh-text">{productName}</h3>
+                            <p className="text-sm text-krinuh-text/75">
                               {item.category} {item.size && `- ${item.size}`}
                             </p>
                           </div>
@@ -145,7 +145,7 @@ export default function CartPage() {
 
                       {/* Desktop: Product column */}
                       <div className="hidden md:flex md:col-span-6 items-center space-x-4">
-                        <div className="w-16 h-16 flex-shrink-0 rounded-md overflow-hidden">
+                        <div className="w-16 h-16 flex-shrink-0 rounded-none overflow-hidden">
                           {imageUrl ? (
                             <CldImage
                               src={item.cloudinaryPublicId || "/placeholder.svg"}
@@ -155,16 +155,16 @@ export default function CartPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-full bg-[#f8e8f3] flex items-center justify-center">
-                              <span className="text-[#942972] text-opacity-20 text-lg">
+                            <div className="w-full h-full bg-krinuh-light flex items-center justify-center">
+                              <span className="text-krinuh-primary text-opacity-20 text-lg">
                                 {productName.substring(0, 2).toUpperCase()}
                               </span>
                             </div>
                           )}
                         </div>
                         <div>
-                          <h3 className="font-medium text-[#414141]">{productName}</h3>
-                          <p className="text-sm text-[#414141BF]">
+                          <h3 className="font-medium text-krinuh-text">{productName}</h3>
+                          <p className="text-sm text-krinuh-text/75">
                             {item.category} {item.size && `- ${item.size}`}
                           </p>
                         </div>
@@ -173,14 +173,14 @@ export default function CartPage() {
                       {/* Mobile: Price and quantity in a row */}
                       <div className="md:hidden flex items-center justify-between mt-4">
                         <div>
-                          <p className="text-sm text-[#414141BF]">Price:</p>
-                          <p className="font-medium text-[#414141]">{formatPrice(itemPrice)}</p>
+                          <p className="text-sm text-krinuh-text/75">Price:</p>
+                          <p className="font-medium text-krinuh-text">{formatPrice(itemPrice)}</p>
                         </div>
 
-                        <div className="flex items-center border rounded-md">
+                        <div className="flex items-center border rounded-none">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="px-2 py-1 text-[#414141] hover:text-[#942972]"
+                            className="px-2 py-1 text-krinuh-text hover:text-krinuh-primary"
                             aria-label="Decrease quantity"
                           >
                             <Minus size={16} />
@@ -188,7 +188,7 @@ export default function CartPage() {
                           <span className="px-2 py-1 min-w-[40px] text-center">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="px-2 py-1 text-[#414141] hover:text-[#942972]"
+                            className="px-2 py-1 text-krinuh-text hover:text-krinuh-primary"
                             aria-label="Increase quantity"
                           >
                             <Plus size={16} />
@@ -198,15 +198,15 @@ export default function CartPage() {
 
                       {/* Desktop: Price column */}
                       <div className="hidden md:block md:col-span-2 text-center">
-                        <span className="font-medium text-[#414141]">{formatPrice(itemPrice)}</span>
+                        <span className="font-medium text-krinuh-text">{formatPrice(itemPrice)}</span>
                       </div>
 
                       {/* Desktop: Quantity column */}
                       <div className="hidden md:flex md:col-span-2 items-center justify-center">
-                        <div className="flex items-center border rounded-md">
+                        <div className="flex items-center border rounded-none">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="px-2 py-1 text-[#414141] hover:text-[#942972]"
+                            className="px-2 py-1 text-krinuh-text hover:text-krinuh-primary"
                             aria-label="Decrease quantity"
                           >
                             <Minus size={16} />
@@ -214,7 +214,7 @@ export default function CartPage() {
                           <span className="px-2 py-1 min-w-[40px] text-center">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="px-2 py-1 text-[#414141] hover:text-[#942972]"
+                            className="px-2 py-1 text-krinuh-text hover:text-krinuh-primary"
                             aria-label="Increase quantity"
                           >
                             <Plus size={16} />
@@ -225,8 +225,8 @@ export default function CartPage() {
                       {/* Mobile: Total and remove button */}
                       <div className="md:hidden flex items-center justify-between mt-2">
                         <div>
-                          <p className="text-sm text-[#414141BF]">Total:</p>
-                          <p className="font-medium text-[#942972]">{formatPrice(itemTotal)}</p>
+                          <p className="text-sm text-krinuh-text/75">Total:</p>
+                          <p className="font-medium text-krinuh-primary">{formatPrice(itemTotal)}</p>
                         </div>
                         <button
                           onClick={() => removeFromCart(item.id)}
@@ -239,7 +239,7 @@ export default function CartPage() {
 
                       {/* Desktop: Total column */}
                       <div className="hidden md:flex md:col-span-2 items-center justify-between">
-                        <span className="font-medium text-[#942972]">{formatPrice(itemTotal)}</span>
+                        <span className="font-medium text-krinuh-primary">{formatPrice(itemTotal)}</span>
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-red-500 hover:text-red-700"
@@ -274,32 +274,32 @@ export default function CartPage() {
 
             {/* Order summary */}
             <div className="lg:w-1/3">
-              <div className="bg-white rounded-lg shadow-sm p-6 sticky top-20">
-                <h2 className="text-xl font-semibold text-[#414141] mb-4">Order Summary</h2>
+              <div className="bg-white rounded-none shadow-card-float p-6 sticky top-20">
+                <h2 className="text-xl font-semibold text-krinuh-text mb-4">Order Summary</h2>
 
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
-                    <span className="text-[#414141BF]">Subtotal</span>
-                    <span className="font-medium text-[#414141]">{formatPrice(subtotal)}</span>
+                    <span className="text-krinuh-text/75">Subtotal</span>
+                    <span className="font-medium text-krinuh-text">{formatPrice(subtotal)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#414141BF]">Shipping</span>
-                    <span className="font-medium text-[#414141]">
+                    <span className="text-krinuh-text/75">Shipping</span>
+                    <span className="font-medium text-krinuh-text">
                       {shipping === 0 ? "Free" : formatPrice(shipping)}
                     </span>
                   </div>
                   {discount > 0 && (
                     <div className="flex justify-between">
-                      <span className="text-[#414141BF]">Discount</span>
+                      <span className="text-krinuh-text/75">Discount</span>
                       <span className="font-medium text-green-600">-{formatPrice(discount)}</span>
                     </div>
                   )}
                   <div className="border-t pt-3 mt-3">
                     <div className="flex justify-between">
-                      <span className="font-semibold text-[#414141]">Total</span>
-                      <span className="font-bold text-[#942972]">{formatPrice(total)}</span>
+                      <span className="font-semibold text-krinuh-text">Total</span>
+                      <span className="font-bold text-krinuh-primary">{formatPrice(total)}</span>
                     </div>
-                    <div className="text-xs text-[#414141BF] mt-1">
+                    <div className="text-xs text-krinuh-text/75 mt-1">
                       Including {formatPrice(subtotal * 0.18)} in taxes
                     </div>
                   </div>
@@ -307,7 +307,7 @@ export default function CartPage() {
 
                 {/* Coupon code */}
                 {/* <div className="mb-6">
-                  <label htmlFor="coupon" className="block text-sm font-medium text-[#414141] mb-2">
+                  <label htmlFor="coupon" className="block text-sm font-medium text-krinuh-text mb-2">
                     Apply Coupon Code
                   </label>
                   <div className="flex gap-2">
@@ -322,7 +322,7 @@ export default function CartPage() {
                     <Button
                       onClick={handleApplyCoupon}
                       disabled={!couponCode.trim() || isApplyingCoupon}
-                      className="bg-[#942972] hover:bg-[#7b1d5e]"
+                      className="bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none"
                     >
                       Apply
                     </Button>
@@ -331,14 +331,14 @@ export default function CartPage() {
 
                 {/* Checkout button */}
                 <Button
-                    className="w-full bg-[#942972] hover:bg-[#7b1d5e] py-6 text-lg"
+                    className="w-full bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none py-6 text-lg"
                     onClick={() => setShowCheckoutForm(true)}
                   >
                     Proceed to Checkout
                   </Button>
 
                 {/* Shipping note */}
-                <div className="mt-4 text-sm text-[#414141BF] text-center">
+                <div className="mt-4 text-sm text-krinuh-text/75 text-center">
                   {subtotal >= 5000 ? (
                     <p className="text-green-600">You&apos;ve qualified for free shipping! 🎉</p>
                   ) : (
@@ -347,7 +347,7 @@ export default function CartPage() {
                 </div>
 
                 {/* WhatsApp note */}
-                <div className="mt-4 text-sm text-[#414141BF] text-center flex">
+                <div className="mt-4 text-sm text-krinuh-text/75 text-center flex">
                     
                   <div> We use WhatsApp
                   for order updates and further communications.
@@ -359,7 +359,7 @@ export default function CartPage() {
 
                 {/* Payment methods */}
                 {/* <div className="mt-6 border-t pt-4">
-                  <p className="text-sm text-[#414141BF] mb-2">We Accept:</p>
+                  <p className="text-sm text-krinuh-text/75 mb-2">We Accept:</p>
                   <div className="flex gap-2 justify-center">
                     <div className="bg-gray-100 rounded p-1 w-12 h-8 flex items-center justify-center">
                       <span className="text-xs font-medium">UPI</span>
@@ -380,24 +380,24 @@ export default function CartPage() {
           </div>
         ) : (
           // Empty cart state
-          <div className="bg-white rounded-lg shadow-sm p-8 text-center">
+          <div className="bg-white rounded-none shadow-card-float p-8 text-center">
             <div className="flex justify-center mb-4">
-              <div className="w-20 h-20 rounded-full bg-[#f8e8f3] flex items-center justify-center">
-                <ShoppingCart size={32} className="text-[#942972]" />
+              <div className="w-20 h-20 rounded-full bg-krinuh-light flex items-center justify-center">
+                <ShoppingCart size={32} className="text-krinuh-primary" />
               </div>
             </div>
-            <h2 className="text-xl font-semibold text-[#414141] mb-2">Your cart is empty</h2>
-            <p className="text-[#414141BF] mb-6 max-w-md mx-auto">
+            <h2 className="text-xl font-semibold text-krinuh-text mb-2">Your cart is empty</h2>
+            <p className="text-krinuh-text/75 mb-6 max-w-md mx-auto">
               Looks like you haven&apos;t added anything to your cart yet. Explore our collections and discover unique
               handcrafted items.
             </p>
             <Link href="/">
-              <Button className="bg-[#942972] hover:bg-[#7b1d5e]">Start Shopping</Button>
+              <Button className="bg-white border-2 border-krinuh-primary text-krinuh-primary hover:bg-krinuh-primary hover:text-white transition-colors rounded-none">Start Shopping</Button>
             </Link>
 
             {/* Recommended products */}
             <div className="mt-12">
-              <h3 className="text-lg font-medium text-[#414141] mb-6">You might like these</h3>
+              <h3 className="text-lg font-medium text-krinuh-text mb-6">You might like these</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {bestSellersData.slice(0, 4).map((product) => (
                   <ProductCard key={product.id} product={product} />
